@@ -1,7 +1,5 @@
 ![Text 2 Trajectories](assets/banner.png)
 
-# Text 2 Trajectories
-
 Turn an instruction into a robot movement. Test whether a separate model catches missed requirements, including routes and follow-ups.
 
 `instruction → proposed goal → optional meaning check → geometry checks → robot`
