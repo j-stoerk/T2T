@@ -1,4 +1,4 @@
-![T2T — Text 2 Trajectories](assets/banner.png)
+![Text 2 Trajectories](assets/banner.png)
 
 # Text 2 Trajectories
 
