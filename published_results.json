@@ -351,5 +351,112 @@
         "native-spatial/LIBEROBenchmark_libero_spatial_aggregate.json": "435d0833a7f35544425400cf3bdea6e0cf08fe81f5e186f24f355faabf7f7699"
       }
     }
+  },
+  "continuations": {
+    "case_ids": [
+      "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/0",
+      "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/1",
+      "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/0",
+      "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/1",
+      "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/0",
+      "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/1",
+      "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/0",
+      "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/1"
+    ],
+    "steps_per_command": 300,
+    "commands_per_episode": 3,
+    "conditions": {
+      "turbo/native_native": {
+        "policy": "turbo",
+        "episodes": [
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/0","completed_commands": 1,"success": false,"command_steps": [75,300]},
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/1","completed_commands": 1,"success": false,"command_steps": [84,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/0","completed_commands": 1,"success": false,"command_steps": [85,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/1","completed_commands": 1,"success": false,"command_steps": [85,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/0","completed_commands": 1,"success": false,"command_steps": [88,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/1","completed_commands": 1,"success": false,"command_steps": [89,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/0","completed_commands": 1,"success": false,"command_steps": [132,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/1","completed_commands": 1,"success": false,"command_steps": [135,300]}
+        ]
+      },
+      "turbo/native_released": {
+        "policy": "turbo",
+        "episodes": [
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/0","completed_commands": 1,"success": false,"command_steps": [87,300]},
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/1","completed_commands": 1,"success": false,"command_steps": [93,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/0","completed_commands": 1,"success": false,"command_steps": [96,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/1","completed_commands": 1,"success": false,"command_steps": [98,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/0","completed_commands": 1,"success": false,"command_steps": [146,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/1","completed_commands": 1,"success": false,"command_steps": [107,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/0","completed_commands": 1,"success": false,"command_steps": [138,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/1","completed_commands": 1,"success": false,"command_steps": [154,300]}
+        ]
+      },
+      "turbo/expanded_native": {
+        "policy": "turbo",
+        "episodes": [
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/0","completed_commands": 1,"success": false,"command_steps": [84,300]},
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/1","completed_commands": 1,"success": false,"command_steps": [126,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/0","completed_commands": 1,"success": false,"command_steps": [96,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/1","completed_commands": 1,"success": false,"command_steps": [96,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/0","completed_commands": 0,"success": false,"command_steps": [300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/1","completed_commands": 0,"success": false,"command_steps": [300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/0","completed_commands": 1,"success": false,"command_steps": [134,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/1","completed_commands": 1,"success": false,"command_steps": [159,300]}
+        ]
+      },
+      "turbo/expanded_released": {
+        "policy": "turbo",
+        "episodes": [
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/0","completed_commands": 1,"success": false,"command_steps": [94,300]},
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/1","completed_commands": 1,"success": false,"command_steps": [145,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/0","completed_commands": 1,"success": false,"command_steps": [111,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/1","completed_commands": 1,"success": false,"command_steps": [102,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/0","completed_commands": 0,"success": false,"command_steps": [300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/1","completed_commands": 0,"success": false,"command_steps": [300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/0","completed_commands": 1,"success": false,"command_steps": [148,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/1","completed_commands": 1,"success": false,"command_steps": [180,300]}
+        ]
+      },
+      "oft/native": {
+        "policy": "oft",
+        "episodes": [
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/0","completed_commands": 1,"success": false,"command_steps": [76,300]},
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/1","completed_commands": 1,"success": false,"command_steps": [80,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/0","completed_commands": 1,"success": false,"command_steps": [85,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/1","completed_commands": 1,"success": false,"command_steps": [85,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/0","completed_commands": 1,"success": false,"command_steps": [76,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/1","completed_commands": 1,"success": false,"command_steps": [85,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/0","completed_commands": 1,"success": false,"command_steps": [121,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/1","completed_commands": 1,"success": false,"command_steps": [126,300]}
+        ]
+      },
+      "oft/released": {
+        "policy": "oft",
+        "episodes": [
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/0","completed_commands": 1,"success": false,"command_steps": [102,300]},
+          {"case_id": "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/1","completed_commands": 1,"success": false,"command_steps": [93,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/0","completed_commands": 1,"success": false,"command_steps": [99,300]},
+          {"case_id": "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/1","completed_commands": 1,"success": false,"command_steps": [102,300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/0","completed_commands": 0,"success": false,"command_steps": [300]},
+          {"case_id": "put_the_wine_bottle_on_top_of_the_cabinet__put_the_wine_bottle_on_the_rack/1","completed_commands": 1,"success": false,"command_steps": [126,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/0","completed_commands": 1,"success": false,"command_steps": [155,300]},
+          {"case_id": "put_the_wine_bottle_on_the_rack__put_the_wine_bottle_on_top_of_the_cabinet/1","completed_commands": 1,"success": false,"command_steps": [146,300]}
+        ]
+      }
+    },
+    "physically_witnessed_cases": [
+      "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/0",
+      "put_the_bowl_on_the_plate__put_the_bowl_on_the_stove/1",
+      "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/0",
+      "put_the_bowl_on_the_stove__put_the_bowl_on_the_plate/1"
+    ],
+    "source_report_sha256": {
+      "turbo-context-handoff-v1/collection.json": "d89cd3d4d586bf0b52f9f6ad88b41eb9afacfb53be41b5873f0233f5c842952e",
+      "oft-continuation-v2/independent-review.json": "69f6e148352bca3e20244dd97749d5f8b5a55777fe7b992575d4d4f920b0d208",
+      "oft-continuation-v2/local-physics-review.json": "b967b57c38bb90add01f618687142f1f3ce555eae8b31296ccda662c39cc6db2",
+      "continuation-reference-v5/independent-reconciliation.json": "c1a14028df51c8b66714cdb5a56d5ceec8c67944c56b5bce83422e4c6b24f612"
+    },
+    "scope": "Separate development continuation cohort: four ordered workflows, two initial states each, explicit commands, continuous world state. Turbo crosses native/256-token context and native/released handoff; OFT uses native context with both handoffs. Physical witnesses use privileged-state contact control; four bottle cases remain unresolved. Cross-host timing is excluded."
   }
 }

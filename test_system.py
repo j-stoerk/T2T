@@ -16,6 +16,24 @@ from evaluate import (TraceCell, observed_request, passes_over)
 
 
 class PublishedPolicyTests(unittest.TestCase):
+    def test_continuations_keep_every_assigned_case_and_timeout(self):
+        import evaluate
+        data=json.loads((Path(__file__).parent/'published_results.json').read_text(encoding='utf-8'))['continuations']
+        result=evaluate.continuation_outcomes(data)
+        self.assertEqual(sum(v['episodes']for v in result['conditions'].values()),48)
+        self.assertTrue(all(v['successful_episodes']==0 for v in result['conditions'].values()))
+        self.assertEqual(result['conditions']['oft/native']['first_command_successes'],8)
+        self.assertEqual(result['conditions']['oft/released']['first_command_successes'],7)
+        self.assertEqual(len(result['physically_witnessed_cases']),4)
+        for mutation in ['case','condition','steps','success','witness']:
+            changed=deepcopy(data);rows=changed['conditions']['oft/native']['episodes']
+            if mutation=='case':rows.pop()
+            if mutation=='condition':changed['conditions'].pop('oft/native')
+            if mutation=='steps':rows[0]['command_steps'][-1]=299
+            if mutation=='success':rows[0]['success']=True
+            if mutation=='witness':changed['physically_witnessed_cases'].append(changed['physically_witnessed_cases'][0])
+            with self.subTest(mutation=mutation),self.assertRaises(ValueError):evaluate.continuation_outcomes(changed)
+
     def fixture(self):
         suites = ['libero_10', 'libero_goal', 'libero_object', 'libero_spatial']
         rows = [dict(name=str(i), success=[i < 5]*10) for i in range(10)]

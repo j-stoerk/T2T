@@ -46,6 +46,8 @@ Scores cover complete episodes, request compliance, omitted requirements, wrong-
 
 `python run.py policies` reproduces all five LIBERO scores and ten paired confidence intervals from [published_results.json](published_results.json), which contains all 2,000 Boolean outcomes and checkpoint/source identities. It runs without inference or model downloads. Intervals resample tasks within each suite; they exclude training-seed variation and hardware costs.
 
+The same command reports a separate 48-episode development continuation test. TurboVLA and OpenVLA-OFT receive three explicit commands in one continuous scene. Each of six context/handoff conditions completes 0/8 sequences, despite 6–8 successful first placements. A privileged-state contact controller establishes physical feasibility for four bowl cases; four bottle cases remain unresolved. These results identify a continuation problem on this small task set; its cause remains open.
+
 ## RGB reference
 
 ```sh

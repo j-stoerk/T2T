@@ -101,7 +101,7 @@ def compare(paths):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
-    commands.add_parser('policies', help='Reproduce released LIBERO scores and paired intervals without inference.')
+    commands.add_parser('policies', help='Reproduce LIBERO scores, intervals and development continuation counts without inference.')
     commands.add_parser('demo', help='Run three supplied goals in MuJoCo, including a changed-scene repeat.')
     visual = commands.add_parser('visual-reference', help='Replay the fixed-grammar RGB baseline without a model.')
     visual.add_argument('--split', choices=('development', 'test'), default='test')

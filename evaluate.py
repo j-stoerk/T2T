@@ -52,6 +52,34 @@ def policy_bootstrap(rates, resamples, seed, paired):
     return draws
 
 
+def continuation_outcomes(data):
+    """Summarize complete development sequences, retaining timeouts and skipped turns."""
+    expected=set(data['case_ids']);limit=data['steps_per_command'];summary={}
+    if len(expected)!=8 or len(data['case_ids'])!=8 or limit!=300 or len(data['conditions'])!=6:
+        raise ValueError('Expected six conditions, eight matched development cases and the frozen step budget.')
+    for name,condition in data['conditions'].items():
+        rows=condition['episodes']
+        if len(rows)!=8 or {row['case_id']for row in rows}!=expected:
+            raise ValueError('Every condition must retain all eight assigned cases.')
+        for row in rows:
+            completed=row['completed_commands'];steps=row['command_steps']
+            if (type(completed)is not int or not 0<=completed<=3 or
+                    type(row['success'])is not bool or row['success']!=(completed==3) or
+                    len(steps)!=min(completed+1,3) or
+                    any(type(n)is not int or not 0<n<=limit for n in steps) or
+                    (not row['success']and steps[-1]!=limit)):
+                raise ValueError('Command outcomes or timeout budgets are inconsistent.')
+        summary[name]=dict(episodes=len(rows),successful_episodes=sum(row['success']for row in rows),
+            first_command_successes=sum(row['completed_commands']>=1 for row in rows),
+            completed_commands=sum(row['completed_commands']for row in rows),assigned_commands=3*len(rows),
+            skipped_commands=sum(max(0,2-row['completed_commands'])for row in rows))
+    witnesses=data['physically_witnessed_cases']
+    if len(set(witnesses))!=len(witnesses)or not set(witnesses)<=expected:
+        raise ValueError('Physical witnesses must identify assigned cases.')
+    return dict(scope=data['scope'],conditions=summary,physically_witnessed_cases=data['physically_witnessed_cases'],
+        limitations='Development cases; no general long-horizon accuracy, failure-cause or hardware-safety claim.')
+
+
 def published_policies(path):
     """Reproduce the released LIBERO scores and paired task-bootstrap intervals."""
     import numpy as np
@@ -65,7 +93,9 @@ def published_policies(path):
     contrasts = [dict(baseline=a, method=b, difference_percentage_points=100*(points[b]-points[a]),
         paired_task_bootstrap_95=np.quantile(100*(paired[b]-paired[a]), [.025, .975]).tolist())
         for a, b in itertools.combinations(sorted(rates), 2)]
-    return dict(protocol=protocol, policies=policies, comparisons=contrasts)
+    result=dict(protocol=protocol, policies=policies, comparisons=contrasts)
+    if 'continuations'in data:result['development_continuations']=continuation_outcomes(data['continuations'])
+    return result
 
 
 class TraceCell(r.MemoryCell):
