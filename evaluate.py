@@ -3,6 +3,7 @@
 import asyncio
 from copy import deepcopy
 import json
+import itertools
 import hashlib
 import math
 import os
@@ -13,6 +14,58 @@ import sys
 import threading
 import zipfile
 import robot as r
+
+
+def policy_outcomes(data):
+    """Require every task and reset before comparing published policies."""
+    suites = {'libero_10', 'libero_goal', 'libero_object', 'libero_spatial'}
+    expected, rates = None, {}
+    if data['protocol']['initial_state_indices'] != list(range(10)):
+        raise ValueError('Expected ten numbered initial states.')
+    for name, policy in data['policies'].items():
+        tasks = policy['tasks']
+        if set(tasks) != suites: raise ValueError('Expected all four LIBERO suites.')
+        identities = {suite: sorted(row['name'] for row in rows) for suite, rows in tasks.items()}
+        if any(len(set(names)) != 10 or len(names) != 10 for names in identities.values()):
+            raise ValueError('Expected ten distinct tasks per suite.')
+        if expected is not None and identities != expected: raise ValueError('Unmatched tasks.')
+        expected, rates[name] = identities, {}
+        for suite, rows in tasks.items():
+            if any(len(row['success']) != 10 or any(type(v) is not bool for v in row['success']) for row in rows):
+                raise ValueError('Expected ten Boolean outcomes for every task.')
+            rates[name][suite] = [(row['name'], sum(row['success']) / 10) for row in rows]
+    if len(rates) < 2: raise ValueError('Expected at least two complete policies.')
+    return rates
+
+
+def policy_bootstrap(rates, resamples, seed, paired):
+    """Resample tasks within suites, sharing every draw across policies."""
+    import numpy as np
+    suites = sorted(next(iter(rates.values())))
+    rng = random.Random(seed)
+    indices = np.array([[rng.choices(range(10), k=10) for _ in suites] for _ in range(resamples)])
+    draws = {}
+    for name, groups in rates.items():
+        values = [[v for _, v in (sorted(groups[suite]) if paired else groups[suite])] for suite in suites]
+        selected = np.take_along_axis(np.broadcast_to(values, (resamples, 4, 10)), indices, axis=2)
+        draws[name] = selected.mean(axis=(1, 2))
+    return draws
+
+
+def published_policies(path):
+    """Reproduce the released LIBERO scores and paired task-bootstrap intervals."""
+    import numpy as np
+    data = json.loads(Path(path).read_text(encoding='utf-8'))
+    rates = policy_outcomes(data); protocol = data['protocol']
+    marginal = policy_bootstrap(rates, protocol['resamples'], protocol['bootstrap_seed'], paired=False)
+    paired = policy_bootstrap(rates, protocol['resamples'], protocol['bootstrap_seed'], paired=True)
+    points = {name: round(10*sum(v for group in groups.values() for _, v in group)) / 400 for name, groups in rates.items()}
+    policies = {name: dict(episodes=400, successes=round(400*points[name]), success_rate=points[name],
+        task_bootstrap_95=np.quantile(marginal[name], [.025, .975]).tolist()) for name in rates}
+    contrasts = [dict(baseline=a, method=b, difference_percentage_points=100*(points[b]-points[a]),
+        paired_task_bootstrap_95=np.quantile(100*(paired[b]-paired[a]), [.025, .975]).tolist())
+        for a, b in itertools.combinations(sorted(rates), 2)]
+    return dict(protocol=protocol, policies=policies, comparisons=contrasts)
 
 
 class TraceCell(r.MemoryCell):

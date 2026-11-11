@@ -15,6 +15,47 @@ import robot as r
 from evaluate import (TraceCell, observed_request, passes_over)
 
 
+class PublishedPolicyTests(unittest.TestCase):
+    def fixture(self):
+        suites = ['libero_10', 'libero_goal', 'libero_object', 'libero_spatial']
+        rows = [dict(name=str(i), success=[i < 5]*10) for i in range(10)]
+        return dict(protocol=dict(initial_state_indices=list(range(10)), resamples=64, bootstrap_seed=0),
+            policies={name:dict(tasks={suite:deepcopy(rows[::-1] if name=='b' else rows) for suite in suites})
+                      for name in ['a','b']})
+
+    def test_pairing_uses_task_names_and_preserves_all_failures(self):
+        import tempfile
+        import evaluate
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/'results.json'; path.write_text(json.dumps(self.fixture()))
+            result = evaluate.published_policies(path)
+        self.assertEqual(result['policies']['a']['episodes'],400)
+        self.assertEqual(result['policies']['a']['successes'],200)
+        self.assertEqual(result['comparisons'][0]['paired_task_bootstrap_95'],[0,0])
+        interval = result['policies']['a']['task_bootstrap_95']
+        self.assertLess(interval[0],interval[1])
+
+    def test_missing_tasks_resets_and_non_boolean_outcomes_are_rejected(self):
+        import evaluate
+        for change in ['task','reset','type','identity']:
+            data = self.fixture(); rows = data['policies']['b']['tasks']['libero_goal']
+            if change=='task': rows.pop()
+            if change=='reset': rows[0]['success'].pop()
+            if change=='type': rows[0]['success'][0]=1
+            if change=='identity': rows[0]['name']='unmatched'
+            with self.subTest(change=change), self.assertRaises(ValueError): evaluate.policy_outcomes(data)
+
+    def test_released_scores_and_paired_interval(self):
+        import evaluate
+        result = evaluate.published_policies(Path(__file__).parent/'published_results.json')
+        self.assertEqual({k:v['successes'] for k,v in result['policies'].items()},
+                         dict(oft=391,pi05=392,turbo=391,openvla=301,smolvla=292))
+        self.assertEqual(len(result['comparisons']),10)
+        pair = next(p for p in result['comparisons'] if (p['baseline'],p['method'])==('oft','turbo'))
+        self.assertEqual(pair['difference_percentage_points'],0)
+        for actual,expected in zip(pair['paired_task_bootstrap_95'],[-2,2]): self.assertAlmostEqual(actual,expected)
+
+
 class VisualReferenceTests(unittest.TestCase):
     def test_frozen_images_and_followups_preserve_requested_roles(self):
         import vision

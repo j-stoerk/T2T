@@ -1,0 +1,355 @@
+{
+  "protocol": {
+    "benchmark": "LIBERO",
+    "environment_seed": 7,
+    "benchmark_seed": 7,
+    "initial_state_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "resamples": 2000,
+    "bootstrap_seed": 20261109,
+    "scope": "Published checkpoints on the same task/reset protocol. Separate from the KUKA instruction-fidelity study. Model-specific preprocessing and action conventions are retained; hardware differs.",
+    "uncertainty": "Pointwise task-bootstrap intervals conditional on these checkpoints and initial states; no training-seed uncertainty or multiple-comparison correction.",
+    "harness_commit": "cc260841a0a32be778ec8604504de4bd5e663a5f",
+    "libero_commit": "8f1084e3132a39270c3a13ebe37270a43ece2a01"
+  },
+  "policies": {
+    "oft": {
+      "checkpoint": {
+        "repository": "moojink/openvla-7b-oft-finetuned-libero-spatial-object-goal-10",
+        "revision": "638918f3d1c2e43a39a8a20772bdb8b91835e4b7",
+        "chunk_size": 8,
+        "images": 2,
+        "source_commit": "e4287e94541f459edc4feabc4e181f537cd569a8"
+      },
+      "tasks": {
+        "libero_10": [
+          {"name": "pick up the book and place it in the back compartment of the caddy","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put both moka pots on the stove","success": [true,true,true,true,true,true,true,false,true,true]},
+          {"name": "put both the alphabet soup and the cream cheese box in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put both the alphabet soup and the tomato sauce in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put both the cream cheese box and the butter in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the black bowl in the bottom drawer of the cabinet and close it","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the white mug on the left plate and put the yellow and white mug on the right plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the white mug on the plate and put the chocolate pudding to the right of the plate","success": [true,true,true,true,false,true,true,true,true,true]},
+          {"name": "put the yellow and white mug in the microwave and close it","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "turn on the stove and put the moka pot on it","success": [true,true,true,true,true,false,true,true,true,true]}
+        ],
+        "libero_goal": [
+          {"name": "open the middle drawer of the cabinet","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "open the top drawer and put the bowl inside","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "push the plate to the front of the stove","success": [true,true,true,true,true,true,true,true,true,false]},
+          {"name": "put the bowl on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on the stove","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on top of the cabinet","success": [true,true,true,true,true,true,false,true,true,true]},
+          {"name": "put the cream cheese in the bowl","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the wine bottle on the rack","success": [true,true,true,true,true,true,true,true,false,true]},
+          {"name": "put the wine bottle on top of the cabinet","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "turn on the stove","success": [true,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_object": [
+          {"name": "pick up the alphabet soup and place it in the basket","success": [true,true,false,true,true,true,true,true,true,true]},
+          {"name": "pick up the bbq sauce and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the butter and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the chocolate pudding and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the cream cheese and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the ketchup and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the milk and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the orange juice and place it in the basket","success": [true,true,true,true,true,false,true,true,true,true]},
+          {"name": "pick up the salad dressing and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the tomato sauce and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_spatial": [
+          {"name": "pick up the black bowl between the plate and the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl from table center and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the cookie box and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the plate and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the cookie box and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the stove and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the wooden cabinet and place it on the plate","success": [true,false,true,true,true,true,true,true,true,true]}
+        ]
+      },
+      "source_sha256": {
+        "oft_10/LIBEROBenchmark_libero_10_aggregate.json": "a85925303d97bbe8dd2de99934f824ed50214167133249f7d9117975041821e1",
+        "oft_goal/LIBEROBenchmark_libero_goal_aggregate.json": "19a55aef3b9b6ebd0caaf496a4878a163c3f89ca39f549e9d5d26e97fefdfbff",
+        "oft_object/LIBEROBenchmark_libero_object_aggregate.json": "d8b1fba701c6611f0975bb28c8884b3905a4b50f1d5594380f5922c624dde541",
+        "oft_spatial/LIBEROBenchmark_libero_spatial_aggregate.json": "168d9bd3616026c8d8fb02aed96fb18b0e4f0647e8ec6d81dbd0139b988be0d1"
+      }
+    },
+    "smolvla": {
+      "checkpoint": {
+        "repository": "lerobot/smolvla_libero",
+        "revision": "a24f1f380461b665158d52acd140152c79e8b36d",
+        "chunk_size": 1,
+        "quat_no_antipodal": true
+      },
+      "tasks": {
+        "libero_10": [
+          {"name": "pick up the book and place it in the back compartment of the caddy","success": [false,false,true,true,true,true,true,true,true,true]},
+          {"name": "put both moka pots on the stove","success": [false,false,false,false,false,false,false,false,false,false]},
+          {"name": "put both the alphabet soup and the cream cheese box in the basket","success": [true,true,false,true,false,false,false,true,true,false]},
+          {"name": "put both the alphabet soup and the tomato sauce in the basket","success": [false,false,false,false,false,false,false,false,false,false]},
+          {"name": "put both the cream cheese box and the butter in the basket","success": [true,true,false,true,true,true,true,true,false,true]},
+          {"name": "put the black bowl in the bottom drawer of the cabinet and close it","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the white mug on the left plate and put the yellow and white mug on the right plate","success": [true,false,false,false,false,false,false,true,false,true]},
+          {"name": "put the white mug on the plate and put the chocolate pudding to the right of the plate","success": [false,true,true,false,false,true,false,false,false,false]},
+          {"name": "put the yellow and white mug in the microwave and close it","success": [true,true,true,true,false,true,true,false,true,true]},
+          {"name": "turn on the stove and put the moka pot on it","success": [true,true,true,true,true,true,true,true,false,true]}
+        ],
+        "libero_goal": [
+          {"name": "open the middle drawer of the cabinet","success": [true,false,true,true,true,true,true,true,true,false]},
+          {"name": "open the top drawer and put the bowl inside","success": [false,true,true,true,true,false,true,true,true,false]},
+          {"name": "push the plate to the front of the stove","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on the plate","success": [true,true,true,true,true,true,true,true,false,true]},
+          {"name": "put the bowl on the stove","success": [true,true,true,true,true,true,true,false,true,true]},
+          {"name": "put the bowl on top of the cabinet","success": [false,false,true,true,true,true,true,true,true,false]},
+          {"name": "put the cream cheese in the bowl","success": [false,false,false,false,false,false,false,true,true,false]},
+          {"name": "put the wine bottle on the rack","success": [false,false,false,false,true,true,true,true,true,false]},
+          {"name": "put the wine bottle on top of the cabinet","success": [true,true,true,true,false,true,true,true,false,true]},
+          {"name": "turn on the stove","success": [false,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_object": [
+          {"name": "pick up the alphabet soup and place it in the basket","success": [false,true,false,false,false,false,true,true,false,true]},
+          {"name": "pick up the bbq sauce and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the butter and place it in the basket","success": [false,true,false,true,false,true,true,true,true,false]},
+          {"name": "pick up the chocolate pudding and place it in the basket","success": [true,false,true,false,false,true,true,false,true,true]},
+          {"name": "pick up the cream cheese and place it in the basket","success": [true,true,true,false,true,true,true,true,true,true]},
+          {"name": "pick up the ketchup and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the milk and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the orange juice and place it in the basket","success": [true,true,false,false,true,true,true,true,true,true]},
+          {"name": "pick up the salad dressing and place it in the basket","success": [true,true,false,true,true,true,true,false,true,true]},
+          {"name": "pick up the tomato sauce and place it in the basket","success": [true,true,true,false,false,false,true,true,true,true]}
+        ],
+        "libero_spatial": [
+          {"name": "pick up the black bowl between the plate and the ramekin and place it on the plate","success": [true,true,true,true,false,true,true,true,true,true]},
+          {"name": "pick up the black bowl from table center and place it on the plate","success": [true,true,true,true,true,false,true,true,true,true]},
+          {"name": "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate","success": [true,true,true,false,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the cookie box and place it on the plate","success": [true,true,true,true,true,true,true,true,true,false]},
+          {"name": "pick up the black bowl next to the plate and place it on the plate","success": [true,false,false,true,false,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the cookie box and place it on the plate","success": [true,true,false,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,false,true]},
+          {"name": "pick up the black bowl on the stove and place it on the plate","success": [false,false,true,true,true,true,true,true,false,false]},
+          {"name": "pick up the black bowl on the wooden cabinet and place it on the plate","success": [true,true,true,true,true,false,true,true,true,true]}
+        ]
+      },
+      "source_sha256": {
+        "smolvla_10/LIBEROBenchmark_libero_10_aggregate.json": "596d603a9fca8f25319c1ddb6799c0a618f4a4a2400f7767ceaf34bb3a05e63a",
+        "smolvla_goal/LIBEROBenchmark_libero_goal_aggregate.json": "8f7d5a5c42669a66af54684d286155620367d7e5dd48178a957c029f2ae0dc1c",
+        "smolvla_object/LIBEROBenchmark_libero_object_aggregate.json": "5b7391e0ff0a9330b3dded4d7d4344e0eceeac86c4d6677754c13f648a535021",
+        "smolvla_spatial/LIBEROBenchmark_libero_spatial_aggregate.json": "6c001f23203f703cd0fd7ad38a07603bb08275538a2922c95f637cbe1b36ab6c"
+      }
+    },
+    "openvla": {
+      "checkpoint": {
+        "spatial": "962318cec55ac10993ff0f5f43eda9a270b4c873",
+        "object": "287d6cfdf12d07b1449505f66d9bf3550257e9b3",
+        "goal": "fa5ae1e7509348889295bba8e08621d8b55e9baf",
+        "10": "80970322773f81baa2e22fe495d0487b93a05cfa",
+        "chunk_size": 1,
+        "jpeg_roundtrip": true,
+        "center_crop": true
+      },
+      "tasks": {
+        "libero_10": [
+          {"name": "pick up the book and place it in the back compartment of the caddy","success": [true,true,false,true,true,true,true,true,true,true]},
+          {"name": "put both moka pots on the stove","success": [true,true,false,false,false,true,false,true,true,false]},
+          {"name": "put both the alphabet soup and the cream cheese box in the basket","success": [false,false,false,false,false,true,true,true,false,true]},
+          {"name": "put both the alphabet soup and the tomato sauce in the basket","success": [false,false,true,true,false,false,false,true,true,true]},
+          {"name": "put both the cream cheese box and the butter in the basket","success": [true,true,true,true,true,false,true,true,true,true]},
+          {"name": "put the black bowl in the bottom drawer of the cabinet and close it","success": [false,true,true,false,false,false,false,true,true,false]},
+          {"name": "put the white mug on the left plate and put the yellow and white mug on the right plate","success": [false,true,false,false,true,false,false,false,true,false]},
+          {"name": "put the white mug on the plate and put the chocolate pudding to the right of the plate","success": [false,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the yellow and white mug in the microwave and close it","success": [false,false,true,true,true,true,true,false,true,false]},
+          {"name": "turn on the stove and put the moka pot on it","success": [true,true,false,true,true,false,true,false,false,false]}
+        ],
+        "libero_goal": [
+          {"name": "open the middle drawer of the cabinet","success": [true,true,true,false,true,true,false,false,false,true]},
+          {"name": "open the top drawer and put the bowl inside","success": [true,false,true,true,false,true,false,false,true,true]},
+          {"name": "push the plate to the front of the stove","success": [true,true,true,true,true,false,true,true,false,false]},
+          {"name": "put the bowl on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on the stove","success": [true,false,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on top of the cabinet","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the cream cheese in the bowl","success": [false,true,false,true,true,false,true,true,true,true]},
+          {"name": "put the wine bottle on the rack","success": [false,true,false,false,true,false,false,false,false,false]},
+          {"name": "put the wine bottle on top of the cabinet","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "turn on the stove","success": [true,true,true,true,true,true,true,false,true,true]}
+        ],
+        "libero_object": [
+          {"name": "pick up the alphabet soup and place it in the basket","success": [false,true,false,false,true,true,true,false,true,true]},
+          {"name": "pick up the bbq sauce and place it in the basket","success": [true,false,true,false,true,true,true,false,true,false]},
+          {"name": "pick up the butter and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the chocolate pudding and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the cream cheese and place it in the basket","success": [true,true,true,false,true,true,true,true,true,true]},
+          {"name": "pick up the ketchup and place it in the basket","success": [true,true,true,true,true,true,false,true,true,true]},
+          {"name": "pick up the milk and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the orange juice and place it in the basket","success": [true,true,true,true,true,true,true,false,true,true]},
+          {"name": "pick up the salad dressing and place it in the basket","success": [false,false,true,true,false,true,true,true,true,true]},
+          {"name": "pick up the tomato sauce and place it in the basket","success": [true,true,true,true,false,true,true,true,true,false]}
+        ],
+        "libero_spatial": [
+          {"name": "pick up the black bowl between the plate and the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,false,true,true]},
+          {"name": "pick up the black bowl from table center and place it on the plate","success": [false,true,true,true,true,false,true,true,true,true]},
+          {"name": "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate","success": [true,true,true,true,false,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the cookie box and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the plate and place it on the plate","success": [true,true,false,false,false,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the ramekin and place it on the plate","success": [true,true,true,true,false,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the cookie box and place it on the plate","success": [true,true,true,false,true,false,true,true,true,true]},
+          {"name": "pick up the black bowl on the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the stove and place it on the plate","success": [false,true,true,false,true,true,true,true,false,true]},
+          {"name": "pick up the black bowl on the wooden cabinet and place it on the plate","success": [true,true,false,false,false,false,true,false,true,true]}
+        ]
+      },
+      "source_sha256": {
+        "openvla_10/LIBEROBenchmark_libero_10_aggregate.json": "2d7d0233560329e22f697f0013e90462f807134b0c57e557befad98c04023f50",
+        "openvla_goal/LIBEROBenchmark_libero_goal_aggregate.json": "0d1e2204f706152921998c97cb897540635311b29035e9894bd24c35a7638610",
+        "openvla_object/LIBEROBenchmark_libero_object_aggregate.json": "545dd334ab3ba778936e631266e97bcd7b873424d7ad4ff2d56e3a803c23d129",
+        "openvla_spatial/LIBEROBenchmark_libero_spatial_aggregate.json": "1fd3476dc5c7883b0ae4d03363d37ea43d0afa4cefdfd838f003ea835121a1f2"
+      }
+    },
+    "pi05": {
+      "checkpoint": {
+        "repository": "lerobot/pi05_libero_finetuned",
+        "revision": "7152f13e34c6c115d808aea0e5d08aca74eac14b",
+        "chunk_size": 10,
+        "state_key": "observation.state",
+        "image_keys": {
+          "agentview": "observation.images.image",
+          "wrist": "observation.images.image2"
+        }
+      },
+      "tasks": {
+        "libero_10": [
+          {"name": "pick up the book and place it in the back compartment of the caddy","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put both moka pots on the stove","success": [true,true,false,true,false,true,true,true,true,true]},
+          {"name": "put both the alphabet soup and the cream cheese box in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put both the alphabet soup and the tomato sauce in the basket","success": [true,true,true,true,true,true,true,true,false,true]},
+          {"name": "put both the cream cheese box and the butter in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the black bowl in the bottom drawer of the cabinet and close it","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the white mug on the left plate and put the yellow and white mug on the right plate","success": [true,true,true,true,true,true,true,false,true,true]},
+          {"name": "put the white mug on the plate and put the chocolate pudding to the right of the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the yellow and white mug in the microwave and close it","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "turn on the stove and put the moka pot on it","success": [true,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_goal": [
+          {"name": "open the middle drawer of the cabinet","success": [true,false,true,true,true,true,true,true,true,true]},
+          {"name": "open the top drawer and put the bowl inside","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "push the plate to the front of the stove","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on the stove","success": [true,true,true,true,true,true,true,true,false,true]},
+          {"name": "put the bowl on top of the cabinet","success": [true,true,true,true,true,false,true,true,true,true]},
+          {"name": "put the cream cheese in the bowl","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the wine bottle on the rack","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the wine bottle on top of the cabinet","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "turn on the stove","success": [true,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_object": [
+          {"name": "pick up the alphabet soup and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the bbq sauce and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the butter and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the chocolate pudding and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the cream cheese and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the ketchup and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the milk and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the orange juice and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the salad dressing and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the tomato sauce and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_spatial": [
+          {"name": "pick up the black bowl between the plate and the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl from table center and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate","success": [true,true,true,true,true,true,false,true,true,true]},
+          {"name": "pick up the black bowl next to the cookie box and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the plate and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the cookie box and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the stove and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the wooden cabinet and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]}
+        ]
+      },
+      "source_sha256": {
+        "pi05_10/LIBEROBenchmark_libero_10_aggregate.json": "9774dd4de1fba0c852b80a6a5ed9d0a6d3df27b36c13aedbaf6bf85d96c1530a",
+        "pi05_goal/LIBEROBenchmark_libero_goal_aggregate.json": "c19f4c58945ee58c9b98aa131992821b2e2e47f6bd582dc76ec20a6d3e43c671",
+        "pi05_object/LIBEROBenchmark_libero_object_aggregate.json": "539e595b56a8c38792518509aee26d75b42831d2014e76ed80147e665c8bf98b",
+        "pi05_spatial/LIBEROBenchmark_libero_spatial_aggregate.json": "54b72a40c6a5aba96d6e27e1381912a8a536bba1dfd272c92fe52b37eb886c6c"
+      }
+    },
+    "turbo": {
+      "checkpoint": {
+        "repository": "H-EmbodVis/TurboVLA",
+        "revision": "9cdb576ed9c56039b9c1149142ed654e876bad76",
+        "sha256": "d031ad7be05a2f5d04afb3194ed26b0cb46083685edee7a5e145078a37d26bab",
+        "bytes": 864519666
+      },
+      "tasks": {
+        "libero_10": [
+          {"name": "pick up the book and place it in the back compartment of the caddy","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put both moka pots on the stove","success": [true,true,false,true,false,true,true,true,true,true]},
+          {"name": "put both the alphabet soup and the cream cheese box in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put both the alphabet soup and the tomato sauce in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put both the cream cheese box and the butter in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the black bowl in the bottom drawer of the cabinet and close it","success": [true,true,false,true,true,true,true,true,true,true]},
+          {"name": "put the white mug on the left plate and put the yellow and white mug on the right plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the white mug on the plate and put the chocolate pudding to the right of the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the yellow and white mug in the microwave and close it","success": [true,true,true,true,true,false,true,true,true,true]},
+          {"name": "turn on the stove and put the moka pot on it","success": [true,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_goal": [
+          {"name": "open the middle drawer of the cabinet","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "open the top drawer and put the bowl inside","success": [true,true,true,true,true,true,false,true,true,true]},
+          {"name": "push the plate to the front of the stove","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on the stove","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the bowl on top of the cabinet","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the cream cheese in the bowl","success": [true,true,true,true,false,true,true,true,true,true]},
+          {"name": "put the wine bottle on the rack","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "put the wine bottle on top of the cabinet","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "turn on the stove","success": [true,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_object": [
+          {"name": "pick up the alphabet soup and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the bbq sauce and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the butter and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the chocolate pudding and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the cream cheese and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the ketchup and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the milk and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the orange juice and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the salad dressing and place it in the basket","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the tomato sauce and place it in the basket","success": [false,true,true,true,true,true,true,true,true,true]}
+        ],
+        "libero_spatial": [
+          {"name": "pick up the black bowl between the plate and the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl from table center and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the cookie box and place it on the plate","success": [true,true,true,true,true,false,true,true,false,true]},
+          {"name": "pick up the black bowl next to the plate and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl next to the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the cookie box and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the ramekin and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the stove and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]},
+          {"name": "pick up the black bowl on the wooden cabinet and place it on the plate","success": [true,true,true,true,true,true,true,true,true,true]}
+        ]
+      },
+      "source_sha256": {
+        "native-10/LIBEROBenchmark_libero_10_aggregate.json": "fe887fe26e6cc5c492f8e51e63b40e855fa56be9b81fddb9368778f47cd4acd7",
+        "native-goal/LIBEROBenchmark_libero_goal_aggregate.json": "da32e070c77bd5809da0af13759378b6a226c4579467f7b94cbaa38a85267fe3",
+        "native-object/LIBEROBenchmark_libero_object_aggregate.json": "400db094463e2520ed1c3ba6784c74b83650628a0b997efb8f7cf8b82bdacfd9",
+        "native-spatial/LIBEROBenchmark_libero_spatial_aggregate.json": "435d0833a7f35544425400cf3bdea6e0cf08fe81f5e186f24f355faabf7f7699"
+      }
+    }
+  }
+}

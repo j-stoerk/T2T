@@ -6,6 +6,8 @@ Turn an instruction into a robot movement. Test whether a separate model catches
 
 The simulator is a MuJoCo KUKA iiwa cell. Visual Components is the intended industrial target.
 
+The completed LIBERO runs score 392/400 for pi0.5, 391/400 each for OpenVLA-OFT and TurboVLA, 301/400 for OpenVLA and 292/400 for SmolVLA. These use the same tasks and numbered reset states, with each model's published input and action conventions. The KUKA instruction-fidelity study uses different tasks.
+
 ## Start here
 
 Python 3.12+; commands work from this folder.
@@ -41,6 +43,8 @@ Omit `--layouts 1` for all 20 layouts; one layout gives no confidence interval. 
 Methods are `physical`, `feedback`, `sampling`, `checked`, `shared-history` and the supplied-goal `reference` control. All share the controller; learned methods have a six-call, 120-second planning limit.
 
 Scores cover complete episodes, request compliance, omitted requirements, wrong-meaning completions, false refusals, timeouts, collisions, placement error, time and measured memory. Comparisons bootstrap complete layouts 2,000 times. Failed and skipped commands keep their denominators.
+
+`python run.py policies` reproduces all five LIBERO scores and ten paired confidence intervals from [published_results.json](published_results.json), which contains all 2,000 Boolean outcomes and checkpoint/source identities. It runs without inference or model downloads. Intervals resample tasks within each suite; they exclude training-seed variation and hardware costs.
 
 ## RGB reference
 

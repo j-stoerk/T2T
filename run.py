@@ -101,6 +101,7 @@ def compare(paths):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
+    commands.add_parser('policies', help='Reproduce released LIBERO scores and paired intervals without inference.')
     commands.add_parser('demo', help='Run three supplied goals in MuJoCo, including a changed-scene repeat.')
     visual = commands.add_parser('visual-reference', help='Replay the fixed-grammar RGB baseline without a model.')
     visual.add_argument('--split', choices=('development', 'test'), default='test')
@@ -123,6 +124,9 @@ def main():
     if args.command == 'evaluate' and (args.output.exists() or args.layouts is not None and not 1 <= args.layouts <= 20):
         parser.error('Use a new output path and between 1 and 20 layouts.')
     try:
+        if args.command == 'policies':
+            print(json.dumps(evaluation.published_policies(ROOT/'published_results.json'), indent=2))
+            return
         if args.command == 'compare':
             compare(args.reports)
             return
