@@ -8,9 +8,45 @@ import os
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
+import io
+import zipfile
 from unittest.mock import patch
 import robot as r
 from evaluate import (TraceCell, observed_request, passes_over)
+
+
+class VisualReferenceTests(unittest.TestCase):
+    def test_frozen_images_and_followups_preserve_requested_roles(self):
+        import vision
+        from PIL import Image
+        count = 0
+        with zipfile.ZipFile(Path(__file__).parent / 'visual_tasks.zip') as archive:
+            for split in ['development', 'test']:
+                for record in map(json.loads, archive.read(split + '.jsonl').splitlines()):
+                    image = Image.open(io.BytesIO(archive.read(record['image']))).convert('RGB')
+                    parser = vision.ImageParser(image, record['visible_ids'])
+                    goal = parser(record['instructions'][0], scene=object())
+                    self.assertEqual(goal, r.intent(**record['task']))
+                    edit = parser(record['instructions'][1], scene=object(), previous=goal)
+                    self.assertEqual(edit, dict(goal, gap_mm=60))
+                    self.assertEqual(parser(record['instructions'][2], previous=edit), r.intent(action='repeat'))
+                    self.assertEqual(parser(record['instructions'][2])['action'], 'clarify')
+                    count += 1
+        self.assertEqual(count, 192)
+
+    def test_visual_parser_rejects_unseen_language_and_preserves_existing_results(self):
+        import tempfile
+        import vision
+        from PIL import Image
+        value, _ = vision.parse('Move every object into the drawer.', Image.new('RGB', (20, 20)), ['12','34','56','78'])
+        self.assertEqual(value['action'], 'clarify')
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / 'results.gz'
+            output.write_bytes(b'preserve')
+            with patch.object(vision, 'MuJoCoCell') as cell, self.assertRaises(r.Rejected):
+                vision.benchmark(Path('unused.xml'), output)
+            cell.assert_not_called()
+            self.assertEqual(output.read_bytes(), b'preserve')
 
 model = Path(__file__).parent / '.cache/iiwa14.xml'
 if model.exists():

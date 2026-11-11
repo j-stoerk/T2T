@@ -42,6 +42,14 @@ Methods are `physical`, `feedback`, `sampling`, `checked`, `shared-history` and 
 
 Scores cover complete episodes, request compliance, omitted requirements, wrong-meaning completions, false refusals, timeouts, collisions, placement error, time and measured memory. Comparisons bootstrap complete layouts 2,000 times. Failed and skipped commands keep their denominators.
 
+## RGB reference
+
+```sh
+python run.py visual-reference --layouts 1 --output results/visual-reference.jsonl.gz
+```
+
+This CPU baseline reads frozen RGB images with colour regions and numeric-tag templates. Follow-ups retain the selected identities. Omit `--layouts 1` for all 40 test layouts. Its vocabulary and instruction grammar are fixed; saved-image replay excludes live rendering from timings. `visual_tasks.zip` contains the unchanged benchmark images, instructions and scoring labels.
+
 ## Code map
 
 | File | Change it when working on… |
@@ -49,6 +57,7 @@ Scores cover complete episodes, request compliance, omitted requirements, wrong-
 | [robot.py](robot.py) | prompts, requirement checking, planning and task history |
 | [mujoco_cell.py](mujoco_cell.py) | robot motion, grasp attachment and contact checks |
 | [evaluate.py](evaluate.py) | outcome scoring, episodes, metrics and paired comparisons |
+| [vision.py](vision.py) | fixed-grammar RGB reference and saved-image replay |
 | [run.py](run.py) | CLI and model setup |
 | [test_system.py](test_system.py) | regression tests |
 | [tasks.zip](tasks.zip) | frozen synthetic tasks, expected outcomes and provenance |

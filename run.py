@@ -102,6 +102,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('demo', help='Run three supplied goals in MuJoCo, including a changed-scene repeat.')
+    visual = commands.add_parser('visual-reference', help='Replay the fixed-grammar RGB baseline without a model.')
+    visual.add_argument('--split', choices=('development', 'test'), default='test')
+    visual.add_argument('--layouts', type=int, help='Complete layouts; defaults to the full selected split.')
+    visual.add_argument('--output', type=Path, required=True)
     live = commands.add_parser('run', help='Execute instructions in one shared robot session.')
     live.add_argument('instructions', nargs='+')
     bench = commands.add_parser('evaluate', help='Score complete episodes or independent requests.')
@@ -124,6 +128,11 @@ def main():
             return
         else:
             path = model_path()
+            if args.command == 'visual-reference':
+                import vision
+                result = vision.benchmark(path, args.output, args.layouts, args.split)
+                print(json.dumps(result, indent=2, allow_nan=False))
+                return
             if args.command == 'run':
                 execute(args, path)
                 return
