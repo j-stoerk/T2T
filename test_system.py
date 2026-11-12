@@ -535,6 +535,17 @@ class ContractTests(unittest.IsolatedAsyncioTestCase):
             dict(object='red', reference='blue', axis=0, sign=1, gap=20, via='can'))
         self.assertTrue(checks['request_ok'], checks)
 
+    async def test_optional_gap_reserves_obstacle_clearance_for_tracking(self):
+        scene = r.example_scene()
+        scene['objects'] = {
+            'cyan': dict(label='cyan block', position=[-70,-130,20], size=[50,30,40]),
+            'black': dict(label='black block', position=[50.05,50,20], size=[40,40,40]),
+            'can': dict(label='metal can', position=[0,0,50], size=[50,50,100])}
+        task = dict(object='cyan', reference='black', relations=['front'], gap_mm=None, via='can')
+        plan = await self.c.select_plan(TraceCell(scene), [task])
+        self.assertEqual(plan['goal']['gap_mm'], 60)
+        self.assertIsNone(task['gap_mm'])
+
     async def test_allowed_directions_intersect_without_forcing_a_planner_choice(self):
         views = [dict(self.task, relations=['right', 'behind']), dict(self.task, relations=['behind'])]
         plan = await self.c.select_plan(self.cell, views)

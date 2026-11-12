@@ -351,7 +351,7 @@ def segment_hits(start, end, low, high):
     return True
 
 
-def check_segment(scene, start, end, carried=None, grasp_offset=None):
+def check_segment(scene, start, end, carried=None, grasp_offset=None, *, clearance=0):
     """Conservative tool box + carried box, not whole-robot collision checking."""
     bodies = [([0, 0, 0], [8, 8, 8])]
     if carried:
@@ -367,7 +367,7 @@ def check_segment(scene, start, end, carried=None, grasp_offset=None):
         for key, obj in scene["objects"].items():
             if key == carried:
                 continue
-            padding = [s / 2 + h for s, h in zip(obj["size"], half)]
+            padding = [s / 2 + h + clearance for s, h in zip(obj["size"], half)]
             low = [p - r for p, r in zip(obj["position"], padding)]
             high = [p + r for p, r in zip(obj["position"], padding)]
             if segment_hits(a, b, low, high):
@@ -534,10 +534,11 @@ def audit_instruction(command, value, scene, previous=None, history=None,
 
 
 def check_plan(scene, steps):
+    """Reserve 1 mm around obstacles before runtime uses the measured grasp offset."""
     predicted, carried = deepcopy(scene), None
     for kind, value in steps:
         if kind == "move":
-            check_segment(predicted, predicted["tcp"], value, carried)
+            check_segment(predicted, predicted["tcp"], value, carried, clearance=1)
             predicted["tcp"] = value
         elif kind == "pick":
             carried = value
