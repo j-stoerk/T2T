@@ -518,6 +518,250 @@ class RepairTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(payloads[1]['feedback'])
         self.assertIsNone(result['model_tokens'])
 
+class ContractTests(unittest.IsolatedAsyncioTestCase):
+    def setUp(self):
+        import contracts
+        self.c = contracts
+        self.cell = TraceCell(r.example_scene())
+        self.cell.reset_trace()
+        self.task = dict(object='red', reference='blue', relations=['right'], gap_mm=None, via=None)
+
+    async def test_complementary_readings_produce_a_jointly_valid_motion(self):
+        views = [dict(self.task, gap_mm=20), dict(self.task, via='can')]
+        plan = await self.c.select_plan(self.cell, views)
+        before = self.cell.snapshot()
+        await r.Session(self.cell).run(plan['goal'])
+        checks = observed_request(self.cell, before,
+            dict(object='red', reference='blue', axis=0, sign=1, gap=20, via='can'))
+        self.assertTrue(checks['request_ok'], checks)
+
+    async def test_allowed_directions_intersect_without_forcing_a_planner_choice(self):
+        views = [dict(self.task, relations=['right', 'behind']), dict(self.task, relations=['behind'])]
+        plan = await self.c.select_plan(self.cell, views)
+        self.assertEqual(plan['goal']['relation'], 'behind')
+        self.assertEqual(views[0]['relations'], ['right', 'behind'])
+
+    async def test_same_actor_with_and_without_checking_changes_whole_request_success(self):
+        command = 'Place red right of blue with a 20 mm gap, passing over the can.'
+        results, reads = {}, []
+        def extract(command, scene, previous, model, *, full):
+            reads.append(full)
+            # Each reading omits one obligation; their joint plan restores both.
+            return dict(action='new', requirements=dict(self.task, via='can') if full else dict(self.task, gap_mm=20))
+        for checking in [False, True]:
+            cell = TraceCell(r.example_scene())
+            cell.reset_trace()
+            before = cell.snapshot()
+            await self.c.ContractSession(r.Session(cell)).run(command, 'actor', 'reader', check=checking, extract=extract)
+            results[checking] = observed_request(cell, before,
+                dict(object='red', reference='blue', axis=0, sign=1, gap=20, via='can'))
+        self.assertFalse(results[False]['request_ok'])
+        self.assertTrue(results[True]['request_ok'])
+        self.assertEqual(reads, [False, False, True])
+
+    async def test_model_calls_record_tokens_and_withhold_the_local_proposal(self):
+        payloads = []
+        task = self.task
+        class Backend:
+            def generate(self, payload, timeout):
+                payloads.append(payload)
+                full = payload['model'] == 'reader'
+                reading = dict(action='new', requirements=dict(task, via='can') if full else dict(task, gap_mm=20))
+                return dict(message=dict(content=json.dumps(reading)), prompt_eval_count=20, eval_count=14)
+        token = r.MODEL_BACKEND.set(Backend())
+        try:
+            result = await self.c.ContractSession(r.Session(self.cell)).run(
+                'Place red right of blue with a 20 mm gap, passing over the can.', 'actor', 'reader')
+        finally:
+            r.MODEL_BACKEND.reset(token)
+        self.assertEqual(result['model_call_count'], 2)
+        self.assertEqual(result['model_tokens'], 68)
+        self.assertEqual([call['view'] for call in result['model_calls']], ['local','history'])
+        inputs = [json.loads(p['messages'][1]['content']) for p in payloads]
+        self.assertEqual(set(inputs[1]), {'instruction','scene','history'})
+        self.assertIsNone(inputs[1]['history'])
+        self.assertTrue(inputs[1]['instruction'].startswith('1. Place red'))
+        self.assertEqual(set(payloads[1]['format']['properties']['requirements']['required']), self.c.FIELDS)
+
+    async def test_optional_gap_survives_execution_and_a_changed_scene_repeat(self):
+        task = dict(self.task, via='can')
+        self.cell.scene['objects']['green'] = dict(label='barrier', position=[210, 100, 20], size=[20, 20, 40])
+        memory = self.c.ContractSession(r.Session(self.cell))
+        reads = []
+
+        def extract(command, scene, previous, model, *, full):
+            reads.append((command, deepcopy(previous), full))
+            return dict(action='new' if full or previous is None else 'edit',
+                        requirements=deepcopy(task) if full or previous is None else {})
+
+        first = await memory.run('Place red right of blue, passing over the can.', 'actor', 'reader', extract=extract)
+        self.assertGreater(first['goal']['gap_mm'], 20)
+        self.assertIsNone(memory.local['gap_mm'])
+        self.cell.reposition('blue', [100, 160, 20])
+        second = await memory.run('Repeat using the current positions.', 'actor', 'reader', extract=extract)
+        self.assertNotEqual(first['goal']['gap_mm'], second['goal']['gap_mm'])
+        self.assertIsNone(memory.local['gap_mm'])
+        self.assertIsNone(reads[2][1]['gap_mm'])
+        self.assertIsNone(reads[3][1])
+        self.assertIn('1. Place red', reads[3][0])
+        self.assertIn('2. Repeat', reads[3][0])
+
+    async def test_a_release_keeps_the_other_requirement(self):
+        previous = dict(self.task, gap_mm=35, via='can')
+        reading = dict(action='edit', requirements=dict(gap_mm=None))
+        changed = self.c.apply_reading(reading, self.cell.snapshot(), previous)
+        self.assertIsNone(changed['gap_mm'])
+        self.assertEqual(changed['via'], 'can')
+        self.assertEqual(previous['gap_mm'], 35)
+        fresh = self.c.apply_reading(dict(action='new', requirements={k:self.task[k] for k in ['object','reference','relations']}),
+            self.cell.snapshot(), previous)
+        self.assertIsNone(fresh['gap_mm'])
+        self.assertIsNone(fresh['via'])
+
+    async def test_an_incidental_route_does_not_become_a_repeat_requirement(self):
+        memory = self.c.ContractSession(r.Session(self.cell))
+        def extract(command, scene, previous, model, *, full):
+            return dict(action='new' if full or previous is None else 'edit',
+                        requirements=deepcopy(self.task) if full or previous is None else {})
+        original = self.cell.preflight
+        async def require_waypoint(plan):
+            if not plan['goal']['via']:
+                raise r.Rejected('Direct route unavailable.')
+        self.cell.preflight = require_waypoint
+        first = await memory.run('Place red right of blue.', 'actor', 'reader', extract=extract)
+        self.assertEqual(first['goal']['via'], 'can')
+        self.assertIsNone(memory.local['via'])
+        self.cell.preflight = original
+        repeated = await memory.run('Repeat.', 'actor', 'reader', extract=extract)
+        self.assertEqual(repeated['goal']['via'], '')
+        self.assertIsNone(memory.local['via'])
+
+    async def test_conflicting_readings_reject_before_motion(self):
+        conflicts = [dict(self.task, object='blue', reference='red'),
+            dict(self.task, relations=['left']), dict(self.task, gap_mm=40), dict(self.task, via='blue')]
+        for other in conflicts:
+            with self.subTest(other=other), self.assertRaises(r.Rejected):
+                await self.c.select_plan(self.cell, [dict(self.task, gap_mm=20, via='can'), other])
+        self.assertEqual(self.cell.motions, 0)
+
+    async def test_invalid_or_ambiguous_readings_have_no_defaults_for_missing_roles(self):
+        invalid = [dict(self.task, gap_mm=True), dict(self.task, gap_mm=float('nan')),
+            dict(self.task, relations='right'), dict(self.task, relations=['right','right']),
+            dict(self.task, object='cube'), dict(self.task, object='blue')]
+        for task in invalid:
+            with self.subTest(task=task), self.assertRaises(r.Rejected):
+                self.c.normalize(task, self.cell.snapshot())
+        for reading in [dict(action='edit', requirements={}), dict(action='new', requirements={}),
+                        dict(action='new', requirements=dict(self.task, torque=5))]:
+            with self.subTest(reading=reading), self.assertRaises(r.Rejected):
+                self.c.apply_reading(reading, self.cell.snapshot())
+
+    async def test_native_preflight_can_reject_the_shortest_candidate(self):
+        async def preflight(plan):
+            if plan['goal']['gap_mm'] == 20:
+                raise r.Rejected('Unreachable with this robot.')
+        self.cell.preflight = preflight
+        plan = await self.c.select_plan(self.cell, [self.task])
+        self.assertNotEqual(plan['goal']['gap_mm'], 20)
+        self.assertEqual(self.cell.motions, 0)
+
+    async def test_scene_change_and_expired_budget_stop_selection(self):
+        async def preflight(plan):
+            self.cell.reposition('blue', [100, 160, 20])
+        self.cell.preflight = preflight
+        with self.assertRaisesRegex(r.Rejected, 'Scene changed'):
+            await self.c.select_plan(self.cell, [self.task])
+        token = r.PLANNING_DEADLINE.set(r.time.perf_counter() - 1)
+        try:
+            with self.assertRaises(r.BudgetExceeded):
+                await self.c.select_plan(self.cell, [self.task])
+        finally:
+            r.PLANNING_DEADLINE.reset(token)
+        self.assertEqual(self.cell.motions, 0)
+
+    async def test_failed_motion_does_not_commit_user_or_requirement_history(self):
+        memory = self.c.ContractSession(r.Session(self.cell))
+        def extract(*args, **kwargs):
+            return dict(action='new', requirements=self.task)
+        async def fail(point):
+            raise OSError('Motion interrupted.')
+        self.cell.move = fail
+        with self.assertRaises(OSError):
+            await memory.run('Place red right of blue.', 'actor', 'reader', extract=extract)
+        self.assertIsNone(memory.local)
+        self.assertEqual(memory.instructions, [])
+        self.assertTrue(memory.session.faulted)
+
+
+class ContractEvaluationTests(unittest.TestCase):
+    def test_episode_comparison_keeps_the_same_tasks_and_observes_missed_routes(self):
+        import evaluate
+        records, source = evaluate.load_dataset(Path(__file__).parent/'tasks.zip', member='test.jsonl', layouts=1)
+        ordered = [record for episode in evaluate.dataset_episode_groups(records) for record in episode]
+
+        def run(checking):
+            position = -1
+            def extract(command, scene, previous, model, *, full):
+                nonlocal position
+                if not full:
+                    position += 1
+                spec = ordered[position]['metadata']['reference_requirements']
+                direction = next(d for d,axis in r.DIRECTIONS.items() if axis == (spec['axis'], spec['sign']))
+                task = dict(object=spec['object'], reference=spec['reference'], relations=[direction],
+                            gap_mm=spec['gap'], via=spec['via'] or None if full else None)
+                return dict(action='new', requirements=task)
+            report = evaluate.collect_dataset(records, 'supplied-actor', audit_model='supplied-reader' if checking else None,
+                contract_check=checking, contract_extractor=extract, episodes=True)
+            report['source'] = source
+            return report
+
+        baseline, checked = run(False), run(True)
+        self.assertGreater(checked['episode_success']['value'], baseline['episode_success']['value'])
+        self.assertEqual(baseline['n'], checked['n'])
+        self.assertEqual(checked['actor_interface'], 'requirement_contract')
+        self.assertTrue(all(row['grounding_correct'] is None for row in checked['rows']))
+        self.assertTrue(any(row['silent_success'] for row in baseline['rows']))
+        compared = evaluate.compare_reports(baseline, checked)
+        self.assertEqual(compared['clusters'], 1)
+        self.assertGreater(compared['differences']['episode_success.value']['delta'], 0)
+        self.assertIsNone(compared['differences']['episode_success.value']['ci95'])
+
+    def test_bad_format_and_reader_timeout_keep_failure_accounting(self):
+        import evaluate
+        cell = TraceCell(r.example_scene())
+        command = 'Place red right of blue.'
+        spec = dict(object='red', reference='blue', axis=0, sign=1, gap=None, via='')
+        def invalid(*args, **kwargs):
+            return dict(action='invented', requirements={})
+        row = evaluate.paired_trial(r.interpret, 'actor', cell, r.Session(cell), command, spec,
+            contract_check=False, contract_extractor=invalid)
+        self.assertFalse(row['format_valid'])
+        self.assertFalse(row['runtime_success'])
+        self.assertEqual(row['motions'], 0)
+        def timeout(command, scene, previous, model, *, full):
+            if full:
+                raise r.BudgetExceeded('Reader timeout.')
+            return dict(action='new', requirements=dict(object='red', reference='blue',
+                relations=['right'], gap_mm=None, via=None))
+        row = evaluate.paired_trial(r.interpret, 'actor', cell, r.Session(cell), command, spec,
+            audit_model='reader', contract_check=True, contract_extractor=timeout)
+        self.assertTrue(row['timed_out'])
+        self.assertTrue(row['budget_exhausted'])
+        self.assertFalse(row['runtime_success'])
+        self.assertGreaterEqual(row['audit_ms'], 0)
+        self.assertEqual(row['motions'], 0)
+
+    def test_contract_evaluation_requires_full_history_and_matching_options(self):
+        import evaluate
+        records, _ = evaluate.load_dataset(Path(__file__).parent/'tasks.zip', member='test.jsonl', layouts=1)
+        for options in [dict(contract_check=False),
+                        dict(contract_check=False, episodes=True, repairs=1),
+                        dict(contract_check=True, episodes=True),
+                        dict(contract_check=False, episodes=True, audit_model='reader')]:
+            with self.subTest(options=options), self.assertRaises(r.Rejected):
+                evaluate.collect_dataset(records, 'actor', **options)
+
+
 class MuJoCoTests(unittest.IsolatedAsyncioTestCase):
 
     async def asyncSetUp(self):
@@ -525,6 +769,24 @@ class MuJoCoTests(unittest.IsolatedAsyncioTestCase):
             self.skipTest('Optional MuJoCo environment and pinned model are required.')
         from mujoco_cell import MuJoCoCell
         self.cell = MuJoCoCell(os.environ['SEMANTICS_VC_MUJOCO_MODEL'])
+
+    async def test_compatible_contracts_execute_after_the_reference_moves(self):
+        from contracts import select_plan
+        cell, session = self.cell, r.Session(self.cell)
+        views = [dict(object='red', reference='blue', relations=['right','behind'], gap_mm=20, via=None),
+                 dict(object='red', reference='blue', relations=['right'], gap_mm=None, via='can')]
+        for index in range(2):
+            if index:
+                cell.reposition('blue', [100, 160, 20])
+            before = cell.snapshot()
+            cell.reset_trace()
+            plan = await select_plan(cell, views)
+            await session.run(plan['goal'])
+            checks = observed_request(cell, before,
+                dict(object='red', reference='blue', axis=0, sign=1, gap=20, via='can'))
+            self.assertTrue(checks['request_ok'], checks)
+            self.assertFalse(cell.collision_events)
+            self.assertLessEqual(cell.max_joint_limit_error_rad, cell.joint_limit_tolerance_rad)
 
     async def test_observed_placement_over_and_changed_state_repeat(self):
         cell, session = (self.cell, r.Session(self.cell))

@@ -32,6 +32,18 @@ Pass several quoted instructions to share history. Objects, directions and edge-
 
 The requirement compiler can release an exact gap or an over-can requirement. The released field stays optional on later repeats, while other requirements remain active. This tests compiler behavior; model accuracy on these follow-ups remains under evaluation.
 
+## Plan compatibility
+
+```sh
+python run.py compatible-demo
+python run.py run --method local-memory --actor qwen3:4b "Place red right of blue, passing over the can." "Repeat."
+python run.py run --method compatible --actor qwen3:4b --reader qwen3:4b "Place red right of blue, passing over the can." "Repeat."
+```
+
+`local-memory` uses one reading to update stored requirements. `compatible` adds a reader of the successful instruction history, with the first reading withheld, then selects a motion permitted by both. Both modes share the actor interface and planner. Allowed directions, optional gaps and optional routes stay separate from executed goals.
+
+The demo checks supplied requirements in MuJoCo, including a repeat after the reference moves. For optional gaps, search uses 20/40/60/80/100 mm and direct/over-can routes; explicit gaps use their requested value. Selected motions pass geometric and native preflight checks. Live-model accuracy for this broader interface remains unmeasured; the frozen research comparison uses separate scripts and fixed inputs.
+
 ## Compare methods
 
 ```sh
@@ -40,9 +52,11 @@ python run.py evaluate --method checked --layouts 1 --output results/checked.jso
 python run.py compare results/feedback.json.gz results/checked.json.gz
 ```
 
+Use `--method local-memory` and `--method compatible`, with the same `--actor`, to compare the contract interface without and with checking. These modes require the default episode scope. They share the task labels, controller and planning limits; observations measure whole-request success independently of either reading. Concrete-goal grounding accuracy is unmeasured for contract outputs.
+
 Omit `--layouts 1` for all 20 layouts; one layout gives no confidence interval. Add `--scope requests` for independent requests with supplied correct history. Add `--server-pid PID` to measure client and Ollama RAM together; otherwise memory remains unmeasured. Cold model loading is included when it occurs. Stock Ollama models are a starting point; these commands do not reproduce the paper's fine-tuned CPU GGUF deployment.
 
-Methods are `physical`, `feedback`, `sampling`, `checked`, `shared-history` and the supplied-goal `reference` control. All share the controller; learned methods have a six-call, 120-second planning limit.
+Methods are `physical`, `feedback`, `sampling`, `checked`, `shared-history`, `local-memory`, `compatible` and the supplied-goal `reference` control. All share the controller; learned methods have a six-call, 120-second planning limit. Contract modes use one actor call and, when enabled, one reader call, with no repair loop.
 
 Scores cover complete episodes, request compliance, omitted requirements, wrong-meaning completions, false refusals, timeouts, collisions, placement error, time and measured memory. Comparisons bootstrap complete layouts 2,000 times. Failed and skipped commands keep their denominators.
 
@@ -63,6 +77,7 @@ This CPU baseline reads frozen RGB images with colour regions and numeric-tag te
 | File | Change it when working on… |
 |---|---|
 | [robot.py](robot.py) | prompts, requirement checking, planning and task history |
+| [contracts.py](contracts.py) | complementary readings, task permissions and shared feasible plans |
 | [mujoco_cell.py](mujoco_cell.py) | robot motion, grasp attachment and contact checks |
 | [evaluate.py](evaluate.py) | outcome scoring, episodes, metrics and paired comparisons |
 | [vision.py](vision.py) | fixed-grammar RGB reference and saved-image replay |
