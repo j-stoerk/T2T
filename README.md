@@ -30,6 +30,8 @@ python run.py run --method checked "Place the red cube right of the blue cube ov
 
 Pass several quoted instructions to share history. Objects, directions and edge-to-edge gaps use world coordinates and millimetres. Unsupported or ambiguous requests stop before motion.
 
+The requirement compiler can release an exact gap or an over-can requirement. The released field stays optional on later repeats, while other requirements remain active. This tests compiler behavior; model accuracy on these follow-ups remains under evaluation.
+
 ## Compare methods
 
 ```sh

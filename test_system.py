@@ -336,6 +336,52 @@ class RequirementGateTests(unittest.TestCase):
             with self.subTest(command=text), self.assertRaisesRegex(r.Rejected, 'gap'):
                 r.audit_instruction(text, proposed, self.scene, previous, history, extractor=annotated_requirements, model='oracle')
 
+    def test_released_gap_stays_optional_through_later_repeats(self):
+        history = dict(goal=r.ground(r.intent(gap_mm=35, via='can'), self.scene),
+                       required_gap_mm=35, required_via='can')
+        original = deepcopy(history)
+        command = 'Repeat that placement, but allow any feasible gap.'
+        extraction = dict(complete=True, facts=[
+            dict(kind='reuse', value='', source='Repeat that placement'),
+            dict(kind='release_gap', value='', source='any feasible gap')])
+        checked = r.audit_instruction(command, r.intent(gap_mm=60, via='can'), self.scene,
+            history['goal'], history, extractor=lambda *args: extraction)
+        self.assertIsNone(checked['required_gap_mm'])
+        self.assertEqual(checked['required_via'], 'can')
+        previous = r.ground(r.intent(gap_mm=80, via='can'), self.scene)
+        repeated = r.audit_instruction('Repeat.', r.intent(action='repeat'), self.scene, previous, checked)
+        self.assertIsNone(repeated['required_gap_mm'])
+        self.assertEqual(repeated['goal']['gap_mm'], 80)
+        self.assertEqual(history, original)
+
+    def test_released_route_allows_an_incidental_detour_without_restoring_it(self):
+        history = dict(goal=r.ground(r.intent(gap_mm=35, via='can'), self.scene),
+                       required_gap_mm=35, required_via='can')
+        command = 'Repeat that placement; passing over the can is now optional.'
+        extraction = dict(complete=True, facts=[
+            dict(kind='reuse', value='', source='Repeat that placement'),
+            dict(kind='release_route', value='', source='passing over the can is now optional')])
+        checked = r.audit_instruction(command, r.intent(gap_mm=35), self.scene,
+            history['goal'], history, extractor=lambda *args: extraction)
+        self.assertEqual(checked['required_gap_mm'], 35)
+        self.assertIsNone(checked['required_via'])
+        previous = r.ground(r.intent(gap_mm=35, via='can'), self.scene)
+        repeated = r.audit_instruction('Repeat.', r.intent(action='repeat'), self.scene, previous, checked)
+        self.assertIsNone(repeated['required_via'])
+        self.assertEqual(repeated['goal']['via'], 'can')
+
+    def test_release_markers_cannot_carry_values_or_conflicting_settings(self):
+        history = dict(goal=r.ground(r.intent(via='can'), self.scene))
+        for marker, field, value, source in [('release_gap', 'gap_mm', '35', '35 mm'),
+                                            ('release_route', 'via', 'can', 'over the can')]:
+            command = 'Repeat with 35 mm over the can, or remove the requirement.'
+            reuse = dict(kind='reuse', value='', source='Repeat')
+            release = dict(kind=marker, value='', source='remove the requirement')
+            for facts in [[reuse, dict(release, value='unhandled')],
+                          [reuse, release, dict(kind=field, value=value, source=source)]]:
+                with self.subTest(marker=marker, facts=facts), self.assertRaises(r.Rejected):
+                    r.compile_requirements(command, dict(complete=True, facts=facts), self.scene, history)
+
     def test_correct_fact_contract_preserves_the_route(self):
         record = r.audit_instruction(self.command, r.intent(via='can'), self.scene, extractor=annotated_requirements, model='oracle')
         self.assertEqual(record['goal']['via'], 'can')
