@@ -167,10 +167,13 @@ class ContractSession:
     def __init__(self, session):
         self.session, self.local, self.instructions = session, None, []
 
-    async def run(self, command, actor, reader=None, *, check=True, extract=read, planning_budget_s=120):
+    async def run(self, command, actor, reader=None, *, check=True, full_history=False,
+                  extract=read, planning_budget_s=120):
         r.validate_request_limits(0, planning_budget_s)
         if type(check) is not bool or check and not reader:
             raise r.Rejected('Checking requires a reader model.')
+        if type(full_history) is not bool or full_history and check:
+            raise r.Rejected('Direct history reading is a single-model control without checking.')
         if self.session.faulted:
             raise r.Rejected('Reset the cell after an execution fault.')
         started, calls = time.perf_counter(), []
@@ -180,24 +183,26 @@ class ContractSession:
         try:
             scene = self.session.cell.snapshot()
             r.validate_scene(scene)
+            commands = self.instructions + [command]
+            sequence = '\n'.join(f'{i+1}. {s}' for i, s in enumerate(commands))
             try:
-                local = extract(command, scene, deepcopy(self.local), actor, full=False)
+                local = extract(sequence if full_history else command, scene,
+                    None if full_history else deepcopy(self.local), actor, full=full_history)
             finally:
                 attempt['interpretation_ms'] = (time.perf_counter() - started) * 1000
             attempt['value'] = deepcopy(local)
             validate_reading(local)
             attempt['format_valid'] = True
-            commands = self.instructions + [command]
             attempt['phase'] = 'audit' if check else 'plan'
             audit_started = time.perf_counter()
             try:
-                whole = (extract('\n'.join(f'{i+1}. {s}' for i, s in enumerate(commands)), scene, None, reader, full=True)
+                whole = (extract(sequence, scene, None, reader, full=True)
                          if check else None)
             finally:
                 attempt['audit_ms'] = (time.perf_counter() - audit_started) * 1000 if check else 0
             attempt['reader_value'] = deepcopy(whole)
             current = self.session.cell.snapshot()
-            views = [apply_reading(local, current, self.local)]
+            views = [apply_reading(local, current, self.local, full=full_history)]
             if check:
                 views.append(apply_reading(whole, current, full=True))
             attempt['phase'] = 'plan'

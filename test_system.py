@@ -606,6 +606,42 @@ class ContractTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn('1. Place red', reads[3][0])
         self.assertIn('2. Repeat', reads[3][0])
 
+    async def test_direct_history_reads_the_same_reader_input_with_one_call(self):
+        reads = {False:[], True:[]}
+        goals = {}
+        for checking in [False,True]:
+            cell = TraceCell(r.example_scene())
+            cell.reset_trace()
+            memory = self.c.ContractSession(r.Session(cell))
+            def extract(command, scene, previous, model, *, full):
+                reads[checking].append((command,deepcopy(scene),deepcopy(previous),model,full))
+                return dict(action='new',requirements=dict(self.task,gap_mm=20,via='can'))
+            await memory.run('Place red right of blue with a 20 mm gap, passing over the can.',
+                'actor' if checking else 'reader','reader' if checking else None,
+                check=checking,full_history=not checking,extract=extract)
+            cell.reposition('blue',[100,160,20])
+            result = await memory.run('Repeat.', 'actor' if checking else 'reader',
+                'reader' if checking else None,check=checking,full_history=not checking,extract=extract)
+            goals[checking] = result['goal']
+        self.assertEqual(reads[False],[row for row in reads[True] if row[-1]])
+        self.assertEqual(len(reads[False]),2)
+        self.assertEqual(len(reads[True]),4)
+        self.assertIsNone(reads[False][1][2])
+        self.assertIn('1. Place red',reads[False][1][0])
+        self.assertIn('2. Repeat.',reads[False][1][0])
+        self.assertEqual(goals[False],goals[True])
+
+    async def test_direct_history_rejects_partial_updates_and_does_not_commit_history(self):
+        memory = self.c.ContractSession(r.Session(self.cell))
+        def extract(*args,**kwargs):
+            return dict(action='edit',requirements={})
+        with self.assertRaises(r.Rejected):
+            await memory.run('Repeat.', 'reader',check=False,full_history=True,extract=extract)
+        self.assertEqual(memory.instructions,[])
+        self.assertEqual(self.cell.motions,0)
+        with self.assertRaises(r.Rejected):
+            await memory.run('Place red right of blue.', 'actor','reader',full_history=True,extract=extract)
+
     async def test_a_release_keeps_the_other_requirement(self):
         previous = dict(self.task, gap_mm=35, via='can')
         reading = dict(action='edit', requirements=dict(gap_mm=None))
@@ -757,9 +793,33 @@ class ContractEvaluationTests(unittest.TestCase):
         for options in [dict(contract_check=False),
                         dict(contract_check=False, episodes=True, repairs=1),
                         dict(contract_check=True, episodes=True),
-                        dict(contract_check=False, episodes=True, audit_model='reader')]:
+                        dict(contract_check=False, episodes=True, audit_model='reader'),
+                        dict(contract_full_history=True,episodes=True),
+                        dict(contract_check=True,contract_full_history=True,episodes=True,audit_model='reader')]:
             with self.subTest(options=options), self.assertRaises(r.Rejected):
                 evaluate.collect_dataset(records, 'actor', **options)
+
+    def test_direct_history_control_uses_the_shared_episode_evaluator(self):
+        import evaluate
+        import run
+        records,source = evaluate.load_dataset(Path(__file__).parent/'tasks.zip',member='test.jsonl',layouts=1)
+        ordered = [row for episode in evaluate.dataset_episode_groups(records) for row in episode]
+        reads = []
+        def extract(command,scene,previous,model,*,full):
+            spec=ordered[len(reads)]['metadata']['reference_requirements']
+            reads.append((command,previous,model,full))
+            direction=next(d for d,axis in r.DIRECTIONS.items() if axis==(spec['axis'],spec['sign']))
+            return dict(action='new',requirements=dict(object=spec['object'],reference=spec['reference'],
+                relations=[direction],gap_mm=spec['gap'],via=spec['via'] or None))
+        report=evaluate.collect_dataset(records,'supplied-reader',episodes=True,contract_extractor=extract,
+            **run.options('history-memory','unused'))
+        self.assertEqual(report['episode_success']['value'],1)
+        self.assertEqual(report['contract_view'],'history')
+        self.assertEqual(report['history_policy'],'instruction history')
+        self.assertIsNone(report['audit_model'])
+        self.assertEqual(len(reads),len(ordered))
+        self.assertTrue(all(full and previous is None for _,previous,_,full in reads))
+        self.assertTrue(reads[-1][0].startswith('1. '))
 
 
 class MuJoCoTests(unittest.IsolatedAsyncioTestCase):

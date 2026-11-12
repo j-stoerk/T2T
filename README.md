@@ -37,10 +37,13 @@ The requirement compiler can release an exact gap or an over-can requirement. Th
 ```sh
 python run.py compatible-demo
 python run.py run --method local-memory --actor qwen3:4b "Place red right of blue, passing over the can." "Repeat."
+python run.py run --method history-memory --actor qwen3:4b "Place red right of blue, passing over the can." "Repeat."
 python run.py run --method compatible --actor qwen3:4b --reader qwen3:4b "Place red right of blue, passing over the can." "Repeat."
 ```
 
 `local-memory` uses one reading to update stored requirements. `compatible` adds a reader of the successful instruction history, with the first reading withheld, then selects a motion permitted by both. Both modes share the actor interface and planner. Allowed directions, optional gaps and optional routes stay separate from executed goals.
+
+`history-memory` executes a single full-history reading directly. Use the same model as the compatible method's reader to test whether the extra local reading helps beyond the reader alone. These controls share the requirement schema and planner; record model identities and actual call costs when comparing different sizes.
 
 The demo checks supplied requirements in MuJoCo, including a repeat after the reference moves. For optional gaps, search uses 20/40/60/80/100 mm and direct/over-can routes; explicit gaps use their requested value. Selected motions pass geometric and native preflight checks. Live-model accuracy for this broader interface remains unmeasured; the frozen research comparison uses separate scripts and fixed inputs.
 
@@ -56,7 +59,7 @@ Use `--method local-memory` and `--method compatible`, with the same `--actor`, 
 
 Omit `--layouts 1` for all 20 layouts; one layout gives no confidence interval. Add `--scope requests` for independent requests with supplied correct history. Add `--server-pid PID` to measure client and Ollama RAM together; otherwise memory remains unmeasured. Cold model loading is included when it occurs. Stock Ollama models are a starting point; these commands do not reproduce the paper's fine-tuned CPU GGUF deployment.
 
-Methods are `physical`, `feedback`, `sampling`, `checked`, `shared-history`, `local-memory`, `compatible` and the supplied-goal `reference` control. All share the controller; learned methods have a six-call, 120-second planning limit. Contract modes use one actor call and, when enabled, one reader call, with no repair loop.
+Methods are `physical`, `feedback`, `sampling`, `checked`, `shared-history`, `local-memory`, `history-memory`, `compatible` and the supplied-goal `reference` control. All share the controller; learned methods have a six-call, 120-second planning limit. Contract modes use one actor call and, when enabled, one reader call, with no repair loop.
 
 Scores cover complete episodes, request compliance, omitted requirements, wrong-meaning completions, false refusals, timeouts, collisions, placement error, time and measured memory. Comparisons bootstrap complete layouts 2,000 times. Failed and skipped commands keep their denominators.
 

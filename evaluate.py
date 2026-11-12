@@ -182,7 +182,8 @@ def proposal_grounding(value, scene, previous, specification):
 
 def paired_trial(parse, model, cell, session, command, specification, *,
                  audit_model=None, history=None, extractor=None, skip=False, shared_history=False,
-                 repairs=0, planning_budget_s=120, contract_check=None, contract_extractor=None):
+                 repairs=0, planning_budget_s=120, contract_check=None, contract_extractor=None,
+                 contract_full_history=False):
     before, value, valid, refused, status, diagnostic = cell.snapshot(), None, False, False, "error", None
     previous = deepcopy(session.previous)
     checked, audit_ms = None, 0
@@ -202,7 +203,8 @@ def paired_trial(parse, model, cell, session, command, specification, *,
                     session.contract_memory = ContractSession(session)
                 extra = dict(extract=contract_extractor) if contract_extractor else {}
                 result = asyncio.run(session.contract_memory.run(command, model, audit_model,
-                    check=contract_check, planning_budget_s=planning_budget_s, **extra))
+                    check=contract_check, full_history=contract_full_history,
+                    planning_budget_s=planning_budget_s, **extra))
             info = result
             status = result["status"]
     except r.BudgetExceeded as error:
@@ -590,11 +592,13 @@ def dataset_episode(records, model, actor, cell_factory, **options):
 def collect_dataset(records, model, *, parse=None, audit_model=None, cell_factory=TraceCell,
                     shared_history=False, measure_memory=False, server_pid=None,
                     repairs=0, planning_budget_s=120, progress=False, episodes=False, resample=False,
-                    contract_check=None, contract_extractor=None):
+                    contract_check=None, contract_extractor=None, contract_full_history=False):
     """Run independent supplied-context requests or complete evolving-history episodes."""
     r.validate_request_limits(repairs, planning_budget_s)
     if not records or audit_model == "oracle" or shared_history and not audit_model:
         raise r.Rejected("Supply tasks and a learned auditor for auditing/history ablation; oracle is actor-only.")
+    if type(contract_full_history) is not bool or contract_full_history and contract_check is not False:
+        raise r.Rejected('Direct history reading requires a contract comparison without checking.')
     if contract_check is not None:
         if (type(contract_check) is not bool or not episodes or model == 'oracle' or parse is not None or
                 repairs or resample or shared_history or bool(audit_model) != contract_check):
@@ -608,7 +612,7 @@ def collect_dataset(records, model, *, parse=None, audit_model=None, cell_factor
     options = dict(audit_model=audit_model, shared_history=shared_history, repairs=repairs,
                    planning_budget_s=planning_budget_s, measure_memory=measure_memory,
                    server_pid=server_pid, progress=progress, contract_check=contract_check,
-                   contract_extractor=contract_extractor)
+                   contract_extractor=contract_extractor, contract_full_history=contract_full_history)
     rows, episode_results = [], []
     if episodes:
         for group in dataset_episode_groups(records):
@@ -624,10 +628,12 @@ def collect_dataset(records, model, *, parse=None, audit_model=None, cell_factor
     return dict(protocol="dataset_episodes_v1" if episodes else "supplied_context_diagnostic_v1",
                 model=model, audit_model=audit_model, reference_actor=actor is None, n=len(rows), backend=backend,
                 actor_interface='requirement_contract' if contract_check is not None else 'concrete_goal',
+                contract_view=('history' if contract_full_history else 'local') if contract_check is not None else None,
                 custom_contract_reader=contract_extractor is not None,
                 context=("History develops from runtime completions; stop on reported failure. Initial setup cost excluded."
                          if episodes else "Supplied successful history; not an end-to-end episode test. Setup costs excluded."),
-                history_policy=("local requirements + instruction history" if contract_check else "local requirements")
+                history_policy=("instruction history" if contract_full_history else
+                    "local requirements + instruction history" if contract_check else "local requirements")
                     if contract_check is not None else "shared" if shared_history else
                     ("checked" if episodes else "supplied checked goal") if audit_model else None,
                 repair_limit=repairs, planning_budget_s=planning_budget_s, max_model_calls=6,
@@ -801,7 +807,7 @@ def comparison_controls(report):
     artifact = lambda name: before.get("models", {}).get(name, {}).get("digest")
     return dict(**{key: report.get(key) for key in ("model", "audit_model", "reference_actor", "repair_limit", "resampling",
                                                    "planning_budget_s", "max_model_calls", "max_context_tokens", "history_policy",
-                                                   "actor_interface", "custom_contract_reader")},
+                                                   "actor_interface", "custom_contract_reader", "contract_view")},
                 actor_digest=artifact(report.get("model")), auditor_digest=artifact(report.get("audit_model")),
                 hardware=before.get("hardware"), server_version=before.get("server_version"),
                 request_defaults=before.get("request_defaults"),

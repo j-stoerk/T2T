@@ -12,7 +12,7 @@ import robot
 from mujoco_cell import MODEL_SHA256, MuJoCoCell
 
 ROOT = Path(__file__).resolve().parent
-METHODS = ('physical', 'feedback', 'sampling', 'checked', 'shared-history', 'local-memory', 'compatible', 'reference')
+METHODS = ('physical', 'feedback', 'sampling', 'checked', 'shared-history', 'local-memory', 'history-memory', 'compatible', 'reference')
 MODEL_URL = ('https://raw.githubusercontent.com/google-deepmind/mujoco_menagerie/'
              'c71a0fa7ee4ebd1c7bc957418eb0f82c7bc1e035/kuka_iiwa_14/iiwa14.xml')
 
@@ -32,8 +32,9 @@ def options(method, reader):
     result = dict(repairs=2 if method in ('feedback', 'checked', 'shared-history') else 0,
                 audit_model=reader if method in ('checked', 'shared-history') else None,
                 shared_history=method == 'shared-history', resample=method == 'sampling')
-    if method in ('local-memory', 'compatible'):
-        result.update(contract_check=method == 'compatible', audit_model=reader if method == 'compatible' else None)
+    if method in ('local-memory', 'history-memory', 'compatible'):
+        result.update(contract_check=method == 'compatible', contract_full_history=method == 'history-memory',
+                      audit_model=reader if method == 'compatible' else None)
     return result
 
 
@@ -49,7 +50,7 @@ def demo(path):
 
 def execute(args, path):
     session, history = robot.Session(MuJoCoCell(path)), None
-    if args.method in ('compatible', 'local-memory'):
+    if args.method in ('compatible', 'local-memory', 'history-memory'):
         from contracts import ContractSession
         memory = ContractSession(session)
     else:
@@ -58,7 +59,8 @@ def execute(args, path):
     sampling = settings.pop('resample')
     for command in args.instructions:
         session.cell.reset_trace()
-        result = asyncio.run(memory.run(command, args.actor, args.reader, check=args.method == 'compatible') if memory else
+        result = asyncio.run(memory.run(command, args.actor, args.reader, check=args.method == 'compatible',
+            full_history=args.method == 'history-memory') if memory else
             robot.run_instruction(session, command, args.actor, history=history,
                 parse=robot.resample_interpret if sampling else None, **settings))
         history = result.get('audit') or history
@@ -156,7 +158,7 @@ def main():
     args = parser.parse_args()
     if args.command == 'evaluate' and (args.output.exists() or args.layouts is not None and not 1 <= args.layouts <= 20):
         parser.error('Use a new output path and between 1 and 20 layouts.')
-    if args.command == 'evaluate' and args.method in ('local-memory', 'compatible') and args.scope != 'episodes':
+    if args.command == 'evaluate' and args.method in ('local-memory', 'history-memory', 'compatible') and args.scope != 'episodes':
         parser.error('Contract comparisons require --scope episodes so user history develops through execution.')
     try:
         if args.command == 'policies':
