@@ -98,6 +98,86 @@ def published_policies(path):
     return result
 
 
+def interface_results(data):
+    """Retain every outcome in the fixed four-condition development control."""
+    modes = {'original_free':(False,False), 'full_goal_free':(True,False),
+        'original_grammar':(False,True), 'full_goal_grammar':(True,True)}
+    if data['split'] != 'development' or set(data['conditions']) != set(modes):
+        raise ValueError('Expected all four development interface conditions.')
+    for field, size in [('episode_ids',6), ('unsupported_ids',10)]:
+        if len(data[field]) != len(set(data[field])) or len(data[field]) != size:
+            raise ValueError('Retain every assigned interface case.')
+    summaries = {}
+    for name, (full, grammar) in modes.items():
+        run = data['conditions'][name]
+        if (run['full_goal'],run['grammar']) != (full,grammar):
+            raise ValueError('The prompt and decoding factors must match the condition.')
+        for field, size in [('episode_success',6), ('unsupported_success',10), ('unsupported_execution',10)]:
+            values = run[field]
+            if len(values) != size or any(type(value) is not bool for value in values):
+                raise ValueError('Retain all Boolean outcomes, including failures.')
+        if any(a and b for a,b in zip(run['unsupported_success'],run['unsupported_execution'])):
+            raise ValueError('An unsupported execution cannot be a correct refusal.')
+        summaries[name] = dict(successes=sum(run['episode_success']), episodes=6,
+            correct_refusals=sum(run['unsupported_success']), unsupported=10,
+            unsupported_executions=sum(run['unsupported_execution']))
+    return summaries
+
+
+def sequence_assignment(data):
+    """Require every assigned case, family, method and completed seed."""
+    protocol, cases = data['protocol'], data['episodes']
+    seeds, methods = protocol['completed_training_seeds'], protocol['methods']
+    layouts = sorted({case['layout'] for case in cases})
+    if (protocol['split'] != 'development' or data['complete_study'] is not False or
+            not seeds or len(set(seeds)) != len(seeds) or len(cases) != 48 or len(layouts) != 8 or
+            len({case['id'] for case in cases}) != 48 or len(data['unsupported_ids']) != 80 or
+            len(set(data['unsupported_ids'])) != 80 or
+            len(methods) != 12 or len(set(methods)) != 12 or set(data['methods']) != set(methods)):
+        raise ValueError('Expected complete development assignments and all twelve methods.')
+    indices = [[i for i, case in enumerate(cases) if case['layout'] == layout] for layout in layouts]
+    if any(len(group) != 6 or {cases[i]['family'] for i in group} != set(range(6)) for group in indices):
+        raise ValueError('Every layout must retain all six families.')
+    return protocol, seeds, methods, indices
+
+
+def sequence_results(data):
+    """Replay complete development cohorts, keeping layouts and seeds coupled."""
+    import numpy as np
+    protocol, seeds, methods, indices = sequence_assignment(data)
+    draws = np.random.default_rng(protocol['bootstrap_seed']).integers(0, 8,
+        size=(protocol['resamples'], 8))
+    outcomes, summaries = {}, {}
+    for name in methods:
+        method = data['methods'][name]
+        if set(method['runs']) != set(seeds):
+            raise ValueError('Every method must retain every declared seed.')
+        scores = {}
+        for seed in seeds:
+            run = method['runs'][seed]
+            for field, size in [('episode_success', 48), ('unsupported_success', 80)]:
+                values = run[field]
+                if not isinstance(values, list) or len(values) != size or any(type(v) is not bool for v in values):
+                    raise ValueError('Retain every assigned Boolean outcome, including failures.')
+            values = np.asarray(run['episode_success'], dtype=float)
+            outcomes[name, seed] = np.asarray([values[group].mean() for group in indices])
+            scores[seed] = dict(episode_successes=sum(run['episode_success']), episodes=48,
+                correct_refusals=sum(run['unsupported_success']), unsupported_requests=80,
+                layout_95_interval_pp=np.quantile(100*outcomes[name, seed][draws].mean(1), [.025,.975]).tolist())
+        summaries[name] = dict(label=method['label'], seeds=scores)
+    contrasts = []
+    for baseline, candidate in protocol['contrasts']:
+        if data['methods'][baseline]['group'] != data['methods'][candidate]['group']:
+            raise ValueError('Paired comparisons must share an execution group.')
+        for seed in seeds:
+            difference = 100*(outcomes[candidate, seed] - outcomes[baseline, seed])
+            contrasts.append(dict(baseline=baseline, candidate=candidate, seed=seed,
+                difference_pp=float(difference.mean()),
+                conditional_layout_95_interval_pp=np.quantile(difference[draws].mean(1), [.025,.975]).tolist()))
+    return dict(scope=data['scope'], complete_study=False, methods=summaries, contrasts=contrasts,
+        seeds=seeds, layouts=8, resamples=protocol['resamples'], bootstrap_seed=protocol['bootstrap_seed'])
+
+
 class TraceCell(r.MemoryCell):
     """Observe payload positions independently of the proposed semantic goal."""
     def reset_trace(self):
@@ -182,7 +262,8 @@ def proposal_grounding(value, scene, previous, specification):
 
 def paired_trial(parse, model, cell, session, command, specification, *,
                  audit_model=None, history=None, extractor=None, skip=False, shared_history=False,
-                 repairs=0, planning_budget_s=120):
+                 repairs=0, planning_budget_s=120, contract_check=None, contract_extractor=None,
+                 contract_full_history=False):
     before, value, valid, refused, status, diagnostic = cell.snapshot(), None, False, False, "error", None
     previous = deepcopy(session.previous)
     checked, audit_ms = None, 0
@@ -193,8 +274,17 @@ def paired_trial(parse, model, cell, session, command, specification, *,
         if skip:
             valid, status, diagnostic = None, "skipped", "Episode stopped after a reported failure."
         else:
-            result = asyncio.run(r.run_instruction(session, command, model, audit_model, history,
-                shared_history, parse, extractor, repairs, planning_budget_s))
+            if contract_check is None:
+                result = asyncio.run(r.run_instruction(session, command, model, audit_model, history,
+                    shared_history, parse, extractor, repairs, planning_budget_s))
+            else:
+                from contracts import ContractSession
+                if not hasattr(session, 'contract_memory'):
+                    session.contract_memory = ContractSession(session)
+                extra = dict(extract=contract_extractor) if contract_extractor else {}
+                result = asyncio.run(session.contract_memory.run(command, model, audit_model,
+                    check=contract_check, full_history=contract_full_history,
+                    planning_budget_s=planning_budget_s, **extra))
             info = result
             status = result["status"]
     except r.BudgetExceeded as error:
@@ -235,7 +325,8 @@ def paired_trial(parse, model, cell, session, command, specification, *,
                 silent_success=status == "success" and not checks["request_ok"],
                 latency_ms=latency, plan_latency_ms=planning,
                 model_output=value, expected=specification, error=diagnostic,
-                previous_goal=previous, grounding_correct=proposal_grounding(value, before, previous, specification),
+                previous_goal=previous,
+                grounding_correct=proposal_grounding(value, before, previous, specification) if contract_check is None else None,
                 initial_scene=before, final_scene=cell.snapshot(),
                 payload_trace=cell.trace, releases=cell.releases, motions=cell.motions, **checks, **simulation)
 
@@ -580,18 +671,28 @@ def dataset_episode(records, model, actor, cell_factory, **options):
 
 def collect_dataset(records, model, *, parse=None, audit_model=None, cell_factory=TraceCell,
                     shared_history=False, measure_memory=False, server_pid=None,
-                    repairs=0, planning_budget_s=120, progress=False, episodes=False, resample=False):
+                    repairs=0, planning_budget_s=120, progress=False, episodes=False, resample=False,
+                    contract_check=None, contract_extractor=None, contract_full_history=False):
     """Run independent supplied-context requests or complete evolving-history episodes."""
     r.validate_request_limits(repairs, planning_budget_s)
     if not records or audit_model == "oracle" or shared_history and not audit_model:
         raise r.Rejected("Supply tasks and a learned auditor for auditing/history ablation; oracle is actor-only.")
+    if type(contract_full_history) is not bool or contract_full_history and contract_check is not False:
+        raise r.Rejected('Direct history reading requires a contract comparison without checking.')
+    if contract_check is not None:
+        if (type(contract_check) is not bool or not episodes or model == 'oracle' or parse is not None or
+                repairs or resample or shared_history or bool(audit_model) != contract_check):
+            raise r.Rejected('Contract comparisons require episodes, a shared actor, and an optional reader; no extra repairs or sampling.')
+    elif contract_extractor is not None:
+        raise r.Rejected('A contract extractor requires a contract comparison.')
     if resample and (model == "oracle" or parse is not None or audit_model or repairs or shared_history):
         raise r.Rejected("Resampling uses only the actor, without a checker, custom parser or extra repair loop.")
     actor = parse or ((r.resample_interpret if resample else r.interpret) if model != "oracle" else None)
     validate_memory_scope(actor in (r.interpret, r.resample_interpret) or audit_model, measure_memory, server_pid)
     options = dict(audit_model=audit_model, shared_history=shared_history, repairs=repairs,
                    planning_budget_s=planning_budget_s, measure_memory=measure_memory,
-                   server_pid=server_pid, progress=progress)
+                   server_pid=server_pid, progress=progress, contract_check=contract_check,
+                   contract_extractor=contract_extractor, contract_full_history=contract_full_history)
     rows, episode_results = [], []
     if episodes:
         for group in dataset_episode_groups(records):
@@ -606,9 +707,15 @@ def collect_dataset(records, model, *, parse=None, audit_model=None, cell_factor
     families = sorted({row["family"] for row in rows})
     return dict(protocol="dataset_episodes_v1" if episodes else "supplied_context_diagnostic_v1",
                 model=model, audit_model=audit_model, reference_actor=actor is None, n=len(rows), backend=backend,
+                actor_interface='requirement_contract' if contract_check is not None else 'concrete_goal',
+                contract_view=('history' if contract_full_history else 'local') if contract_check is not None else None,
+                custom_contract_reader=contract_extractor is not None,
                 context=("History develops from runtime completions; stop on reported failure. Initial setup cost excluded."
                          if episodes else "Supplied successful history; not an end-to-end episode test. Setup costs excluded."),
-                history_policy="shared" if shared_history else ("checked" if episodes else "supplied checked goal") if audit_model else None,
+                history_policy=("instruction history" if contract_full_history else
+                    "local requirements + instruction history" if contract_check else "local requirements")
+                    if contract_check is not None else "shared" if shared_history else
+                    ("checked" if episodes else "supplied checked goal") if audit_model else None,
                 repair_limit=repairs, planning_budget_s=planning_budget_s, max_model_calls=6,
                 resampling=(dict(r.RESAMPLE_OPTIONS, seeds=list(r.RESAMPLE_SEEDS),
                                  selection="Plurality of physically feasible grounded goals and clarifications; first sample breaks ties.")
@@ -618,7 +725,8 @@ def collect_dataset(records, model, *, parse=None, audit_model=None, cell_factor
                 episode_false_refusal_rate=r.rate(episode_results, "false_refusal"),
                 episode_wall_ms=r.statistics([row["wall_ms"] for row in episode_results], len(episode_results)),
                 human_review_pending=sum(row["human_review"] == "pending" for row in rows),
-                source_sha256={p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in (r.__file__, __file__)},
+                source_sha256={p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
+                               for p in (r.__file__, __file__, str(Path(__file__).with_name('contracts.py')))},
                 by_family={family: trial_metrics([row for row in rows if row["family"] == family]) for family in families},
                 rows=rows, **trial_metrics(rows))
 
@@ -778,7 +886,8 @@ def comparison_controls(report):
     before = (report.get("provenance", {}).get("before") or {})
     artifact = lambda name: before.get("models", {}).get(name, {}).get("digest")
     return dict(**{key: report.get(key) for key in ("model", "audit_model", "reference_actor", "repair_limit", "resampling",
-                                                   "planning_budget_s", "max_model_calls", "max_context_tokens", "history_policy")},
+                                                   "planning_budget_s", "max_model_calls", "max_context_tokens", "history_policy",
+                                                   "actor_interface", "custom_contract_reader", "contract_view")},
                 actor_digest=artifact(report.get("model")), auditor_digest=artifact(report.get("audit_model")),
                 hardware=before.get("hardware"), server_version=before.get("server_version"),
                 request_defaults=before.get("request_defaults"),

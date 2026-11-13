@@ -20,6 +20,8 @@ python -m unittest test_system
 
 The demo downloads one checksum-verified robot XML and executes three supplied goals, including a repeat after the reference object moves. It checks the controller without a language model.
 
+Explicit scene edits check the new pose for contacts before changing the live simulation. An overlapping pose leaves the cell unchanged; the edit's transport path is outside this interface.
+
 For language input, start [Ollama](https://ollama.com/) and install its [Qwen3 models](https://ollama.com/library/qwen3).
 
 ```sh
@@ -30,6 +32,25 @@ python run.py run --method checked "Place the red cube right of the blue cube ov
 
 Pass several quoted instructions to share history. Objects, directions and edge-to-edge gaps use world coordinates and millimetres. Unsupported or ambiguous requests stop before motion.
 
+The requirement compiler can release an exact gap or an over-can requirement. The released field stays optional on later repeats, while other requirements remain active. This tests compiler behavior; model accuracy on these follow-ups remains under evaluation.
+
+## Plan compatibility
+
+```sh
+python run.py compatible-demo
+python run.py run --method local-memory --actor qwen3:4b "Place red right of blue, passing over the can." "Repeat."
+python run.py run --method history-memory --actor qwen3:4b "Place red right of blue, passing over the can." "Repeat."
+python run.py run --method compatible --actor qwen3:4b --reader qwen3:4b "Place red right of blue, passing over the can." "Repeat."
+```
+
+`local-memory` uses one reading to update stored requirements. `compatible` adds a reader of the successful instruction history, with the first reading withheld, then selects a motion permitted by both. Both modes share the actor interface and planner. Allowed directions, optional gaps and optional routes stay separate from executed goals.
+
+Both readers receive the last successful plan separately. An instruction can explicitly adopt its gap or direction; a bare repeat keeps optional fields optional. Requests for unavailable earlier planner choices require clarification.
+
+`history-memory` executes a single full-history reading directly. Use the same model as the compatible method's reader to test whether the extra local reading helps beyond the reader alone. These controls share the requirement schema and planner; record model identities and actual call costs when comparing different sizes.
+
+The demo checks supplied requirements in MuJoCo, including a repeat after the reference moves. Optional gaps first try 20/40/60/80/100 mm, then candidates derived from workspace and obstacle boundaries within 5-200 mm. Routes are direct or over-can; explicit gaps keep their requested value. Planning reserves 1 mm around obstacle boxes for tracking error; runtime checks use the measured grasp offset. Every selected motion passes geometric and native preflight checks. The fallback remains a finite search and can miss feasible motions. Live-model accuracy for this broader interface remains unmeasured; the frozen research comparison uses separate scripts and fixed inputs.
+
 ## Compare methods
 
 ```sh
@@ -38,13 +59,21 @@ python run.py evaluate --method checked --layouts 1 --output results/checked.jso
 python run.py compare results/feedback.json.gz results/checked.json.gz
 ```
 
+Use `--method local-memory` and `--method compatible`, with the same `--actor`, to compare the contract interface without and with checking. These modes require the default episode scope. They share the task labels, controller and planning limits; observations measure whole-request success independently of either reading. Concrete-goal grounding accuracy is unmeasured for contract outputs.
+
 Omit `--layouts 1` for all 20 layouts; one layout gives no confidence interval. Add `--scope requests` for independent requests with supplied correct history. Add `--server-pid PID` to measure client and Ollama RAM together; otherwise memory remains unmeasured. Cold model loading is included when it occurs. Stock Ollama models are a starting point; these commands do not reproduce the paper's fine-tuned CPU GGUF deployment.
 
-Methods are `physical`, `feedback`, `sampling`, `checked`, `shared-history` and the supplied-goal `reference` control. All share the controller; learned methods have a six-call, 120-second planning limit.
+Methods are `physical`, `feedback`, `sampling`, `checked`, `shared-history`, `local-memory`, `history-memory`, `compatible` and the supplied-goal `reference` control. All share the controller; learned methods have a six-call, 120-second planning limit. Contract modes use one actor call and, when enabled, one reader call, with no repair loop.
 
 Scores cover complete episodes, request compliance, omitted requirements, wrong-meaning completions, false refusals, timeouts, collisions, placement error, time and measured memory. Comparisons bootstrap complete layouts 2,000 times. Failed and skipped commands keep their denominators.
 
 `python run.py policies` reproduces all five LIBERO scores and ten paired confidence intervals from [published_results.json](published_results.json), which contains all 2,000 Boolean outcomes and checkpoint/source identities. It runs without inference or model downloads. Intervals resample tasks within each suite; they exclude training-seed variation and hardware costs.
+
+`python run.py study` replays all twelve development methods across three training seeds: 48 episodes and 80 unsupported requests per method and seed. Direct requirement extraction completes 48/48 episodes at every seed; the goal model with physical feedback completes 43, 38 and 38. Adding a trained reader completes 45, 38 and 38. The command recomputes paired intervals using 2,000 layout resamples, keeping all six task families together. Adapted models have 1.7B parameters; the pretrained 4B controls reuse fixed weights. Held-out confirmation remains pending. Saved outcomes require no inference or model downloads.
+
+Refusal counts describe the whole system and can include compiler stops. Output-format failures confound the pretrained 4B controls; these scores cannot isolate model capacity or the reader's refusal decisions.
+
+The command also reports a four-condition 4B interface control on one development layout. Original/full-goal prompts complete 1/6 and 5/6 episodes with free decoding, versus 2/6 and 3/6 with schema-constrained decoding. All four execute some unsupported requests. The same weights and CPU host are used throughout; this small control has no across-layout uncertainty estimate.
 
 The same command reports a separate 48-episode development continuation test. TurboVLA and OpenVLA-OFT receive three explicit commands in one continuous scene. Each of six context/handoff conditions completes 0/8 sequences, despite 6–8 successful first placements. A privileged-state contact controller establishes physical feasibility for four bowl cases; four bottle cases remain unresolved. These results identify a continuation problem on this small task set; its cause remains open.
 
@@ -61,6 +90,7 @@ This CPU baseline reads frozen RGB images with colour regions and numeric-tag te
 | File | Change it when working on… |
 |---|---|
 | [robot.py](robot.py) | prompts, requirement checking, planning and task history |
+| [contracts.py](contracts.py) | complementary readings, task permissions and shared feasible plans |
 | [mujoco_cell.py](mujoco_cell.py) | robot motion, grasp attachment and contact checks |
 | [evaluate.py](evaluate.py) | outcome scoring, episodes, metrics and paired comparisons |
 | [vision.py](vision.py) | fixed-grammar RGB reference and saved-image replay |

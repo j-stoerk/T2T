@@ -12,7 +12,7 @@ import robot
 from mujoco_cell import MODEL_SHA256, MuJoCoCell
 
 ROOT = Path(__file__).resolve().parent
-METHODS = ('physical', 'feedback', 'sampling', 'checked', 'shared-history', 'reference')
+METHODS = ('physical', 'feedback', 'sampling', 'checked', 'shared-history', 'local-memory', 'history-memory', 'compatible', 'reference')
 MODEL_URL = ('https://raw.githubusercontent.com/google-deepmind/mujoco_menagerie/'
              'c71a0fa7ee4ebd1c7bc957418eb0f82c7bc1e035/kuka_iiwa_14/iiwa14.xml')
 
@@ -29,9 +29,13 @@ def model_path():
 
 
 def options(method, reader):
-    return dict(repairs=2 if method in ('feedback', 'checked', 'shared-history') else 0,
+    result = dict(repairs=2 if method in ('feedback', 'checked', 'shared-history') else 0,
                 audit_model=reader if method in ('checked', 'shared-history') else None,
                 shared_history=method == 'shared-history', resample=method == 'sampling')
+    if method in ('local-memory', 'history-memory', 'compatible'):
+        result.update(contract_check=method == 'compatible', contract_full_history=method == 'history-memory',
+                      audit_model=reader if method == 'compatible' else None)
+    return result
 
 
 def demo(path):
@@ -46,13 +50,20 @@ def demo(path):
 
 def execute(args, path):
     session, history = robot.Session(MuJoCoCell(path)), None
+    if args.method in ('compatible', 'local-memory', 'history-memory'):
+        from contracts import ContractSession
+        memory = ContractSession(session)
+    else:
+        memory = None
     settings = options(args.method, args.reader)
     sampling = settings.pop('resample')
     for command in args.instructions:
         session.cell.reset_trace()
-        result = asyncio.run(robot.run_instruction(session, command, args.actor, history=history,
-            parse=robot.resample_interpret if sampling else None, **settings))
-        history = result['audit'] or history
+        result = asyncio.run(memory.run(command, args.actor, args.reader, check=args.method == 'compatible',
+            full_history=args.method == 'history-memory') if memory else
+            robot.run_instruction(session, command, args.actor, history=history,
+                parse=robot.resample_interpret if sampling else None, **settings))
+        history = result.get('audit') or history
         print(json.dumps(dict(instruction=command, status=result['status'], goal=result['goal'],
                               planning_ms=result['plan_latency_ms']), indent=2))
 
@@ -73,6 +84,29 @@ def benchmark(args, path):
         json.dump(report, stream, allow_nan=False)
     return dict(output=str(args.output), observations=report['n'],
                 episode_success=report['episode_success'], request_success=report['supported_request_success'])
+
+
+def compatible_demo(path):
+    """Two complementary supplied readings, repeated after a reference move."""
+    from contracts import select_plan
+    cell = MuJoCoCell(path)
+    session = robot.Session(cell)
+    views = [dict(object='red', reference='blue', relations=['right', 'behind'], gap_mm=20, via=None),
+             dict(object='red', reference='blue', relations=['right'], gap_mm=None, via='can')]
+    results = []
+    for index in range(2):
+        if index:
+            cell.reposition('blue', [100, 160, 20])
+        before = cell.snapshot()
+        cell.reset_trace()
+        plan = asyncio.run(select_plan(cell, views))
+        asyncio.run(session.run(plan['goal']))
+        check = evaluation.observed_request(cell, before,
+            dict(object='red', reference='blue', axis=0, sign=1, gap=20, via='can'))
+        results.append(dict(request_ok=check['request_ok'], collisions=len(cell.collision_events),
+                            joint_limit_error_rad=cell.max_joint_limit_error_rad))
+    return dict(mode='Supplied complementary requirements; no language model.',
+                after_reference_move=True, results=results)
 
 
 def compare(paths):
@@ -98,11 +132,37 @@ def compare(paths):
         print(warning)
 
 
+def show_study():
+    data = json.loads((ROOT/'published_results.json').read_text(encoding='utf-8'))['sequence_development']
+    report = evaluation.sequence_results(data)
+    print('Development only; 8 layouts. Cells show successful episodes /48, system refusals /80.')
+    print(f"{'Method':48} " + ' '.join(f"{'Seed '+seed:>15}" for seed in report['seeds']))
+    for method in report['methods'].values():
+        cells = [f"{method['seeds'][s]['episode_successes']}/48, {method['seeds'][s]['correct_refusals']}/80"
+                 for s in report['seeds']]
+        print(f"{method['label']:48} " + ' '.join(f'{cell:>15}' for cell in cells))
+    print('System refusals can come from the model or compiler. Output-format failures confound the pretrained 4B controls.')
+    print('\nCandidate minus baseline; conditional paired-layout 95% intervals:')
+    for contrast in report['contrasts']:
+        a, b = (report['methods'][contrast[key]]['label'] for key in ['baseline', 'candidate'])
+        lo, hi = contrast['conditional_layout_95_interval_pp']
+        print(f"Seed {contrast['seed']}: {b} minus {a}: {contrast['difference_pp']:+.2f} pp [{lo:+.2f}, {hi:+.2f}]")
+    print(report['scope'])
+    control = json.loads((ROOT/'published_results.json').read_text(encoding='utf-8'))['goal_interface_development']
+    print('\nPretrained 4B interface control; one development layout, fixed weights:')
+    for name, row in evaluation.interface_results(control).items():
+        print(f"{name:24} {row['successes']}/6 episodes, {row['correct_refusals']}/10 refusals, "
+              f"{row['unsupported_executions']}/10 unsupported executions")
+    print(control['scope'])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('policies', help='Reproduce LIBERO scores, intervals and development continuation counts without inference.')
+    commands.add_parser('study', help='Replay the released development scores and paired layout intervals without inference.')
     commands.add_parser('demo', help='Run three supplied goals in MuJoCo, including a changed-scene repeat.')
+    commands.add_parser('compatible-demo', help='Execute complementary requirements, then repeat after objects move.')
     visual = commands.add_parser('visual-reference', help='Replay the fixed-grammar RGB baseline without a model.')
     visual.add_argument('--split', choices=('development', 'test'), default='test')
     visual.add_argument('--layouts', type=int, help='Complete layouts; defaults to the full selected split.')
@@ -123,7 +183,12 @@ def main():
     args = parser.parse_args()
     if args.command == 'evaluate' and (args.output.exists() or args.layouts is not None and not 1 <= args.layouts <= 20):
         parser.error('Use a new output path and between 1 and 20 layouts.')
+    if args.command == 'evaluate' and args.method in ('local-memory', 'history-memory', 'compatible') and args.scope != 'episodes':
+        parser.error('Contract comparisons require --scope episodes so user history develops through execution.')
     try:
+        if args.command == 'study':
+            show_study()
+            return
         if args.command == 'policies':
             print(json.dumps(evaluation.published_policies(ROOT/'published_results.json'), indent=2))
             return
@@ -140,7 +205,8 @@ def main():
             if args.command == 'run':
                 execute(args, path)
                 return
-            result = demo(path) if args.command == 'demo' else benchmark(args, path)
+            result = (compatible_demo(path) if args.command == 'compatible-demo' else
+                      demo(path) if args.command == 'demo' else benchmark(args, path))
         print(json.dumps(result, indent=2, allow_nan=False))
     except (robot.Rejected, OSError) as error:
         parser.exit(1, str(error) + '\n')

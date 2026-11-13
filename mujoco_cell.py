@@ -10,7 +10,7 @@ import mujoco as mj
 import numpy as np
 from scipy.spatial.transform import Rotation
 
-from robot import Rejected, example_scene
+from robot import Rejected, example_scene, vector
 
 
 MODEL_SHA256 = "ee7e6d796a9f8642de6097f95077281d15f43678dc5285beafeda99b84cf9ef5"
@@ -215,12 +215,18 @@ class MuJoCoCell:
             self.releases.append(object_id)
 
     def reposition(self, object_id, point):
-        """Explicit scene edit between commands, used to test changed-state repeat."""
+        """Check a discrete scene edit for contact before changing the live state."""
         if self.carried:
             raise Rejected("Release the payload before editing the scene.")
+        point = np.array(vector(point)) / 1000
         joint = self.model.joint("free_" + object_id)
         address, dof = int(joint.qposadr[0]), int(joint.dofadr[0])
-        self.data.qpos[address:address + 3] = np.array(point) / 1000
+        probe = mj.MjData(self.model)
+        probe.qpos[:] = self.data.qpos
+        probe.qpos[address:address + 3] = point
+        mj.mj_forward(self.model, probe)
+        self.check_contacts(probe)
+        self.data.qpos[address:address + 3] = point
         self.data.qvel[dof:dof + 6] = 0
         mj.mj_forward(self.model, self.data)
         self.advance(100)

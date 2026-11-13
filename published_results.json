@@ -458,5 +458,1155 @@
       "continuation-reference-v5/independent-reconciliation.json": "c1a14028df51c8b66714cdb5a56d5ceec8c67944c56b5bce83422e4c6b24f612"
     },
     "scope": "Separate development continuation cohort: four ordered workflows, two initial states each, explicit commands, continuous world state. Turbo crosses native/256-token context and native/released handoff; OFT uses native context with both handoffs. Physical witnesses use privileged-state contact control; four bottle cases remain unresolved. Cross-host timing is excluded."
+  },
+  "sequence_development": {
+    "complete_study": false,
+    "scope": "Development evidence from all twelve methods and three completed training seeds. Adapted models use Qwen3-1.7B; pretrained 4B controls reuse fixed weights. Forty-layout held-out confirmation remains pending. Layout intervals condition on the observed models and reused wording.",
+    "protocol": {
+      "split": "development",
+      "completed_training_seeds": [
+        "42",
+        "100",
+        "2026"
+      ],
+      "methods": [
+        "goal_direct",
+        "goal_feedback",
+        "goal_sampling",
+        "goal_self_review",
+        "actor_small_reader",
+        "requirements_direct",
+        "requirements_repair",
+        "large_goal_direct",
+        "large_goal_feedback",
+        "large_requirements",
+        "actor_large_reader",
+        "actor_visible_reader"
+      ],
+      "resamples": 2000,
+      "bootstrap_seed": 0,
+      "contrasts": [
+        [
+          "goal_feedback",
+          "actor_small_reader"
+        ],
+        [
+          "actor_small_reader",
+          "requirements_direct"
+        ],
+        [
+          "goal_feedback",
+          "requirements_direct"
+        ],
+        [
+          "requirements_direct",
+          "requirements_repair"
+        ],
+        [
+          "goal_feedback",
+          "goal_sampling"
+        ]
+      ]
+    },
+    "episodes": [
+      {
+        "id": "development-70000-0",
+        "layout": "development-70000",
+        "family": 0
+      },
+      {
+        "id": "development-70000-1",
+        "layout": "development-70000",
+        "family": 1
+      },
+      {
+        "id": "development-70000-2",
+        "layout": "development-70000",
+        "family": 2
+      },
+      {
+        "id": "development-70000-3",
+        "layout": "development-70000",
+        "family": 3
+      },
+      {
+        "id": "development-70000-4",
+        "layout": "development-70000",
+        "family": 4
+      },
+      {
+        "id": "development-70000-5",
+        "layout": "development-70000",
+        "family": 5
+      },
+      {
+        "id": "development-70001-0",
+        "layout": "development-70001",
+        "family": 0
+      },
+      {
+        "id": "development-70001-1",
+        "layout": "development-70001",
+        "family": 1
+      },
+      {
+        "id": "development-70001-2",
+        "layout": "development-70001",
+        "family": 2
+      },
+      {
+        "id": "development-70001-3",
+        "layout": "development-70001",
+        "family": 3
+      },
+      {
+        "id": "development-70001-4",
+        "layout": "development-70001",
+        "family": 4
+      },
+      {
+        "id": "development-70001-5",
+        "layout": "development-70001",
+        "family": 5
+      },
+      {
+        "id": "development-70002-0",
+        "layout": "development-70002",
+        "family": 0
+      },
+      {
+        "id": "development-70002-1",
+        "layout": "development-70002",
+        "family": 1
+      },
+      {
+        "id": "development-70002-2",
+        "layout": "development-70002",
+        "family": 2
+      },
+      {
+        "id": "development-70002-3",
+        "layout": "development-70002",
+        "family": 3
+      },
+      {
+        "id": "development-70002-4",
+        "layout": "development-70002",
+        "family": 4
+      },
+      {
+        "id": "development-70002-5",
+        "layout": "development-70002",
+        "family": 5
+      },
+      {
+        "id": "development-70003-0",
+        "layout": "development-70003",
+        "family": 0
+      },
+      {
+        "id": "development-70003-1",
+        "layout": "development-70003",
+        "family": 1
+      },
+      {
+        "id": "development-70003-2",
+        "layout": "development-70003",
+        "family": 2
+      },
+      {
+        "id": "development-70003-3",
+        "layout": "development-70003",
+        "family": 3
+      },
+      {
+        "id": "development-70003-4",
+        "layout": "development-70003",
+        "family": 4
+      },
+      {
+        "id": "development-70003-5",
+        "layout": "development-70003",
+        "family": 5
+      },
+      {
+        "id": "development-70004-0",
+        "layout": "development-70004",
+        "family": 0
+      },
+      {
+        "id": "development-70004-1",
+        "layout": "development-70004",
+        "family": 1
+      },
+      {
+        "id": "development-70004-2",
+        "layout": "development-70004",
+        "family": 2
+      },
+      {
+        "id": "development-70004-3",
+        "layout": "development-70004",
+        "family": 3
+      },
+      {
+        "id": "development-70004-4",
+        "layout": "development-70004",
+        "family": 4
+      },
+      {
+        "id": "development-70004-5",
+        "layout": "development-70004",
+        "family": 5
+      },
+      {
+        "id": "development-70005-0",
+        "layout": "development-70005",
+        "family": 0
+      },
+      {
+        "id": "development-70005-1",
+        "layout": "development-70005",
+        "family": 1
+      },
+      {
+        "id": "development-70005-2",
+        "layout": "development-70005",
+        "family": 2
+      },
+      {
+        "id": "development-70005-3",
+        "layout": "development-70005",
+        "family": 3
+      },
+      {
+        "id": "development-70005-4",
+        "layout": "development-70005",
+        "family": 4
+      },
+      {
+        "id": "development-70005-5",
+        "layout": "development-70005",
+        "family": 5
+      },
+      {
+        "id": "development-70006-0",
+        "layout": "development-70006",
+        "family": 0
+      },
+      {
+        "id": "development-70006-1",
+        "layout": "development-70006",
+        "family": 1
+      },
+      {
+        "id": "development-70006-2",
+        "layout": "development-70006",
+        "family": 2
+      },
+      {
+        "id": "development-70006-3",
+        "layout": "development-70006",
+        "family": 3
+      },
+      {
+        "id": "development-70006-4",
+        "layout": "development-70006",
+        "family": 4
+      },
+      {
+        "id": "development-70006-5",
+        "layout": "development-70006",
+        "family": 5
+      },
+      {
+        "id": "development-70007-0",
+        "layout": "development-70007",
+        "family": 0
+      },
+      {
+        "id": "development-70007-1",
+        "layout": "development-70007",
+        "family": 1
+      },
+      {
+        "id": "development-70007-2",
+        "layout": "development-70007",
+        "family": 2
+      },
+      {
+        "id": "development-70007-3",
+        "layout": "development-70007",
+        "family": 3
+      },
+      {
+        "id": "development-70007-4",
+        "layout": "development-70007",
+        "family": 4
+      },
+      {
+        "id": "development-70007-5",
+        "layout": "development-70007",
+        "family": 5
+      }
+    ],
+    "unsupported_ids": [
+      "development-negative-0-step0",
+      "development-negative-1-step0",
+      "development-negative-2-step0",
+      "development-negative-3-step0",
+      "development-negative-4-step0",
+      "development-negative-5-step0",
+      "development-negative-6-step0",
+      "development-negative-7-step0",
+      "development-negative-8-step0",
+      "development-negative-9-step0",
+      "development-negative-10-step0",
+      "development-negative-11-step0",
+      "development-negative-12-step0",
+      "development-negative-13-step0",
+      "development-negative-14-step0",
+      "development-negative-15-step0",
+      "development-negative-16-step0",
+      "development-negative-17-step0",
+      "development-negative-18-step0",
+      "development-negative-19-step0",
+      "development-negative-20-step0",
+      "development-negative-21-step0",
+      "development-negative-22-step0",
+      "development-negative-23-step0",
+      "development-negative-24-step0",
+      "development-negative-25-step0",
+      "development-negative-26-step0",
+      "development-negative-27-step0",
+      "development-negative-28-step0",
+      "development-negative-29-step0",
+      "development-negative-30-step0",
+      "development-negative-31-step0",
+      "development-negative-32-step0",
+      "development-negative-33-step0",
+      "development-negative-34-step0",
+      "development-negative-35-step0",
+      "development-negative-36-step0",
+      "development-negative-37-step0",
+      "development-negative-38-step0",
+      "development-negative-39-step0",
+      "development-negative-40-step0",
+      "development-negative-41-step0",
+      "development-negative-42-step0",
+      "development-negative-43-step0",
+      "development-negative-44-step0",
+      "development-negative-45-step0",
+      "development-negative-46-step0",
+      "development-negative-47-step0",
+      "development-negative-48-step0",
+      "development-negative-49-step0",
+      "development-negative-50-step0",
+      "development-negative-51-step0",
+      "development-negative-52-step0",
+      "development-negative-53-step0",
+      "development-negative-54-step0",
+      "development-negative-55-step0",
+      "development-negative-56-step0",
+      "development-negative-57-step0",
+      "development-negative-58-step0",
+      "development-negative-59-step0",
+      "development-negative-60-step0",
+      "development-negative-61-step0",
+      "development-negative-62-step0",
+      "development-negative-63-step0",
+      "development-negative-64-step0",
+      "development-negative-65-step0",
+      "development-negative-66-step0",
+      "development-negative-67-step0",
+      "development-negative-68-step0",
+      "development-negative-69-step0",
+      "development-negative-70-step0",
+      "development-negative-71-step0",
+      "development-negative-72-step0",
+      "development-negative-73-step0",
+      "development-negative-74-step0",
+      "development-negative-75-step0",
+      "development-negative-76-step0",
+      "development-negative-77-step0",
+      "development-negative-78-step0",
+      "development-negative-79-step0"
+    ],
+    "methods": {
+      "goal_direct": {
+        "label": "Goal model (1.7B)",
+        "group": 0,
+        "runs": {
+          "42": {
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, false, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "finetuned": "88d7feddd4e5a2a4e30acc645098fd6df19297843e87179a194d33096a854e6e"
+          },
+          "100": {
+            "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
+          }
+        }
+      },
+      "goal_feedback": {
+        "label": "Goal model + geometry feedback",
+        "group": 0,
+        "runs": {
+          "42": {
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, false, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "finetuned": "88d7feddd4e5a2a4e30acc645098fd6df19297843e87179a194d33096a854e6e"
+          },
+          "100": {
+            "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
+          }
+        }
+      },
+      "goal_sampling": {
+        "label": "Goal model + six samples",
+        "group": 0,
+        "runs": {
+          "42": {
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, false, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "finetuned": "88d7feddd4e5a2a4e30acc645098fd6df19297843e87179a194d33096a854e6e"
+          },
+          "100": {
+            "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
+          }
+        }
+      },
+      "goal_self_review": {
+        "label": "Goal model reviewing requirement facts",
+        "group": 0,
+        "runs": {
+          "42": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "finetuned": "88d7feddd4e5a2a4e30acc645098fd6df19297843e87179a194d33096a854e6e"
+          },
+          "100": {
+            "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
+          }
+        }
+      },
+      "actor_small_reader": {
+        "label": "Goal model + trained requirement reader",
+        "group": 0,
+        "runs": {
+          "42": {
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, false, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "checker": "45d1ca9a733b901478e2aa65dbd9e686b03f8d1614f74d190e7888f69da075c8",
+            "finetuned": "88d7feddd4e5a2a4e30acc645098fd6df19297843e87179a194d33096a854e6e"
+          },
+          "100": {
+            "checker": "fca722e0e4fca2dccb0c30a41aa8dbaefa02aa782900ca338b98001d0d8207c2",
+            "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "checker": "8f86940c0ab280a7e923198a3e6b9e1168c27e7936440637a197de4dee56dba1",
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
+          }
+        }
+      },
+      "requirements_direct": {
+        "label": "Requirement model (1.7B)",
+        "group": 0,
+        "runs": {
+          "42": {
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "finetuned": "45d1ca9a733b901478e2aa65dbd9e686b03f8d1614f74d190e7888f69da075c8"
+          },
+          "100": {
+            "finetuned": "fca722e0e4fca2dccb0c30a41aa8dbaefa02aa782900ca338b98001d0d8207c2"
+          },
+          "2026": {
+            "finetuned": "8f86940c0ab280a7e923198a3e6b9e1168c27e7936440637a197de4dee56dba1"
+          }
+        }
+      },
+      "requirements_repair": {
+        "label": "Requirement model + field repair",
+        "group": 0,
+        "runs": {
+          "42": {
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "finetuned": "45d1ca9a733b901478e2aa65dbd9e686b03f8d1614f74d190e7888f69da075c8"
+          },
+          "100": {
+            "finetuned": "fca722e0e4fca2dccb0c30a41aa8dbaefa02aa782900ca338b98001d0d8207c2"
+          },
+          "2026": {
+            "finetuned": "8f86940c0ab280a7e923198a3e6b9e1168c27e7936440637a197de4dee56dba1"
+          }
+        }
+      },
+      "large_goal_direct": {
+        "label": "Pretrained goal model (4B)",
+        "group": 1,
+        "runs": {
+          "42": {
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+          },
+          "100": {
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "100": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "2026": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          }
+        }
+      },
+      "large_goal_feedback": {
+        "label": "Pretrained goal model + feedback (4B)",
+        "group": 1,
+        "runs": {
+          "42": {
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false]
+          },
+          "100": {
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, true, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "100": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "2026": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          }
+        }
+      },
+      "large_requirements": {
+        "label": "Pretrained requirement model (4B)",
+        "group": 1,
+        "runs": {
+          "42": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true]
+          },
+          "100": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "100": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "2026": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          }
+        }
+      },
+      "actor_large_reader": {
+        "label": "Goal model + proposal-blind 4B reader",
+        "group": 1,
+        "runs": {
+          "42": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
+            "finetuned": "88d7feddd4e5a2a4e30acc645098fd6df19297843e87179a194d33096a854e6e"
+          },
+          "100": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
+            "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
+          }
+        }
+      },
+      "actor_visible_reader": {
+        "label": "Goal model + proposal-visible 4B reader",
+        "group": 1,
+        "runs": {
+          "42": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "100": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          }
+        },
+        "model_weight_sha256": {
+          "42": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
+            "finetuned": "88d7feddd4e5a2a4e30acc645098fd6df19297843e87179a194d33096a854e6e"
+          },
+          "100": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
+            "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
+          }
+        }
+      }
+    },
+    "provenance": {
+      "dataset_sha256": "9f77be25d2da62a46dd9802ba7f2976eae21651436498c2d96b96a854d52fc68",
+      "protocol_sha256": "43b907d53f52a1b29644419c659972df4643861fd730091b3a8c6733fc2cd8e8",
+      "all_method_review_sha256": "385a757feccc994b67bc650e7a7eba0ad08c22fd0d11f12412e6549f3be30c2e",
+      "paired_review_sha256": "0d4482a69e953348f36ee34e13c2e7b98206b028f47b8843714ac08d84f1334c",
+      "compact_sha256": {
+        "semantics-vc-seq-development-s42-l00-g0-v1/goal_direct": "67c8da3bc789667967f38a43617b3635b3fb09409e1803c8b7488e6b301b9d8e",
+        "semantics-vc-seq-development-s42-l00-g0-v1/goal_feedback": "0860e69809afdbb7fea44447af006a8d4d41e0c70820364654800ac4c7506032",
+        "semantics-vc-seq-development-s42-l00-g0-v1/goal_sampling": "5afd2b6de1ffc31b906d9cc7ae2dc7cc6b90e732b0e8a53b15bd42e31ec506e2",
+        "semantics-vc-seq-development-s42-l00-g0-v1/goal_self_review": "62ba52c3eae661f438147fb419db71cbc9ff77ad5a6e68205b18c0c1ba6a2cc2",
+        "semantics-vc-seq-development-s42-l00-g0-v1/actor_small_reader": "322d3bb915dd3d4fffb1c6f150fe09b040af86043b853bbe05275fae0b175f5b",
+        "semantics-vc-seq-development-s42-l00-g0-v1/requirements_direct": "37d7e1d098e772af5a6d7aa456540698e0c0098efc502c03de29a37d9bfd65d5",
+        "semantics-vc-seq-development-s42-l00-g0-v1/requirements_repair": "ade56561797b99ef9212aef14b673dc49fca541de293d7ffeacc5a7e7cd9e7d5",
+        "semantics-vc-seq-development-s42-l00-g1-v1/large_goal_direct": "8c5f9c2df9bf26c596defd87d9e8e4321007e19fe8630b159fee9695fc466445",
+        "semantics-vc-seq-development-s42-l00-g1-v1/large_goal_feedback": "ae962f6a6129310367b4ff2a487b73772c0fa9e2910fcc8db5802918dc6165af",
+        "semantics-vc-seq-development-s42-l00-g1-v1/large_requirements": "59c8cff502e6ec5b127140147980ac187c06567ea5acd908af5e2d60e0166747",
+        "semantics-vc-seq-development-s42-l00-g1-v1/actor_large_reader": "9ceb252b0f142149d9e6a0db385bcddc278588d7b22f102690bba25fe25941f4",
+        "semantics-vc-seq-development-s42-l00-g1-v1/actor_visible_reader": "bdb5f1803a6fd2a9736f5ffb2119a5752976e1fd3b342666add48f518389b0b0",
+        "semantics-vc-seq-development-s42-l01-g0-v1/requirements_repair": "45a10c9354dd54d98d093a830a63ae36ba8ca05dff7dd71a817d178da268fd12",
+        "semantics-vc-seq-development-s42-l01-g0-v1/requirements_direct": "223d03eb263d327508fe295e96b6806d5b0c5976a48b770d6d79953bf06363ea",
+        "semantics-vc-seq-development-s42-l01-g0-v1/actor_small_reader": "495a5dd65d5b0898c93bdb3b8dafe5018cd4d4787b369362240fd0ce978eab1c",
+        "semantics-vc-seq-development-s42-l01-g0-v1/goal_self_review": "f5ecb2f41b16cdb12a378823a5e15984ed5496d0c26fb5c7916ecac6e408c727",
+        "semantics-vc-seq-development-s42-l01-g0-v1/goal_sampling": "47f0963acd80a2b83299f0191fd1e8bb933ed8ad5032fed7757168a898d71cf3",
+        "semantics-vc-seq-development-s42-l01-g0-v1/goal_feedback": "dfa86ab443ed207a57cbac3aacec2896b14bd730ceb815dc98f3e860afaf4330",
+        "semantics-vc-seq-development-s42-l01-g0-v1/goal_direct": "66936255e8cd809ee150beaa0717674322b5ae8d8291bf4beb2a7cee585214d8",
+        "semantics-vc-seq-development-s42-l01-g1-v1/actor_visible_reader": "da69283d7ca90cf8ba7820b0cc274f6b45bcd5400d68670a1893a14e4852030b",
+        "semantics-vc-seq-development-s42-l01-g1-v1/actor_large_reader": "ca06a9c2584b8bd9b5f52197a3541856d9be288ba15fe38a9a09d708864c3771",
+        "semantics-vc-seq-development-s42-l01-g1-v1/large_requirements": "02832ecff08b3cb35282ce07c9957858a8ec880e5eb6ffa58a25c873cbfd69cd",
+        "semantics-vc-seq-development-s42-l01-g1-v1/large_goal_feedback": "f7ebfd50feaaee938d42b2fdfffa4484e6e221c838b2a07963b7db057c784ebc",
+        "semantics-vc-seq-development-s42-l01-g1-v1/large_goal_direct": "ec80c37e9091236dc63b763b97b9098851df53d8c8a07c803a9ad000443bb9b7",
+        "semantics-vc-seq-development-s42-l02-g0-v1/goal_direct": "c89e39ce2f184b67ff33aa5eadfd76d373118797cc4c957678e9ea4f25bbb4ef",
+        "semantics-vc-seq-development-s42-l02-g0-v1/goal_feedback": "07155d231b8030ef452a3740b94a2eb1dc08d1c46cf798e6842fe55ba148a741",
+        "semantics-vc-seq-development-s42-l02-g0-v1/goal_sampling": "6dec0822cd28cf11b3c7df24b841ab2a94e64d7275182200e2ecaa0a2e7d4770",
+        "semantics-vc-seq-development-s42-l02-g0-v1/goal_self_review": "930bcd1b871c3b5a7edcad3cf335d6af0f275f73840cdd2c146abe252d1af177",
+        "semantics-vc-seq-development-s42-l02-g0-v1/actor_small_reader": "ab7243630d24c71d1b6d4e3b81d459110b6c84d4a8e6d54f9c95493bafe73edb",
+        "semantics-vc-seq-development-s42-l02-g0-v1/requirements_direct": "b94499e6d97b1dcba9c7288f5433be88660a77f2ab1e57bd85e15862585a899f",
+        "semantics-vc-seq-development-s42-l02-g0-v1/requirements_repair": "df67c529c120e8e69af6c1b95fb3d9cae8fe48b49fb8d2bba046b8ee9a507269",
+        "semantics-vc-seq-development-s42-l02-g1-v1/large_goal_direct": "7ae7e30082624de5ee3f03660a973aba5f80f44b48b0d9d23b7d626e7f88d1c3",
+        "semantics-vc-seq-development-s42-l02-g1-v1/large_goal_feedback": "2fff50da0d8399754b8b6d11e8818036b29ac1222690bd84b6b653c1b11dc0c2",
+        "semantics-vc-seq-development-s42-l02-g1-v1/large_requirements": "d52ba57b2fe9cbbac4c8222f95234417de41b18d2f6cb0e7bb4455a64aa9e9f9",
+        "semantics-vc-seq-development-s42-l02-g1-v1/actor_large_reader": "f28629c2878493aaacc7a46dca45e9347ee049aed0820c6ae33d6ffe2d295dfd",
+        "semantics-vc-seq-development-s42-l02-g1-v1/actor_visible_reader": "67548b3d1ae6c384be72d3928596d71d69d61edd2dd47975aa9074c1149e3812",
+        "semantics-vc-seq-development-s42-l03-g0-v1/requirements_repair": "54e0bf9683ae6545fd060f950176bc765b1b6a7af740196f8c16047d4f043a96",
+        "semantics-vc-seq-development-s42-l03-g0-v1/requirements_direct": "cfd841c7abaa2d07f2f31a1ea5c14e3af1b238505b2e9f7d88666e831ba79b93",
+        "semantics-vc-seq-development-s42-l03-g0-v1/actor_small_reader": "26c2e635bf67204b96db12498aebc519b60d4c38b5d2184446281df5ab8057c8",
+        "semantics-vc-seq-development-s42-l03-g0-v1/goal_self_review": "e79706516f9155eec2be887d56302704ede435258e366dbd3f1a5ed4e261970f",
+        "semantics-vc-seq-development-s42-l03-g0-v1/goal_sampling": "8a09e6eb144ff88cda117c50de4bcdf5bea55c19302185f2fd1b7f0910cae320",
+        "semantics-vc-seq-development-s42-l03-g0-v1/goal_feedback": "b10c9f16cd1b2ed428263c9efb64151a0866ffd01e871e63462bc4f3aad7fa78",
+        "semantics-vc-seq-development-s42-l03-g0-v1/goal_direct": "93a894c7f87d86c05c2939a9b17c48008e238672d448a8a23c54ab5eb66eb2d1",
+        "semantics-vc-seq-development-s42-l03-g1-v1/actor_visible_reader": "9b4fba7446f946c08ea6e2c37843e4f5c7fb52ef2455b5c60da79f31246bc37d",
+        "semantics-vc-seq-development-s42-l03-g1-v1/actor_large_reader": "0395da26c0b7498baead2468c466dd0268993eab0220537381dbbabcd7ce3e77",
+        "semantics-vc-seq-development-s42-l03-g1-v1/large_requirements": "4c54e034c377cdb605c8665b9dfbc74093c805d3928004d77cc8bb1d2f04e0c6",
+        "semantics-vc-seq-development-s42-l03-g1-v1/large_goal_feedback": "4d6dd4d48cbc9eadbfb5e797e81a149f45e93be46114df2e7800ecd2c5018728",
+        "semantics-vc-seq-development-s42-l03-g1-v1/large_goal_direct": "a1ac95034bc876b2e3d4941db6ff43a79401f035eb738040e386ee010152fc28",
+        "semantics-vc-seq-development-s42-l04-g0-v1/goal_direct": "d6ace4eddebe0703f2e4d1eaa4c4442ea9064fb7432c348b0ed0d16a9a5dad7d",
+        "semantics-vc-seq-development-s42-l04-g0-v1/goal_feedback": "f664f81b69337d2c0f615cfc3d92487904b2e27821a00bcfb9a6703113ee94c4",
+        "semantics-vc-seq-development-s42-l04-g0-v1/goal_sampling": "3905ccd6ee8e1769b7ac8a62a08200a3cb362e1ac19ddef87003a3b68e0c91ff",
+        "semantics-vc-seq-development-s42-l04-g0-v1/goal_self_review": "caec4e7a513d7cfa176be6fa2959238d387b1013e2e6c33134896717e3333a5b",
+        "semantics-vc-seq-development-s42-l04-g0-v1/actor_small_reader": "fabeca6ba6cbeda8a88e567c0ecd89bc5b3fdba7c704cc7566e7df7a5a707cf0",
+        "semantics-vc-seq-development-s42-l04-g0-v1/requirements_direct": "c72bc3a0f5555bbb6dc79fd23293eafa2efd634922b1baf34269f0e6022c616a",
+        "semantics-vc-seq-development-s42-l04-g0-v1/requirements_repair": "5bc8c38e75d5cfd2317b5d2027092a614bb9742e78832b530bbc6774e90fb78b",
+        "semantics-vc-seq-development-s42-l04-g1-v1/large_goal_direct": "211aaefabb5f2eb933739340fb7939b774f8ef0f3dc9d9b1cfe2f5cabb06bc89",
+        "semantics-vc-seq-development-s42-l04-g1-v1/large_goal_feedback": "1dd5f3c670e0305b536c0fb49fc3e853c83b7da70ca0fd86a083d2d95544c9f8",
+        "semantics-vc-seq-development-s42-l04-g1-v1/large_requirements": "f63c8520d94f99a6abc4c412bfa1cb9ef273f10c53e3e2947e5abe5904b1895a",
+        "semantics-vc-seq-development-s42-l04-g1-v1/actor_large_reader": "5b7fd2cbdd48a3181ace75b61edc57142ffed1efa81604c3d5601deca93a96bf",
+        "semantics-vc-seq-development-s42-l04-g1-v1/actor_visible_reader": "2f1a01578e98330827ec85cb3b601b38afa89a572d94cb88c95ce03ec966016d",
+        "semantics-vc-seq-development-s42-l05-g0-v1/requirements_repair": "d8f3647efcf20ff67a5d6a8656d40f29d05bbbe871ecdb5fa914c8822a97466c",
+        "semantics-vc-seq-development-s42-l05-g0-v1/requirements_direct": "2d65a3b4e43ea63ea1f2bc27605070b3f06642234b191b51734beb436630acd7",
+        "semantics-vc-seq-development-s42-l05-g0-v1/actor_small_reader": "c8138299a7cf94f708a991c6a26fc58716ee21adb7d0f8f4fb6de37d895f87e8",
+        "semantics-vc-seq-development-s42-l05-g0-v1/goal_self_review": "aabcd0b09296c3df387ffcd1870077874777650c7f28b8401dc90d6d49995f81",
+        "semantics-vc-seq-development-s42-l05-g0-v1/goal_sampling": "a0ac605f5de80d6f09a696292dfd54f7bc69a255038e0f6ed4af00fdae81cca6",
+        "semantics-vc-seq-development-s42-l05-g0-v1/goal_feedback": "5a73c635bfb12620105ab2bceddea258b07bb874b7edbea9bfc1c73cdd46ebc5",
+        "semantics-vc-seq-development-s42-l05-g0-v1/goal_direct": "cb670ad4b42146d5f0bcd6ef4d0396b707a6a268072d4c081fa8c13692b16fc0",
+        "semantics-vc-seq-development-s42-l05-g1-v1/actor_visible_reader": "8f6f44be6bd0faac77db469219d22fa5e1614c44ec5fbe536efb03364617ea9d",
+        "semantics-vc-seq-development-s42-l05-g1-v1/actor_large_reader": "db7e53c31838c1c61b5fd3cd9df473a3e20bb4da687438b415f5ca7c4922690a",
+        "semantics-vc-seq-development-s42-l05-g1-v1/large_requirements": "200900d97ad60f8ec02161290315b4047a8a824fd6cc9f2b664d683bae0a43c8",
+        "semantics-vc-seq-development-s42-l05-g1-v1/large_goal_feedback": "87f66d96a777b1c6c6a862238b5cbd3bf586ff232a123a51a475470052bf5e5e",
+        "semantics-vc-seq-development-s42-l05-g1-v1/large_goal_direct": "058ff590b6b11f81e60d1bf45ab1527a7479f41c8cac7873361c8712109b31e3",
+        "semantics-vc-seq-development-s42-l06-g0-v1/goal_direct": "9a83fbd392b5b51d100a4e433cf8fb7f4b48edabf46738f5b69ece7630c4c27e",
+        "semantics-vc-seq-development-s42-l06-g0-v1/goal_feedback": "4520a444967e84813dc688e993a528a80dc64762bc65e7e443a454e16a465380",
+        "semantics-vc-seq-development-s42-l06-g0-v1/goal_sampling": "bd0474fd28f913a1bb788a65c96511f428a5542164535bcbf4a88b55f1b883f1",
+        "semantics-vc-seq-development-s42-l06-g0-v1/goal_self_review": "35b7da2c7c9d18431810c0d317647c3a21329cae04511da81370bdbf9aaf8b20",
+        "semantics-vc-seq-development-s42-l06-g0-v1/actor_small_reader": "ca78c55c2297208c7ac94624bcde6ee7beaaf3eb16dde4ef9bb4f9440be21a11",
+        "semantics-vc-seq-development-s42-l06-g0-v1/requirements_direct": "8947f396edaeb478989969f28aef584110c8db8bbaf2e3e4adbc7f1538496764",
+        "semantics-vc-seq-development-s42-l06-g0-v1/requirements_repair": "46d4825e4e31950461b78a83e1f695a9ab15e315d797ea8f81cf78a524c8b704",
+        "semantics-vc-seq-development-s42-l06-g1-v1/large_goal_direct": "f48ad1ef4c98f3a24957b6679220a47166153b672fac2494dfc908ae06cb2f00",
+        "semantics-vc-seq-development-s42-l06-g1-v1/large_goal_feedback": "cf2551b40e869958bba97deb8b98fb86d9958f5a6077df9eae6916e1988804e0",
+        "semantics-vc-seq-development-s42-l06-g1-v1/large_requirements": "67c8e420c65d925c5ed59a095e4149fb1cb8432de8b2b9d53c39e79c280641a4",
+        "semantics-vc-seq-development-s42-l06-g1-v1/actor_large_reader": "20eba819457572846ecfd1ce6c9632d928f26dbaa16f7a65eceebcbf4cb88709",
+        "semantics-vc-seq-development-s42-l06-g1-v1/actor_visible_reader": "97d40e7ef6573638357184ddbcac7b22a572a495356b148b9fa3443cdbe7ac6b",
+        "semantics-vc-seq-development-s42-l07-g0-v1/requirements_repair": "8cc6e2634e8890ad8096ee98cb3374910c4368dd9b012646fff3c22be14f0dd4",
+        "semantics-vc-seq-development-s42-l07-g0-v1/requirements_direct": "0f4d119df213b9980c4dc10050c240ae47f40e19a335b7059b1cb19defdcec4a",
+        "semantics-vc-seq-development-s42-l07-g0-v1/actor_small_reader": "d7c6909d116cc054b41cf97bfd817aa00df95f38d88e0ee000a497dfb3eb3cb0",
+        "semantics-vc-seq-development-s42-l07-g0-v1/goal_self_review": "9e860371cb40885207f2e46b19b2d23f08a67640e73e53bb7db459e1edb3c85d",
+        "semantics-vc-seq-development-s42-l07-g0-v1/goal_sampling": "747b5ff2b40c4da0e550a5dc59213c033f20be794648d928edfba4a45f7ec185",
+        "semantics-vc-seq-development-s42-l07-g0-v1/goal_feedback": "ee3e62532bc09e2b8934d997877a4a8ee36f6e2e74a06d5c7d44d93f30f8ec60",
+        "semantics-vc-seq-development-s42-l07-g0-v1/goal_direct": "3cf24437b3f1c31803249d65f890fd32114a111ec80e41f9285a4b6554223dd9",
+        "semantics-vc-seq-development-s42-l07-g1-v1/actor_visible_reader": "23dd745f22711b5139b7a8c2e363211a95b03e0edb0305ba3aed005119410d4c",
+        "semantics-vc-seq-development-s42-l07-g1-v1/actor_large_reader": "3bc02014ea0c8159561abb71d4ef458f52aa8438c0403ecdfdbd94fd10682d14",
+        "semantics-vc-seq-development-s42-l07-g1-v1/large_requirements": "c963f55547c5f8c6b9ee1ac22ca4bac6c23c227b039b82d31e05b91a80fcfb64",
+        "semantics-vc-seq-development-s42-l07-g1-v1/large_goal_feedback": "6fd7132e06bbb30c63052751421767c72dccd77a60b2dddf4ca59d87bbb78945",
+        "semantics-vc-seq-development-s42-l07-g1-v1/large_goal_direct": "f3976085eb4f3cae71b165014276fceb32a2b7bab73b15af32359e922d77ebbf",
+        "semantics-vc-seq-development-s100-l00-g0-v1/requirements_repair": "de6446bff536c3fe6ed70ced5a485db39e7fc766a8fbada0d6dd63f9c526b8b0",
+        "semantics-vc-seq-development-s100-l00-g0-v1/requirements_direct": "adfe0f51c135ec26b4f2ba93c93291fd05ea55ed5d2218a1f9b069d9405f1240",
+        "semantics-vc-seq-development-s100-l00-g0-v1/actor_small_reader": "5045fe736265e45c2a0a1ad5e5d2e14485061bbb315f6f53404917fca131a3c6",
+        "semantics-vc-seq-development-s100-l00-g0-v1/goal_self_review": "c0701f765dae7519bf9194bbf934a9d38d37acd8de7b7d6756744149fc42f06f",
+        "semantics-vc-seq-development-s100-l00-g0-v1/goal_sampling": "ac8889273eb5b3dc0947d6360bc8cb21f960bbfad7d56ab5220ab265c3b2fdb9",
+        "semantics-vc-seq-development-s100-l00-g0-v1/goal_feedback": "e7ca67cbfc5755fdae381edebf8738e99da062c04bb25f046dc16d9ac95e2b85",
+        "semantics-vc-seq-development-s100-l00-g0-v1/goal_direct": "442d456329b443fed816f9938be685b36706c4b322bf621ca14c5588b22861e2",
+        "semantics-vc-seq-development-s100-l00-g1-v1/actor_visible_reader": "8e8f89660b86898007654cecd398df221d80cfe8afcbbde9f0a18026e1b8a4bb",
+        "semantics-vc-seq-development-s100-l00-g1-v1/actor_large_reader": "a348bb79791b589553cdf4fc4fe404dea15b80f7312593b94a088cb05c2ed123",
+        "semantics-vc-seq-development-s100-l00-g1-v1/large_requirements": "4b67802d01fac948748fcd55c97d79b689848bff8f41cb80c0d2c64f2b0f6d66",
+        "semantics-vc-seq-development-s100-l00-g1-v1/large_goal_feedback": "c8e3e4b86a94446b499df2aa638be4470caabd717b9dfbce05e49067727afe17",
+        "semantics-vc-seq-development-s100-l00-g1-v1/large_goal_direct": "9b59267f4568cbd558cc12ddb6822072974b57019ed3241e84577436bab2c972",
+        "semantics-vc-seq-development-s100-l01-g0-v1/goal_direct": "78d25d157f14d131955aa6b8e1884bfef7d8eb22bccc475aa6a6d689fe0d48d1",
+        "semantics-vc-seq-development-s100-l01-g0-v1/goal_feedback": "cdcbfef6bb874a68024d02e137aecad34a199c0491c5922e8754dab5b20b0929",
+        "semantics-vc-seq-development-s100-l01-g0-v1/goal_sampling": "f82c10ea3534ce0c322e984ed77cee40fecd8310a7593e0c6deda3875229ece3",
+        "semantics-vc-seq-development-s100-l01-g0-v1/goal_self_review": "051a9b4f0fc0a58457e9c1b8bfc21769cbae7201a7e6cd5b68ef21256ddecb01",
+        "semantics-vc-seq-development-s100-l01-g0-v1/actor_small_reader": "da12600dea87fa829c2a9b1208e13f5ef9be5941ee8dac1fb1bebc5e16823398",
+        "semantics-vc-seq-development-s100-l01-g0-v1/requirements_direct": "ab532a8aee2bc50d51cca7f28f13900bbba403fa656bfa593bc77699696b877a",
+        "semantics-vc-seq-development-s100-l01-g0-v1/requirements_repair": "1834bdc40e7205cff85c6be1f69c109a0d24a8dba3a801f28a3f4a834b8a8564",
+        "semantics-vc-seq-development-s100-l01-g1-v1/large_goal_direct": "513389420f7b1a2a81641299aea8703d9929c185f62bba08c1f6432a7f0ebb12",
+        "semantics-vc-seq-development-s100-l01-g1-v1/large_goal_feedback": "9d7fe34a5b9d085564d5bc8fedee6052e6240712439c2cc9082ac569d4e58d22",
+        "semantics-vc-seq-development-s100-l01-g1-v1/large_requirements": "acb1ae098f4c4b3c9f90dcd25759bc66c4e99e1e2e7a2cc481e2f4ce63808c03",
+        "semantics-vc-seq-development-s100-l01-g1-v1/actor_large_reader": "9be9d3df86c8ec806b3b987da2eb4ecee5a473420ebc3dec0cd46d44d39c9df9",
+        "semantics-vc-seq-development-s100-l01-g1-v1/actor_visible_reader": "ddf68cfc1dcd193f291421e881c0171ca01f0fcd17ad83c1ea2e9b32c56a0264",
+        "semantics-vc-seq-development-s100-l02-g0-v1/requirements_repair": "d5650e27b65243d2205b820564c2f143466eb5c26ebc1909da5761b3a95870d7",
+        "semantics-vc-seq-development-s100-l02-g0-v1/requirements_direct": "b0c94e2a4fe5efd7e242d2b145b4e69f9cf8b935670f423644e7b4fadcf409be",
+        "semantics-vc-seq-development-s100-l02-g0-v1/actor_small_reader": "ea7da8ca49ada5d0f5d2ac01b9b637a0abb814c2c6fa70dcc43d315f1fe74422",
+        "semantics-vc-seq-development-s100-l02-g0-v1/goal_self_review": "0ab0976c9a89d989f370a9789af2db1d4221cd19c75d0da6716efccd8131f9ba",
+        "semantics-vc-seq-development-s100-l02-g0-v1/goal_sampling": "dc29ad8f217a7a9cd4e84272e8a9c7daf8fba66655bd9be7901ce50b8835dd01",
+        "semantics-vc-seq-development-s100-l02-g0-v1/goal_feedback": "d3dac47819396ad8eb42769dd520bd9cb0a9b371c445bbbf96db89898f59e629",
+        "semantics-vc-seq-development-s100-l02-g0-v1/goal_direct": "2cf7dcfb9389376ad4d1efd6cd9fdd371e45a7d51ae553383f5a90f604322cd9",
+        "semantics-vc-seq-development-s100-l02-g1-v1/actor_visible_reader": "e58190a96b95cfc891eead33af39fc476a66e08dcfb232032c325be34c8a03d7",
+        "semantics-vc-seq-development-s100-l02-g1-v1/actor_large_reader": "b86461c3a071d89d8e7d64bd335f4cfd838f1bee3db02bae7df059003e63581a",
+        "semantics-vc-seq-development-s100-l02-g1-v1/large_requirements": "92f2f0cbfca8cd6960babff8433967109f24268b7eec5d4e51eab182a645f145",
+        "semantics-vc-seq-development-s100-l02-g1-v1/large_goal_feedback": "aa3a33a52bdc6fddd7ada27714fbc079d18e80414e63f6f051ee296230d2e859",
+        "semantics-vc-seq-development-s100-l02-g1-v1/large_goal_direct": "61a15a003c8431ce1e7db59ea471055fc70f65b358ef0f0f17d7dae6f4a6cb6a",
+        "semantics-vc-seq-development-s100-l03-g0-v1/goal_direct": "50b05a0545764df035a5a52f273dc49b92f1d4f4481c7c948caeec2b07e81014",
+        "semantics-vc-seq-development-s100-l03-g0-v1/goal_feedback": "a87d6448e452d9be6da9e2d90c3a598db1b5be7b73ff0f8c320fab90706ce89b",
+        "semantics-vc-seq-development-s100-l03-g0-v1/goal_sampling": "6f64afa48c919e2e8fd2a256e89f54db64872c0acd4c92cb56b02051447ce6db",
+        "semantics-vc-seq-development-s100-l03-g0-v1/goal_self_review": "acf3169e47ea30422e578afbda5005b5bd4294a357a1f390c1eb1ed8f88e6448",
+        "semantics-vc-seq-development-s100-l03-g0-v1/actor_small_reader": "e62d883116e996b1b8e2ca71454f1b781b2a0a0b9bca15d229cb2c822fbe59af",
+        "semantics-vc-seq-development-s100-l03-g0-v1/requirements_direct": "ad7fd8ab77a7bca3258713ec507d1c2333e407f3c4e825b8ada0e9a2b6bf81c2",
+        "semantics-vc-seq-development-s100-l03-g0-v1/requirements_repair": "ac98e30045eeaf48b8c45c49103c19f0a33c7e7d6ef43a1ba91ccb4a6086d8f9",
+        "semantics-vc-seq-development-s100-l03-g1-v1/large_goal_direct": "a51da04cdee81092a004f164b7938615642c49b4e8b4179a6412621806d16ff1",
+        "semantics-vc-seq-development-s100-l03-g1-v1/large_goal_feedback": "c3e10fd804202eed71e3f1e1f23e30e1982a1c2dcaa7450f21d419bb2dfeaa27",
+        "semantics-vc-seq-development-s100-l03-g1-v1/large_requirements": "c9ffba94f972f980df6a3032bd52713bdb84c9ad4bbf8e285b8d019c0f5a38f6",
+        "semantics-vc-seq-development-s100-l03-g1-v1/actor_large_reader": "feccee0d711db7297aab43c2f5c8f2fd142a0407e803efb2210d2cd60f16f8a9",
+        "semantics-vc-seq-development-s100-l03-g1-v1/actor_visible_reader": "dbbb3713bea6911a381ec704c97289a41d899631d141c4f880498975ed111fa3",
+        "semantics-vc-seq-development-s100-l04-g0-v1/requirements_repair": "28e70e4b952b7e19c23207d0471b93172be7286328f859b4c2ef3622513e5c0d",
+        "semantics-vc-seq-development-s100-l04-g0-v1/requirements_direct": "e5a3d43da3110c1c175042db34abf8c351370e7f8feef43687cdc92893c4ba56",
+        "semantics-vc-seq-development-s100-l04-g0-v1/actor_small_reader": "a780de2d84b618b4fa281ff8bc8d1ecdb27355040d6261903b30dfc189df23fb",
+        "semantics-vc-seq-development-s100-l04-g0-v1/goal_self_review": "c30acd2713c90f96cc0d210b948f6e98982b26eba7d64f24a0e98bd981d48038",
+        "semantics-vc-seq-development-s100-l04-g0-v1/goal_sampling": "2f4dc4427aea5741e23eb9d19c99d6cfd1dcd4f59c531128983524d333d5e131",
+        "semantics-vc-seq-development-s100-l04-g0-v1/goal_feedback": "8c00d2f5448eefbc4bf035531ca37d0f3cc8d899a52f8cf3d1f68cc3b7e6d575",
+        "semantics-vc-seq-development-s100-l04-g0-v1/goal_direct": "a79e83e84f14bd0687b0c04cde406b75357fd96782b5d277d05b3633b00967db",
+        "semantics-vc-seq-development-s100-l04-g1-v1/actor_visible_reader": "699b3276c5f084e131d25dceecc16cf03bed268559ccb5353ac25726ec27709d",
+        "semantics-vc-seq-development-s100-l04-g1-v1/actor_large_reader": "f1f44d8c292b8d3503694748077e14f6d1a25a217fb285f2a0813750a944ea38",
+        "semantics-vc-seq-development-s100-l04-g1-v1/large_requirements": "95a983e1f13ab8be6c0a164fbdc370a2d933f864d343ad3b94616691aa26f90b",
+        "semantics-vc-seq-development-s100-l04-g1-v1/large_goal_feedback": "07eb2217a148bfdbb67ac13f5e79f8ffd9acad953f3f1ce41a25749a4109c1dd",
+        "semantics-vc-seq-development-s100-l04-g1-v1/large_goal_direct": "3dfe28a1f22333fcf603bdbf036ade969971ff856a243e5d7b9ce8d497440922",
+        "semantics-vc-seq-development-s100-l05-g0-v1/goal_direct": "02b8b09ed5bf4ec8c943169574ef6b36eb7f9cef4df763239fec4fece5bbf207",
+        "semantics-vc-seq-development-s100-l05-g0-v1/goal_feedback": "c6b9d9660131abfe5ae7f7bfba83cf1b626017d7c989ae3cdfbff515b701ddf0",
+        "semantics-vc-seq-development-s100-l05-g0-v1/goal_sampling": "088cd24744388a62d8c6b876b8a0f4d9a439fc24416b07bf59c92bf25565d9f4",
+        "semantics-vc-seq-development-s100-l05-g0-v1/goal_self_review": "b167dfedb249297de01a64554a34350765ff3d13351d95572023a732f0d37b70",
+        "semantics-vc-seq-development-s100-l05-g0-v1/actor_small_reader": "2b6f11bbef8267223daa43f026316b1b7fa4de78b6e25dbe645b0316d55984fc",
+        "semantics-vc-seq-development-s100-l05-g0-v1/requirements_direct": "bcbf77573e05eca78091526fb8dadf621d79b4eaa3f9dfafbf17ca913f22344d",
+        "semantics-vc-seq-development-s100-l05-g0-v1/requirements_repair": "998ebdf235a839374be0bde42ed4d2bf806d50d535d0bd3d80ea7973646ee50c",
+        "semantics-vc-seq-development-s100-l05-g1-v1/large_goal_direct": "7ecf4651bd480a497367c4899da45e2d54baa9bd12b3582e8aa56af03a8e8d02",
+        "semantics-vc-seq-development-s100-l05-g1-v1/large_goal_feedback": "4864392eb0ba00af2038bb5f051d143a9d4f9695c17913d3f992158aed3fb339",
+        "semantics-vc-seq-development-s100-l05-g1-v1/large_requirements": "153ac648097cb56909eb163b30989c32c815c2adde59abfb27d6bf3cf072f60d",
+        "semantics-vc-seq-development-s100-l05-g1-v1/actor_large_reader": "5713e43c0ad07120b5b23205e5f24e249731e0d64f354fd0bf1253276559e4fc",
+        "semantics-vc-seq-development-s100-l05-g1-v1/actor_visible_reader": "728aac17a6552fa645650ae79eaa3811266ecf647c83a6120b49ce2b3146e733",
+        "semantics-vc-seq-development-s100-l06-g0-v1/requirements_repair": "4a3fd508af02507b43d7715c9e497b232c0f28dba9c445e39c60e645d00ce4d1",
+        "semantics-vc-seq-development-s100-l06-g0-v1/requirements_direct": "de9c554d9f69e1f56d2e7d63def3dc07acd6676fc12e7967769c394a89933c11",
+        "semantics-vc-seq-development-s100-l06-g0-v1/actor_small_reader": "03fbe99d119e53a8f15ae40047c8740f6d2ea499a11239fab581bfb3c1f7e2cb",
+        "semantics-vc-seq-development-s100-l06-g0-v1/goal_self_review": "942f64fbfabcfce794ea67ef3e193c6047be959846fbccfa4243ad5244c6bac9",
+        "semantics-vc-seq-development-s100-l06-g0-v1/goal_sampling": "147452019aabd43edae3cd7271f261ccfd7a1b0c67045c0fb617dcedfe151a1c",
+        "semantics-vc-seq-development-s100-l06-g0-v1/goal_feedback": "68d15b95f1115e9d35097af7bf6e6eb81854b069da8689744e0578200f4aa470",
+        "semantics-vc-seq-development-s100-l06-g0-v1/goal_direct": "b06882d8b95f134dbfc2f23098f8b8e820c9fea278f3a1ed4d90027ad01064f7",
+        "semantics-vc-seq-development-s100-l06-g1-v1/actor_visible_reader": "63d6faba5b495314f61c231396c92dcfcd9f63c1010c721e90a1587d0d2c8c8e",
+        "semantics-vc-seq-development-s100-l06-g1-v1/actor_large_reader": "7bbe117b29249454ad1001619b23a20229691db79ed6d3550bf362ecf4355aaa",
+        "semantics-vc-seq-development-s100-l06-g1-v1/large_requirements": "00978a59a21dec5ac580399684e616fe02162ba1e1b934316f8a3b6cbe7045fa",
+        "semantics-vc-seq-development-s100-l06-g1-v1/large_goal_feedback": "5fb3af45b3166a86bd9169d73463b1c9857f48de7bfc22abe8b6b9fe9aea5375",
+        "semantics-vc-seq-development-s100-l06-g1-v1/large_goal_direct": "79c485e60d893a67c47cdabebdb32cc50db51effefcc770fdd3985237940c9ac",
+        "semantics-vc-seq-development-s100-l07-g0-v1/goal_direct": "d26676da0c8e6b0058851396e6a49b7f384df32b7f64b5fed7b743fbe136e4a1",
+        "semantics-vc-seq-development-s100-l07-g0-v1/goal_feedback": "80f791ea9975feb7c42fb591bedc2f59d67d5e9cd08f3b831d7a80d1d3ea72ae",
+        "semantics-vc-seq-development-s100-l07-g0-v1/goal_sampling": "2278fd76bc4337e6e7f51012fc906880ae34bb96e2e94929b2bfbbb8c0af1515",
+        "semantics-vc-seq-development-s100-l07-g0-v1/goal_self_review": "db82ac430268bbfd425105391d78424f44f63bf780b5c631163183776db9502d",
+        "semantics-vc-seq-development-s100-l07-g0-v1/actor_small_reader": "58ee27530124a7252050338d4e99c1074088fd9e6364ea6aee430b35c1ca5a1b",
+        "semantics-vc-seq-development-s100-l07-g0-v1/requirements_direct": "c951a1e406067cfcaae7cd054716202471b913f285f4893e896c164ee121d2d1",
+        "semantics-vc-seq-development-s100-l07-g0-v1/requirements_repair": "15a8e3a5807fdd173a2603ecc9d36b45a9995af3a807b3575d7f1d0f7e5352ec",
+        "semantics-vc-seq-development-s100-l07-g1-v1/large_goal_direct": "46a9d85e626af50558a1fe471fc2b084f00c7b1b606a8747f1e73f72074ed05f",
+        "semantics-vc-seq-development-s100-l07-g1-v1/large_goal_feedback": "894ec306b6d4c998519db924e90ca43b8a0fcc707081b6943238349a47ff8e78",
+        "semantics-vc-seq-development-s100-l07-g1-v1/large_requirements": "5efec082050fa034aa68e5c22af6284b253104836a21aeadb38e008c4332b38d",
+        "semantics-vc-seq-development-s100-l07-g1-v1/actor_large_reader": "ae6d8fb3389dfb0fb207be9b30931f282c3d44fd7504e230a90d8178daf5a480",
+        "semantics-vc-seq-development-s100-l07-g1-v1/actor_visible_reader": "6a9c8da818d7bd556273f22f35972463014700c97dc2392e9088f3c3add3d56d",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/goal_direct": "3d34ddee736e3b6e905b2c4142191e664e63814c4d77c1f8e099de513738d4fe",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/goal_feedback": "7577bbe2111edc97f458491a2b630c3a432c18b70b34967df4c908314ea4d5fa",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/goal_sampling": "361292eda738bbaaca44f551a9eb657f7106fb7e4d0ebab7cabab8db16fa1185",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/goal_self_review": "1474a43cc44e11fa204b60ceef2bae4ae4ece202c4f0bb635c6c1b038b31879b",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/actor_small_reader": "a35ad4f6effd3d336b46ce11dfc0ea9a51ec8b7021b82578760b0b7311bf6478",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/requirements_direct": "6e215a7183e08a38288d7cc1ee9dbcabe83226c0f71f2841ecb27944c517d93b",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/requirements_repair": "8cace010c132ca707f4a562eceae3597d108c1201d72642ccc14e65b2d857032",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/large_goal_direct": "67981dec9391d0793b58c80e34697262e5150fe8181ad4561dd20da5ae4ac18a",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/large_goal_feedback": "11bcaf5c6c316b2cb04b3ef9ee1d5602c9bb6f7742218fc2b05f07282eea2f8e",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/large_requirements": "4d61b3a8b6e5036550619ffa127750bfd2f16d348d454ffff180fed5a2367351",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/actor_large_reader": "60390af89a9118eb21c6d3e3ced01f7d7950b170225cde1613d765dfc7dfd82f",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/actor_visible_reader": "4759adca9ebf732eaa8e62fed532f1ac4ba50fedc3a6962dfbeecbe9766f2bc4",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/requirements_repair": "60e0ac51f2a67441192b809972b3b759091831fb60ac6a532f622c6ae2f30750",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/requirements_direct": "0be6d8c6ecfb61c8c0147d4cc19eb57940db2f1b5230197ef1553e717731722b",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/actor_small_reader": "ecab71ade4a39803e0603e11f6c4589736a4b50a951785c128a42345abb54af8",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/goal_self_review": "95f20190ce8665245836696c43c260de49bc085626c1b041464629f4134eb9bf",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/goal_sampling": "cf871f7ac50c18a3167d31fe071d446e4b43b046b795cc254799c8da24189ba6",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/goal_feedback": "8b18b3c65c7d42b8e0d0f7a1b92cda02687f019c62ad272e119deca546950f25",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/goal_direct": "3723704523f02bffeeeff1c835165c8ad77ea76db3e8744d473291c8da7e9755",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/actor_visible_reader": "b8884eefa35828c25637eb2351c1328a56f0dd2628ea4c47128452e7e2b2b030",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/actor_large_reader": "94c0cd06c6de757bf6f24eddb2d5c332f7281152a86fb52b1116953be614ea28",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/large_requirements": "d106188c84eb7697ebe4b501df6be867acfbc6954ca4e5a2e8af5ae87a2a93cf",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/large_goal_feedback": "f60639981fb33fd473daf12dc41ab95b7bca5ecae50c9a21ecdd2dae5a6fc80c",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/large_goal_direct": "95ed7f62481e00f955360daac6d69b83b9a4dae684dccec4208f2ae4eda95721",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/goal_direct": "bdb3503c73753b6333c9be4e2eeb2687c2f681497faad0e804a48fd3db8b7df3",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/goal_feedback": "b17a006d7afb1094234343a3ebe323b410c44596ac8db316fd05740b838603af",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/goal_sampling": "9c5a04d71c838e02010819ddb106247cb1bac388077d7974ab4a0ce4636cb4ce",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/goal_self_review": "37808ca19d0564a845fdf7dc504a5f9b283bb865c0078e093d754e359cdfe552",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/actor_small_reader": "53f5fbe9fc7c906ccdb9c8d8230c92a8b1bd1f5dcb763f76f23df61b8bbfe279",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/requirements_direct": "c4eac177c7f711472334f0f66155485ac1b2570e1f1e86609fe7a8b9a2de90c9",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/requirements_repair": "aeb958cd31f260c0cb5c5364dd435d58bfae8afdafebb367608eb96753237c8f",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/large_goal_direct": "dc79e051cc5e8ced727e4fe18fa17ef37fcda2780a96bba006f1a103842aa4e3",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/large_goal_feedback": "da3d5f127a1d5574d04eb4d573318aa20fa73c26ceaab37bf70a9cfe1c25f827",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/large_requirements": "f96c7c9c49112ae3d094c59e5bc129bfd4ecb504836b85eac4bfbf7b89b43925",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/actor_large_reader": "cf32c51e0657cbba4328cd46f67983d34502538af60ae82f453c10f18ca1f249",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/actor_visible_reader": "7a873efed8d48c28bdf2811d53b8517c83b00f45be3130ca1248f3561044916d",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/requirements_repair": "9ea13cfe85cc44379371fdf7604df743043134ed1ef36dfcd2d646fee035e25f",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/requirements_direct": "24da136944373002c25f701cacbf2963f26a7201dd28bccba1edb0a0b95285a9",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/actor_small_reader": "281d68d8d248b256f71160ffab8bca7c495e044dc349bbcacf661bee2235b2dd",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/goal_self_review": "37fa95a187ec1e45095ed4c4f8ab8aeeb402cea530f7d662ccd7042ac3707023",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/goal_sampling": "5c76cc94dd67b77480ae70b5fdc57466115c08316886d3991003ef0f2986380b",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/goal_feedback": "508ce2ea8e05f29f60bde291543d9bb9a3a9752183586e5bb061712aa4bb5e12",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/goal_direct": "5decd46563cedae4ea4f6b685759f76a89ed9f8dd81ed260a5fc0cfa8090dd7d",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/actor_visible_reader": "8645eba9e4b105829350dddfcda25b97819d3d8669fc6105bf6e20defe3e72a5",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/actor_large_reader": "904bea3d54126754ee63081a6b9eca21195ec51dbdbd7272d6d7262af3b72e2d",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/large_requirements": "d718be8073c5b56dae45d524be7975646ea1b63d79150429f3b1757e03410dff",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/large_goal_feedback": "213a97973fb064bb8c24b49ad0c9fa3b6e8e91333635598dc7664b4db64cd3d3",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/large_goal_direct": "23c4018fa7646a6474b54d60f57a93c51ebac7efe1ff0b6de41abad1e0beef7a",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/goal_direct": "d16643d5fc693292cced1256aacaca0017df9451348a7f08df60ad097fd7fea1",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/goal_feedback": "1a186a86303b4f412e8de60b23d55e056e647381c522ae86130307ebccc4fff3",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/goal_sampling": "005111f1bd2d25fedd7650d6a6a23964ae8c61b25f6f352e14ef6769a8d9e41e",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/goal_self_review": "13fd908d6545bfb08a7e45a7036f181e421376c8255639d9f57d9751955b047a",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/actor_small_reader": "215fdf2d8ce663d953702ecd305d7af4f96adb4d2281cb4562336ee2ae4ead0f",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/requirements_direct": "21232c570aa6d13ab93eb7e9e9a2cd426efe7ee1d95868c71fcbd824bc19ba27",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/requirements_repair": "be4b84b55848da90139c8f979a32be37a2d275fecab4b19fcb220263f87942cf",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/large_goal_direct": "681f266adb12e932f24b098b3d45925132504b06173fc675ff0c484d8c329572",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/large_goal_feedback": "19e26bd7a0392e7c1078c07fee6fece4f124ea85e561e771d7a95c9bf2d334e8",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/large_requirements": "962bc77269a7565520566fa0524b58c7cba5bdd7bd25b165af372a1513294ea4",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/actor_large_reader": "78cd9505cc397d65578128d4cc2dfa2866cab66202d18ea8b35824c529d8dd51",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/actor_visible_reader": "0707144f2ae8931efc0940d153ea3107342e715f153741abd3af09b2d9895bea",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/requirements_repair": "3e21cccac4e2b1a074f8205c2127470e5ea338f74deb31b082c39997a4a2f538",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/requirements_direct": "4fb6eda707a7c7d0814163734c6b77ba9a815714798e6c7941e5e07a56ab4fc4",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/actor_small_reader": "386a3296651577b884d1a559f1310a8fce14a59ef0e2ca873b8315b858262cbd",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/goal_self_review": "eb484ddfb90ab7664a9ba9756a05d525c784ba6407e807aca53d7a810653398c",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/goal_sampling": "8137673af45807122275a2f488512e2c4845176c9595986e2c149d3b11d5c1a7",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/goal_feedback": "2cd2efc0a09e1a59f30e8ed1f6cce3ae559bfcc1088f62e1367d8340bdfb15b3",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/goal_direct": "f6d8cd88a04587d64f9909d9774db34f222859ec6388eb17a6e0f8a70a20d09a",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/actor_visible_reader": "5ba9d12557432afe2a3d4d8598a60fa0317db48caf137f557e62ca2fdfa5a304",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/actor_large_reader": "1544dfeb04bb1653fc52c642bd9520681ba8f4e5e39f80c268872156d9a4dece",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/large_requirements": "7756809cc017063f89041d72135c6f8d48aee7a38a9221eab71d35ec85d430fa",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/large_goal_feedback": "d5c5ea09e023790b999bdaeec41434a9048e9827f2d310df1dcc4c78ef0dde0e",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/large_goal_direct": "44160f3c402bdde0f05e73713aa5df5ee66c30193532bb3a00a7c8349ac1fae1",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/goal_direct": "c615e3c9c3e189e0d8db1172dc737234af364173e8ab5eab6d8607094bbe906a",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/goal_feedback": "5cd323a384ec59680af7c01fcc1fc2acb425ac3b871280ea7936a9de33ebe6e2",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/goal_sampling": "043f896f9b8e56e149f1daed8d38f903642fe6dac04bb74116f78ff143de12db",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/goal_self_review": "d305e370dcb4c0919b504f780e0de0c0687cb927485a674f8bc4ae4697066d19",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/actor_small_reader": "d79c669624751e5a793b3ce3f7308b6b5de3423475b26590caa28dfe97e060be",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/requirements_direct": "6de182d93dfdbb72f3683f3cd94071659e95a31324d04a0554a28ce6691e6a93",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/requirements_repair": "77a6ac099fa902dd718874499d1563232afc3795b1c6473544aa1e0b9725f505",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/large_goal_direct": "d8916bf06e5e6e044642b477004711adb11aafaf93885e16f794002cf52ef529",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/large_goal_feedback": "589a7a169cabb158967d21356f8684cc2595a311663bb58d548f2cb56b18eb0c",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/large_requirements": "736f9c87cdc5f8531e2fe8dc1bd2ceb5fae553651646cb676f7d1c2f63c5590b",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/actor_large_reader": "0ecf690f6b2b0f3e9df1ade52b4648af008876eca8bdabba696040406188645d",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/actor_visible_reader": "a8d7ac07317fac4a3bd75ea3a2fc6587bbcd408ae4c766fad9c6566b24f1098c",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/requirements_repair": "4930c70c24b60ef7eeaf13fc146a742aaf44a84bd0c94c6278af113bc7364541",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/requirements_direct": "54b562405bf7d56b8ee940ec64843fe99d8b18576f9b8a86b337814aa35e54c1",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/actor_small_reader": "9262cf00821b31384fec2c119cd0df09547ef42fa5f8bdea1836f13522f75765",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/goal_self_review": "6c4f9b438ab7c382b9c4013aef11ff8ad4b769eadce9f6f178262a7442b51bd4",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/goal_sampling": "190671e2817de3e7c6caeafee637374941722c6af9d57d559168107937264909",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/goal_feedback": "a139fcb9b6ebfc2bb261e81ebbf114fc2107db400e5aa4773c858f0154a5d092",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/goal_direct": "24f0802cc311cfa9de6d6286c65ded7b63e6a91f3188be7e383e9286ff8a82c5",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/actor_visible_reader": "12f5f8362bcb54c1a7dfd29c07b8a1a94e339adbc250a71bbede7c6ed2db61fe",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/actor_large_reader": "bd26513c5c0bd2fd34b540aa2e9092974bbaa53cf7b4bf39fc7546f4daecd989",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/large_requirements": "78d75f572e3e2df86f6cd1d4cd604ed56740fbb47b0dd8c9256ee503eea51f41",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/large_goal_feedback": "daaa6fdd40b5bcd3843fc0dec375bf4546f4ecb3a2e643d35842e87a8b2240f9",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/large_goal_direct": "6dec288ae47e831894a5a098bae60aca055284452b88948b40af73471399d043"
+      },
+      "job_review_sha256": {
+        "semantics-vc-seq-development-s42-l00-g0-v1": "3cfbc5b715648d22c5daa0115071deefb3c730405c434eda92aa06995e65e81b",
+        "semantics-vc-seq-development-s42-l00-g1-v1": "ab5a3d7b2cecccc87d1f4e64072c974ea60a6d7e38a8bda789564c791ac4b22d",
+        "semantics-vc-seq-development-s42-l01-g0-v1": "7c65800e9c3a62fdaf664db20b2fdd018405c65e347c5d9bcdaa76e69813e6a3",
+        "semantics-vc-seq-development-s42-l01-g1-v1": "6ac45041e496831ce5c351b1976715f842b1c6bf1f1aad2e50a51471a92fa055",
+        "semantics-vc-seq-development-s42-l02-g0-v1": "5cc7b2ac5862a7aefdb0e20ac6f7258f2700ca9a85c5ad3ee7aafa446dffe288",
+        "semantics-vc-seq-development-s42-l02-g1-v1": "0606a0145d729f90f4e01b3cd412673f01123c2f3ad4dfdc482b081cf237a639",
+        "semantics-vc-seq-development-s42-l03-g0-v1": "0fea11ad028ee2a3687221490bf51678305195710f21b47fa5cab4ecad7ab2ab",
+        "semantics-vc-seq-development-s42-l03-g1-v1": "727fe6324b2458d6dca0052afe7a1c7ee4aaeddd16fca08b768f9795aa154119",
+        "semantics-vc-seq-development-s42-l04-g0-v1": "92e679e8d99aa6a55e0131b82324a295d7fa7bf1812d879a0f7e6a16741076b7",
+        "semantics-vc-seq-development-s42-l04-g1-v1": "663f8e29b83e18455d0e0552e8ab1de1f1609312bb121a3b4931a90242cef4b1",
+        "semantics-vc-seq-development-s42-l05-g0-v1": "5eeb98db662042e7be6e3eb9ed7b46cf08475910a5b0772b295028c56555886e",
+        "semantics-vc-seq-development-s42-l05-g1-v1": "578edad27778e7fdb907b64449a8d95e3c728ea3261a0ac83b01f7f09f9a53db",
+        "semantics-vc-seq-development-s42-l06-g0-v1": "704dc728720fa1ce87be5072fcf675c42ed981df0e425655bad18e5f1f34345f",
+        "semantics-vc-seq-development-s42-l06-g1-v1": "08e076ebe04735eb6f2c5e8e8232c385e3700dad52f1d8dfee1675fe4f94a0bc",
+        "semantics-vc-seq-development-s42-l07-g0-v1": "80ce39bd1a142d50e938cc1c30aada047a4f21f7cb2cccd9a28dd216f20e4a5d",
+        "semantics-vc-seq-development-s42-l07-g1-v1": "209dad9df7c3bd996d8b8a250c7aa53b6d5aeeea0e72d42a9c6632f42a2af90e",
+        "semantics-vc-seq-development-s100-l00-g0-v1": "245aa8b61efc833d4c271fe3f0c80dc3fc071edd740c549955ea1ec63b5ed37c",
+        "semantics-vc-seq-development-s100-l00-g1-v1": "ec0905391fa818354417b516ba43b0e4f22ef2c3e121cd9ffa453e775776a09b",
+        "semantics-vc-seq-development-s100-l01-g0-v1": "7ce6dcc05ee89c31a48825ee7a54983842fd1ebe41ca8d4438a6cfe2bef716de",
+        "semantics-vc-seq-development-s100-l01-g1-v1": "e57176089f744aaa96ba8ae7a0e66f9868e2a4eb8ea87320815d3b26f10c1e79",
+        "semantics-vc-seq-development-s100-l02-g0-v1": "8447a843928fa0587e713dd03b03d40d1585121270bab0d92b55f8980977656a",
+        "semantics-vc-seq-development-s100-l02-g1-v1": "ead40657e1d4b23ed4930a0b9bffee1bf851017de3fc5bd023da96391de430b9",
+        "semantics-vc-seq-development-s100-l03-g0-v1": "3c4a1cfa96add40cb8aa1c4ee0f965905fbfefed5e534111bc994bcb0ab881a1",
+        "semantics-vc-seq-development-s100-l03-g1-v1": "22ffa79c147b80055700f4358cb6c0f5d91c9cde94c066d0e817ed8971f1b3ad",
+        "semantics-vc-seq-development-s100-l04-g0-v1": "486fbb7e59443a45ab2b3565b7a47ad62fdc882ecf514deec07bdedca926ee05",
+        "semantics-vc-seq-development-s100-l04-g1-v1": "8f878ab8fb35a5ee295165b6299846cedd1061a2101e0e3b26876e0bf9756e95",
+        "semantics-vc-seq-development-s100-l05-g0-v1": "866b163e39a4ed254c1a9ba689a6f9fcc632a384bdaa5124b68df3104e4ba15a",
+        "semantics-vc-seq-development-s100-l05-g1-v1": "d20c04b6349b0bee24bc94f3075ce9e23c3305efb71271a5f26ce0db5c015e07",
+        "semantics-vc-seq-development-s100-l06-g0-v1": "5ef3344305170806ff3a724797c3b068b128747507ce0b1c697936f51e357342",
+        "semantics-vc-seq-development-s100-l06-g1-v1": "5989a5219556598aff38ba62601aab3b792c9ea51e4e67755413c93d1cf9d499",
+        "semantics-vc-seq-development-s100-l07-g0-v1": "e32c5446f8f2efe3aeeb421ab9b6a359ec8bfbfbac1ee2435d119be257d66855",
+        "semantics-vc-seq-development-s100-l07-g1-v1": "a53516b566f4a7c447c54c8be7d521f8258776ad4645174b6087d3c6eea7cab1",
+        "semantics-vc-seq-development-s2026-l00-g0-v1": "a6e55723107ba344634ad8e520f7ae5fe2cda823558e86e61f8d2d3b402933b5",
+        "semantics-vc-seq-development-s2026-l00-g1-v1": "2fe00af93cdbe97a35106f6c0dd1214a1707bc929ba3339b7e9ca666b96b4af4",
+        "semantics-vc-seq-development-s2026-l01-g0-v1": "33ac3596b8e274456f7c5e84985e5717be92e1a63456bd5a4e4d801e4d80cc0b",
+        "semantics-vc-seq-development-s2026-l01-g1-v1": "bf8a577d672e7a19918bc2d2f9d7fb75912225129968bfd3049070a06429e365",
+        "semantics-vc-seq-development-s2026-l02-g0-v1": "bb7548054b2d074245ff7a8608ba10bfee1d35eb7bb27c794ff9bb7570039a08",
+        "semantics-vc-seq-development-s2026-l02-g1-v1": "901106d060e9a0c57a0a7cdd97028f0f9de59ae5983842a23173ef3a3e8c2355",
+        "semantics-vc-seq-development-s2026-l03-g0-v1": "5ab2b40ba78e0670a74719191f65d5801eb866563f64b2d28be8d26661ff7017",
+        "semantics-vc-seq-development-s2026-l03-g1-v1": "a6bcf9bc3020f8639faaf69acb02561047f8c9108914aba72be8620d1fdd3796",
+        "semantics-vc-seq-development-s2026-l04-g0-v1": "3aa19be432720d866a2e7a5a799552ff9d6acebb3636c5d974b5bdc00169a9ce",
+        "semantics-vc-seq-development-s2026-l04-g1-v1": "9aefbdefe6d7dc7d50a3bf33343f0b51feb3c1152eabc3991732bb337074d3e8",
+        "semantics-vc-seq-development-s2026-l05-g0-v1": "00dd11f0b629f9a2a622c655c72afd4786ded36fbebaedd74f7d504c7bde0c9e",
+        "semantics-vc-seq-development-s2026-l05-g1-v1": "665b943de494c339ba022e0527e566ea1f63786508248e5c77377038899c1a32",
+        "semantics-vc-seq-development-s2026-l06-g0-v1": "df7037f6ffcedf170d448435ef866b8a54dd9834d6ba02a79588e79955ae0755",
+        "semantics-vc-seq-development-s2026-l06-g1-v1": "8b002957a691b6800fb322cf4ae70603ccde20272637c922daaf996dc1b05024",
+        "semantics-vc-seq-development-s2026-l07-g0-v1": "d4aad0523c5fd0f76d95780b4cd267be4fa4deab0d486fa3c6602b964d99d365",
+        "semantics-vc-seq-development-s2026-l07-g1-v1": "9a40b2524bb3399f46a00c16a0be722081a9f03693b58bc6fee23a7b7b993c2b"
+      }
+    }
+  },
+  "goal_interface_development": {
+    "split": "development",
+    "layout": "development-70000",
+    "seed": 42,
+    "model": {
+      "repository": "Qwen/Qwen3-4B",
+      "revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+      "sha256": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+    },
+    "episode_ids": [
+      "development-70000-0",
+      "development-70000-1",
+      "development-70000-2",
+      "development-70000-3",
+      "development-70000-4",
+      "development-70000-5"
+    ],
+    "unsupported_ids": [
+      "development-negative-0-step0",
+      "development-negative-1-step0",
+      "development-negative-2-step0",
+      "development-negative-3-step0",
+      "development-negative-4-step0",
+      "development-negative-5-step0",
+      "development-negative-6-step0",
+      "development-negative-7-step0",
+      "development-negative-8-step0",
+      "development-negative-9-step0"
+    ],
+    "conditions": {
+      "original_free": {
+        "full_goal": false,
+        "grammar": false,
+        "episode_success": [false, false, false, false, false, true],
+        "unsupported_success": [false, false, false, false, false, false, false, false, false, false],
+        "unsupported_execution": [false, false, true, false, false, false, true, false, false, false]
+      },
+      "full_goal_free": {
+        "full_goal": true,
+        "grammar": false,
+        "episode_success": [true, true, false, true, true, true],
+        "unsupported_success": [false, false, false, false, false, false, false, false, false, false],
+        "unsupported_execution": [false, false, true, true, false, false, false, false, false, false]
+      },
+      "original_grammar": {
+        "full_goal": false,
+        "grammar": true,
+        "episode_success": [false, false, false, true, false, true],
+        "unsupported_success": [false, false, false, true, true, false, false, false, false, false],
+        "unsupported_execution": [false, true, true, false, false, true, true, false, false, false]
+      },
+      "full_goal_grammar": {
+        "full_goal": true,
+        "grammar": true,
+        "episode_success": [false, true, false, true, false, true],
+        "unsupported_success": [true, false, false, false, true, false, false, false, false, true],
+        "unsupported_execution": [false, true, true, true, false, true, false, false, false, false]
+      }
+    },
+    "provenance": {
+      "protocol_sha256": "5950d4311a86aec43850372ee85086eb1b77e396f30c637e96776d812672a5d4",
+      "independent_review_sha256": "ffd9326113405a13ada4822561a0354662953ed7aa5eb8953661c5b78495b5ee",
+      "compact_sha256": {
+        "original_free": "cdf019b6465435eeb0ad5f003be56d84198ab1f94169a4619e4785c25108b8d5",
+        "full_goal_free": "70308be53e779818a970fb9532f74ba9d6881f0e5d62d529287f08365d3d4881",
+        "original_grammar": "507c92bbafbbf23487e28a995fc87483acc5308ad138b8d0fe32ead972191026",
+        "full_goal_grammar": "8e0d05083b6dee56d22d81c582fe0cd8099e017502b6fd2b8fbe0bfb4de122a7"
+      }
+    },
+    "scope": "One development layout; identical pretrained Qwen3-4B weights and CPU host. Four conditions cross the goal prompt with native schema-constrained decoding. The grammar changes more than JSON syntax. No new training seed or across-layout confidence interval."
   }
 }

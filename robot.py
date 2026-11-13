@@ -109,7 +109,7 @@ AUDIT_SCHEMA = {
         "facts": {"type": "array", "maxItems": 12, "items": {
             "type": "object", "additionalProperties": False, "required": ["kind", "value", "source"],
             "properties": {
-                "kind": {"enum": ["object", "reference", "relation", "via", "gap_mm", "reuse", "unsupported"]},
+                "kind": {"enum": ["object", "reference", "relation", "via", "gap_mm", "reuse", "release_gap", "release_route", "unsupported"]},
                 "value": {"type": "string", "maxLength": 500},
                 "source": {"type": "string", "minLength": 1, "maxLength": 500},
             },
@@ -132,6 +132,11 @@ an explicit default gap, a route, or evidence from scene coordinates.
 A new placement needs object, reference and relation; it needs no history.
 A contextual follow-up/repeat needs history and a reuse fact with value=''; emit
 only its changed requirements. Unchanged requirements are inherited by the code.
+Use release_gap with value='' when an earlier exact gap becomes optional, and
+release_route with value='' when an earlier OVER requirement becomes optional.
+Quote the release in the current instruction and include reuse for a follow-up.
+A prohibition such as 'do not pass over the can' is unsupported, not a release.
+Never combine a release with a new value for the same field.
 history is the prior successful goal, not a proposal to judge or copy as facts.
 A pure repeat needs only one reuse fact; never quote prior goal fields as if they
 appeared in the current instruction.
@@ -346,7 +351,7 @@ def segment_hits(start, end, low, high):
     return True
 
 
-def check_segment(scene, start, end, carried=None, grasp_offset=None):
+def check_segment(scene, start, end, carried=None, grasp_offset=None, *, clearance=0):
     """Conservative tool box + carried box, not whole-robot collision checking."""
     bodies = [([0, 0, 0], [8, 8, 8])]
     if carried:
@@ -362,7 +367,7 @@ def check_segment(scene, start, end, carried=None, grasp_offset=None):
         for key, obj in scene["objects"].items():
             if key == carried:
                 continue
-            padding = [s / 2 + h for s, h in zip(obj["size"], half)]
+            padding = [s / 2 + h + clearance for s, h in zip(obj["size"], half)]
             low = [p - r for p, r in zip(obj["position"], padding)]
             high = [p + r for p, r in zip(obj["position"], padding)]
             if segment_hits(a, b, low, high):
@@ -447,11 +452,16 @@ def compile_requirements(command, extraction, scene, history=None):
             raise Rejected("A requirement is not supported by the instruction text.")
         if kind == "unsupported":
             raise Rejected("Unsupported requirement: " + source)
-        if kind not in {"object", "reference", "relation", "via", "gap_mm", "reuse"} or kind in fields:
+        if kind not in {"object", "reference", "relation", "via", "gap_mm", "reuse", "release_gap", "release_route"} or kind in fields:
             raise Rejected("Requirements contain unknown or repeated fields.")
         if kind == "reuse" and value:
             raise Rejected("A reuse marker cannot contain an unhandled instruction.")
+        if kind in {"release_gap", "release_route"} and value:
+            raise Rejected("A release marker must have an empty value.")
         fields[kind] = value
+    if ("release_gap" in fields and "gap_mm" in fields or
+            "release_route" in fields and "via" in fields):
+        raise Rejected("A requirement cannot be set and released together.")
     if "reuse" in fields:
         if history is None:
             raise Rejected("No independently checked request to reuse; restate the full instruction.")
@@ -468,7 +478,7 @@ def compile_requirements(command, extraction, scene, history=None):
                 value = float(value)
             except ValueError:
                 raise Rejected("The checked gap must be a number in millimetres.") from None
-        if kind != "reuse":
+        if kind in {"object", "reference", "relation", "via", "gap_mm"}:
             goal[kind] = value
     return ground(goal, scene)
 
@@ -478,6 +488,18 @@ def history_for_audit(previous, checked, shared=False):
     if shared:
         return dict(goal=deepcopy(previous), source="primary_history") if previous else None
     return deepcopy(checked)
+
+
+def requirement_value(kinds, goal, history, field):
+    release = "release_gap" if field == "gap_mm" else "release_route"
+    if release in kinds:
+        return None
+    if field in kinds:
+        return goal[field]
+    if "reuse" in kinds:
+        key = "required_gap_mm" if field == "gap_mm" else "required_via"
+        return history.get(key, history["goal"][field] or None)
+    return None
 
 
 def audit_instruction(command, value, scene, previous=None, history=None,
@@ -493,12 +515,10 @@ def audit_instruction(command, value, scene, previous=None, history=None,
         record["extraction"] = deepcopy(extraction)
         record["goal"] = compile_requirements(command, extraction, scene, history)
         kinds = {fact["kind"] for fact in extraction["facts"]}
-        record["required_gap_mm"] = (record["goal"]["gap_mm"] if "gap_mm" in kinds else
-            history.get("required_gap_mm", history["goal"]["gap_mm"]) if "reuse" in kinds else None)
+        record["required_gap_mm"] = requirement_value(kinds, record["goal"], history, "gap_mm")
         if record["required_gap_mm"] is None:
             record["goal"]["gap_mm"] = proposed["gap_mm"]  # Preserve a valid planner choice, not a new requirement.
-        record["required_via"] = (record["goal"]["via"] if "via" in kinds else
-            history.get("required_via", history["goal"]["via"] or None) if "reuse" in kinds else None)
+        record["required_via"] = requirement_value(kinds, record["goal"], history, "via")
         if record["required_via"] is None:
             record["goal"]["via"] = proposed["via"]  # An unrequested safe detour is permitted, not mandatory.
         names = dict(object="moved object", reference="reference object", relation="direction",
@@ -514,10 +534,11 @@ def audit_instruction(command, value, scene, previous=None, history=None,
 
 
 def check_plan(scene, steps):
+    """Reserve 1 mm around obstacles before runtime uses the measured grasp offset."""
     predicted, carried = deepcopy(scene), None
     for kind, value in steps:
         if kind == "move":
-            check_segment(predicted, predicted["tcp"], value, carried)
+            check_segment(predicted, predicted["tcp"], value, carried, clearance=1)
             predicted["tcp"] = value
         elif kind == "pick":
             carried = value
