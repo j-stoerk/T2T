@@ -546,6 +546,30 @@ class ContractTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(plan['goal']['gap_mm'], 60)
         self.assertIsNone(task['gap_mm'])
 
+    async def test_optional_gap_search_recovers_narrow_workspace_placements(self):
+        for direction, (axis, sign) in r.DIRECTIONS.items():
+            with self.subTest(direction=direction):
+                scene = r.example_scene()
+                scene['objects']['blue']['position'][axis] = 100 if sign > 0 else -150
+                scene['bounds'][1 if sign > 0 else 0][axis] = scene['objects']['blue']['position'][axis] + sign * 75
+                if sign < 0:
+                    scene['tcp'][axis] = -200
+                cell = TraceCell(scene)
+                cell.reset_trace()
+                task = dict(self.task, relations=[direction])
+                for gap in [20, 40, 60, 80, 100]:
+                    with self.assertRaises(r.Rejected):
+                        await self.c.select_plan(cell, [dict(task, gap_mm=gap)])
+                await self.c.select_plan(cell, [dict(task, gap_mm=10)])
+                plan = await self.c.select_plan(cell, [task])
+                self.assertGreaterEqual(plan['goal']['gap_mm'], 5)
+                self.assertLess(plan['goal']['gap_mm'], 20)
+                self.assertIsNone(task['gap_mm'])
+                before = cell.snapshot()
+                await r.Session(cell).run(plan['goal'])
+                self.assertTrue(observed_request(cell, before, dict(object='red', reference='blue',
+                    axis=axis, sign=sign, gap=None, via=''))['request_ok'])
+
     async def test_allowed_directions_intersect_without_forcing_a_planner_choice(self):
         views = [dict(self.task, relations=['right', 'behind']), dict(self.task, relations=['behind'])]
         plan = await self.c.select_plan(self.cell, views)
@@ -893,6 +917,26 @@ class MuJoCoTests(unittest.IsolatedAsyncioTestCase):
             self.skipTest('Optional MuJoCo environment and pinned model are required.')
         from mujoco_cell import MuJoCoCell
         self.cell = MuJoCoCell(os.environ['SEMANTICS_VC_MUJOCO_MODEL'])
+
+    async def test_optional_gap_fallback_executes_in_a_narrow_workspace(self):
+        from contracts import select_plan
+        cell = self.cell
+        cell.description['bounds'][1][0] = 225
+        task = dict(object='red', reference='blue', relations=['right'], gap_mm=None, via=None)
+        with self.assertRaises(r.Rejected):
+            await select_plan(cell, [dict(task, gap_mm=20)])
+        await select_plan(cell, [dict(task, gap_mm=10)])
+        before = cell.snapshot()
+        cell.reset_trace()
+        plan = await select_plan(cell, [task])
+        self.assertLess(plan['goal']['gap_mm'], 20)
+        await r.Session(cell).run(plan['goal'])
+        checks = observed_request(cell, before,
+            dict(object='red', reference='blue', axis=0, sign=1, gap=None, via=''))
+        self.assertTrue(checks['request_ok'], checks)
+        self.assertFalse(cell.collision_events)
+        self.assertLessEqual(cell.max_joint_limit_error_rad, cell.joint_limit_tolerance_rad)
+        self.assertIsNone(task['gap_mm'])
 
     async def test_compatible_contracts_execute_after_the_reference_moves(self):
         from contracts import select_plan

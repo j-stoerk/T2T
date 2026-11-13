@@ -47,7 +47,7 @@ Both readers receive the last successful plan separately. An instruction can exp
 
 `history-memory` executes a single full-history reading directly. Use the same model as the compatible method's reader to test whether the extra local reading helps beyond the reader alone. These controls share the requirement schema and planner; record model identities and actual call costs when comparing different sizes.
 
-The demo checks supplied requirements in MuJoCo, including a repeat after the reference moves. For optional gaps, search uses 20/40/60/80/100 mm and direct/over-can routes; explicit gaps use their requested value. Planning reserves 1 mm around obstacle boxes for tracking error; runtime checks use the measured grasp offset. Selected motions pass geometric and native preflight checks. Live-model accuracy for this broader interface remains unmeasured; the frozen research comparison uses separate scripts and fixed inputs.
+The demo checks supplied requirements in MuJoCo, including a repeat after the reference moves. Optional gaps first try 20/40/60/80/100 mm, then candidates derived from workspace and obstacle boundaries within 5-200 mm. Routes are direct or over-can; explicit gaps keep their requested value. Planning reserves 1 mm around obstacle boxes for tracking error; runtime checks use the measured grasp offset. Every selected motion passes geometric and native preflight checks. The fallback remains a finite search and can miss feasible motions. Live-model accuracy for this broader interface remains unmeasured; the frozen research comparison uses separate scripts and fixed inputs.
 
 ## Compare methods
 

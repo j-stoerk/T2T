@@ -113,14 +113,33 @@ def intersect(readings):
     return result
 
 
-async def select_plan(cell, readings):
-    """Search five gaps and direct/over-can routes, retaining all joint requirements."""
-    scene = cell.snapshot()
-    task = intersect([normalize(value, scene) for value in readings])
-    gaps = [task['gap_mm']] if task['gap_mm'] is not None else [20, 40, 60, 80, 100]
+def fallback_gaps(task, scene, direction):
+    """Sample gaps at and between geometry changes in the supported range."""
+    axis, sign = r.DIRECTIONS[direction]
+    obj, ref = (scene['objects'][task[key]] for key in ['object', 'reference'])
+    half = obj['size'][axis] / 2
+    origin = ref['position'][axis] + sign * (half + ref['size'][axis] / 2)
+    edges = [scene['bounds'][0][axis] + half + 1, scene['bounds'][1][axis] - half - 1]
+    for key, other in scene['objects'].items():
+        if key != task['object']:
+            padding = half + other['size'][axis] / 2 + 1
+            edges.extend(other['position'][axis] + side * padding for side in [-1, 1])
+    limits = PROPERTIES['gap_mm']
+    low, high = limits['minimum'] + 1, limits['maximum'] - 1
+    points = {low, high}  # Reserve tracking error at the supported gap limits.
+    points.update(sign * (edge-origin) for edge in edges
+        if low <= sign * (edge-origin) <= high)
+    points = sorted(points)
+    return sorted(set(points + [(a+b)/2 for a, b in zip(points, points[1:])]))
+
+
+def candidate_plans(task, scene, *, adaptive=False):
+    """Keep explicit gaps fixed; optional fallback candidates come from geometry."""
     routes = [task['via']] if task['via'] is not None else [''] + (['can'] if 'can' in scene['objects'] else [])
     candidates = []
     for direction in task['relations']:
+        gaps = ([task['gap_mm']] if task['gap_mm'] is not None else
+            fallback_gaps(task, scene, direction) if adaptive else [20, 40, 60, 80, 100])
         for gap in gaps:
             for via in routes:
                 r.planning_time_left()
@@ -135,18 +154,27 @@ async def select_plan(cell, readings):
                         cost += math.dist(position, target)
                         position = target
                 candidates.append((cost, plan))
-    for _, plan in sorted(candidates, key=lambda item: item[0]):
-        r.planning_time_left()
-        try:
-            await cell.preflight(plan)
-        except r.BudgetExceeded:
-            raise
-        except r.Rejected:
-            continue
-        r.planning_time_left()
-        r.scene_unchanged(scene, cell.snapshot())
-        return plan
-    raise r.Rejected('No feasible plan in the supported gap and route catalog.')
+    return sorted(candidates, key=lambda item: item[0])
+
+
+async def select_plan(cell, readings):
+    """Select a jointly permitted motion, then try geometric fallback gaps."""
+    scene = cell.snapshot()
+    r.validate_scene(scene)
+    task = intersect([normalize(value, scene) for value in readings])
+    for adaptive in [False, True] if task['gap_mm'] is None else [False]:
+        for _, plan in candidate_plans(task, scene, adaptive=adaptive):
+            r.planning_time_left()
+            try:
+                await cell.preflight(plan)
+            except r.BudgetExceeded:
+                raise
+            except r.Rejected:
+                continue
+            r.planning_time_left()
+            r.scene_unchanged(scene, cell.snapshot())
+            return plan
+    raise r.Rejected('No feasible plan found in the supported gap and route search.')
 
 
 def read(command, scene, previous, model, *, full=False, last_executed_goal=None):
