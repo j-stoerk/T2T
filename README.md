@@ -20,6 +20,8 @@ python -m unittest test_system
 
 The demo downloads one checksum-verified robot XML and executes three supplied goals, including a repeat after the reference object moves. It checks the controller without a language model.
 
+Explicit scene edits check the new pose for contacts before changing the live simulation. An overlapping pose leaves the cell unchanged; the edit's transport path is outside this interface.
+
 For language input, start [Ollama](https://ollama.com/) and install its [Qwen3 models](https://ollama.com/library/qwen3).
 
 ```sh

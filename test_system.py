@@ -1005,6 +1005,41 @@ class MuJoCoTests(unittest.IsolatedAsyncioTestCase):
         from mujoco_cell import MuJoCoCell
         self.cell = MuJoCoCell(os.environ['SEMANTICS_VC_MUJOCO_MODEL'])
 
+    async def test_overlapping_scene_edit_leaves_live_state_unchanged(self):
+        import numpy as np
+        cell = self.cell
+        session = r.Session(cell)
+        await session.run(r.intent(gap_mm=10))
+        cell.reset_trace()
+        before = cell.snapshot()
+        positions, velocities = cell.data.qpos.copy(), cell.data.qvel.copy()
+        controls, time = cell.data.ctrl.copy(), float(cell.data.time)
+        samples = deepcopy(cell.samples)
+        target = before['objects']['blue']['position'][:]
+        target[0] += 12  # This permitted 10 mm placement leaves too little room for the edit.
+        with self.assertRaisesRegex(r.Rejected, 'contact'):
+            cell.reposition('blue', target)
+        np.testing.assert_array_equal(cell.data.qpos, positions)
+        np.testing.assert_array_equal(cell.data.qvel, velocities)
+        np.testing.assert_array_equal(cell.data.ctrl, controls)
+        self.assertEqual(cell.data.time, time)
+        self.assertEqual(cell.snapshot(), before)
+        self.assertEqual(cell.samples, samples)
+        self.assertFalse(cell.collision_events)
+        self.assertEqual(cell.motions, 0)
+        target[0] -= 24
+        cell.reposition('blue', target)
+        await session.run(r.intent(action='repeat'))
+        self.assertFalse(cell.collision_events)
+
+    async def test_invalid_edit_coordinates_do_not_change_the_cell(self):
+        import numpy as np
+        cell, before = self.cell, self.cell.data.qpos.copy()
+        for point in [[0,0], [float('nan'),0,20], [0,float('inf'),20], [False,0,20]]:
+            with self.subTest(point=point), self.assertRaises(r.Rejected):
+                cell.reposition('blue', point)
+            np.testing.assert_array_equal(cell.data.qpos, before)
+
     async def test_optional_gap_fallback_executes_in_a_narrow_workspace(self):
         from contracts import select_plan
         cell = self.cell
