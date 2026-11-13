@@ -653,6 +653,59 @@ class ContractTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(r.Rejected):
             await memory.run('Place red right of blue.', 'actor','reader',full_history=True,extract=extract)
 
+    async def test_last_plan_can_be_adopted_without_hardening_bare_repeats(self):
+        for checking, full_history in [(False,False), (False,True), (True,False)]:
+            for adopt in [False, True]:
+                with self.subTest(checking=checking, full_history=full_history, adopt=adopt):
+                    await self.check_choice_context(checking, adopt, full_history)
+
+    async def check_choice_context(self, checking, adopt, full_history):
+        cell = TraceCell(r.example_scene())
+        cell.reset_trace()
+        memory = self.c.ContractSession(r.Session(cell))
+        payloads, task = [], deepcopy(self.task)
+
+        class Backend:
+            def generate(self, request, timeout):
+                payload = json.loads(request['messages'][1]['content'])
+                payloads.append(payload)
+                previous_goal = payload.get('last_executed_goal')
+                patch = dict(gap_mm=previous_goal['gap_mm']) if adopt and previous_goal else {}
+                fresh = request['model'] == 'reader' or payload['history'] is None
+                value = dict(action='new' if fresh else 'edit',
+                    requirements=dict(task, **patch) if fresh else patch)
+                return dict(message=dict(content=json.dumps(value)))
+
+        token = r.MODEL_BACKEND.set(Backend())
+        try:
+            first = await memory.run('Place red right of blue with any feasible gap.',
+                'actor', 'reader' if checking else None, check=checking, full_history=full_history)
+            chosen = first['goal']['gap_mm']
+            position = cell.snapshot()['objects']['blue']['position']
+            cell.reposition('blue', [position[0]-40, *position[1:]])
+            before = cell.snapshot()
+            cell.reset_trace()
+            command = 'Make the gap you just used mandatory.' if adopt else 'Repeat.'
+            result = await memory.run(command, 'actor', 'reader' if checking else None,
+                check=checking, full_history=full_history)
+        finally:
+            r.MODEL_BACKEND.reset(token)
+        count = 2 if checking else 1
+        self.assertTrue(all('last_executed_goal' not in p for p in payloads[:count]))
+        self.assertTrue(all(p['last_executed_goal'] == first['goal'] for p in payloads[count:]))
+        if full_history:
+            self.assertIsNone(payloads[count]['history'])
+        else:
+            self.assertIsNone(payloads[count]['history']['gap_mm'])
+        self.assertEqual(memory.local['gap_mm'], chosen if adopt else None)
+        self.assertEqual(result['goal']['gap_mm'], chosen if adopt else chosen+40)
+        self.assertEqual(result['model_call_count'], count)
+        self.assertTrue(observed_request(cell, before, dict(object='red', reference='blue',
+            axis=0, sign=1, gap=chosen if adopt else None, via=''))['request_ok'])
+        if checking:
+            self.assertIsNone(payloads[-1]['history'])
+            self.assertEqual(set(payloads[-1]), {'instruction','scene','history','last_executed_goal'})
+
     async def test_a_release_keeps_the_other_requirement(self):
         previous = dict(self.task, gap_mm=35, via='can')
         reading = dict(action='edit', requirements=dict(gap_mm=None))

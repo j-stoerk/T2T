@@ -43,6 +43,8 @@ python run.py run --method compatible --actor qwen3:4b --reader qwen3:4b "Place 
 
 `local-memory` uses one reading to update stored requirements. `compatible` adds a reader of the successful instruction history, with the first reading withheld, then selects a motion permitted by both. Both modes share the actor interface and planner. Allowed directions, optional gaps and optional routes stay separate from executed goals.
 
+Both readers receive the last successful plan separately. An instruction can explicitly adopt its gap or direction; a bare repeat keeps optional fields optional. Requests for unavailable earlier planner choices require clarification.
+
 `history-memory` executes a single full-history reading directly. Use the same model as the compatible method's reader to test whether the extra local reading helps beyond the reader alone. These controls share the requirement schema and planner; record model identities and actual call costs when comparing different sizes.
 
 The demo checks supplied requirements in MuJoCo, including a repeat after the reference moves. For optional gaps, search uses 20/40/60/80/100 mm and direct/over-can routes; explicit gaps use their requested value. Planning reserves 1 mm around obstacle boxes for tracking error; runtime checks use the measured grasp offset. Selected motions pass geometric and native preflight checks. Live-model accuracy for this broader interface remains unmeasured; the frozen research comparison uses separate scripts and fixed inputs.
