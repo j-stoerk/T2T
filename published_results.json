@@ -461,12 +461,13 @@
   },
   "sequence_development": {
     "complete_study": false,
-    "scope": "Development evidence on eight layouts and generated wording. Intervals condition on the recorded trained seeds. The 1.7B models are adapted; fixed pretrained 4B weights are reused across runs. Self-review reuses the goal adapter without requirement-fact training. Task adaptation and bounded CPU execution limit capacity claims. The held-out three-seed comparison remains pending. Saved outcomes are replayed without inference or trajectory re-scoring.",
+    "scope": "Development evidence from all twelve methods and three completed training seeds. Adapted models use Qwen3-1.7B; pretrained 4B controls reuse fixed weights. Forty-layout held-out confirmation remains pending. Layout intervals condition on the observed models and reused wording.",
     "protocol": {
       "split": "development",
       "completed_training_seeds": [
         "42",
-        "100"
+        "100",
+        "2026"
       ],
       "methods": [
         "goal_direct",
@@ -837,12 +838,16 @@
         "group": 0,
         "runs": {
           "42": {
-            "episode_success": [true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,false,true,true,true,true,true,true,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [true,true,true,true,false,true,true,true,true,true,false,false,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,false,false,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,false,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, false, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -851,6 +856,9 @@
           },
           "100": {
             "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
           }
         }
       },
@@ -859,12 +867,16 @@
         "group": 0,
         "runs": {
           "42": {
-            "episode_success": [true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,false,true,true,true,true,true,true,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [true,true,true,true,false,true,true,true,true,true,false,false,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,false,false,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,false,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, false, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -873,6 +885,9 @@
           },
           "100": {
             "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
           }
         }
       },
@@ -881,12 +896,16 @@
         "group": 0,
         "runs": {
           "42": {
-            "episode_success": [true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,false,true,true,true,true,true,true,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, false, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [true,true,true,true,false,true,true,true,true,true,false,false,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,false,false,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,false,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, false, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -895,6 +914,9 @@
           },
           "100": {
             "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
           }
         }
       },
@@ -903,12 +925,16 @@
         "group": 0,
         "runs": {
           "42": {
-            "episode_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -917,6 +943,9 @@
           },
           "100": {
             "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
           }
         }
       },
@@ -925,12 +954,16 @@
         "group": 0,
         "runs": {
           "42": {
-            "episode_success": [true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [true,true,true,true,false,true,true,true,true,true,false,false,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,false,false,true,true,true,true,false,true,true,true,true,true,false,true,true,true,true,true,false,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, false, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, false, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true, true, true, false, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, false, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -941,6 +974,10 @@
           "100": {
             "checker": "fca722e0e4fca2dccb0c30a41aa8dbaefa02aa782900ca338b98001d0d8207c2",
             "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "checker": "8f86940c0ab280a7e923198a3e6b9e1168c27e7936440637a197de4dee56dba1",
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
           }
         }
       },
@@ -949,12 +986,16 @@
         "group": 0,
         "runs": {
           "42": {
-            "episode_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -963,6 +1004,9 @@
           },
           "100": {
             "finetuned": "fca722e0e4fca2dccb0c30a41aa8dbaefa02aa782900ca338b98001d0d8207c2"
+          },
+          "2026": {
+            "finetuned": "8f86940c0ab280a7e923198a3e6b9e1168c27e7936440637a197de4dee56dba1"
           }
         }
       },
@@ -971,12 +1015,16 @@
         "group": 0,
         "runs": {
           "42": {
-            "episode_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -985,6 +1033,9 @@
           },
           "100": {
             "finetuned": "fca722e0e4fca2dccb0c30a41aa8dbaefa02aa782900ca338b98001d0d8207c2"
+          },
+          "2026": {
+            "finetuned": "8f86940c0ab280a7e923198a3e6b9e1168c27e7936440637a197de4dee56dba1"
           }
         }
       },
@@ -993,12 +1044,16 @@
         "group": 1,
         "runs": {
           "42": {
-            "episode_success": [false,false,false,false,false,true,false,false,true,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
-            "unsupported_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
           },
           "100": {
-            "episode_success": [false,false,false,false,false,true,false,false,true,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
-            "unsupported_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
           }
         },
         "model_weight_sha256": {
@@ -1006,6 +1061,9 @@
             "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
           },
           "100": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "2026": {
             "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
           }
         }
@@ -1015,12 +1073,16 @@
         "group": 1,
         "runs": {
           "42": {
-            "episode_success": [false,false,false,false,false,true,false,false,true,false,true,false,false,false,false,false,false,false,true,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
-            "unsupported_success": [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false]
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false]
           },
           "100": {
-            "episode_success": [false,false,false,false,false,true,false,false,true,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
-            "unsupported_success": [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false]
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false],
+            "unsupported_success": [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, true, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false]
           }
         },
         "model_weight_sha256": {
@@ -1028,6 +1090,9 @@
             "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
           },
           "100": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "2026": {
             "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
           }
         }
@@ -1037,12 +1102,16 @@
         "group": 1,
         "runs": {
           "42": {
-            "episode_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
-            "unsupported_success": [true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true]
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true]
           },
           "100": {
-            "episode_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
-            "unsupported_success": [true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true,true,false,true,false,false,false,false,true,true,true]
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true, true, false, true, false, false, false, false, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -1050,6 +1119,9 @@
             "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
           },
           "100": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+          },
+          "2026": {
             "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
           }
         }
@@ -1059,12 +1131,16 @@
         "group": 1,
         "runs": {
           "42": {
-            "episode_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -1075,6 +1151,10 @@
           "100": {
             "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
             "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
           }
         }
       },
@@ -1083,12 +1163,16 @@
         "group": 1,
         "runs": {
           "42": {
-            "episode_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           },
           "100": {
-            "episode_success": [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-            "unsupported_success": [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+          },
+          "2026": {
+            "episode_success": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+            "unsupported_success": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
           }
         },
         "model_weight_sha256": {
@@ -1099,6 +1183,10 @@
           "100": {
             "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
             "finetuned": "b78a467fbadcd0117a95ca9bee8434059fd374065a71acff7475635b32e85af4"
+          },
+          "2026": {
+            "checker": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f",
+            "finetuned": "126f58e85dfc2e49c2ff4570549142e0f863fe1315943d83a186e3d6ade5b1f3"
           }
         }
       }
@@ -1106,8 +1194,8 @@
     "provenance": {
       "dataset_sha256": "9f77be25d2da62a46dd9802ba7f2976eae21651436498c2d96b96a854d52fc68",
       "protocol_sha256": "43b907d53f52a1b29644419c659972df4643861fd730091b3a8c6733fc2cd8e8",
-      "all_method_review_sha256": "33ec79560f8766b5cda120051c7d056ee79d853005ce728362d9b9f977d7c588",
-      "paired_review_sha256": "e5acb13bff148eaf638ce5f28e8504e0c01d07661016c7977fe83d2a829114e9",
+      "all_method_review_sha256": "385a757feccc994b67bc650e7a7eba0ad08c22fd0d11f12412e6549f3be30c2e",
+      "paired_review_sha256": "0d4482a69e953348f36ee34e13c2e7b98206b028f47b8843714ac08d84f1334c",
       "compact_sha256": {
         "semantics-vc-seq-development-s42-l00-g0-v1/goal_direct": "67c8da3bc789667967f38a43617b3635b3fb09409e1803c8b7488e6b301b9d8e",
         "semantics-vc-seq-development-s42-l00-g0-v1/goal_feedback": "0860e69809afdbb7fea44447af006a8d4d41e0c70820364654800ac4c7506032",
@@ -1300,7 +1388,103 @@
         "semantics-vc-seq-development-s100-l07-g1-v1/large_goal_feedback": "894ec306b6d4c998519db924e90ca43b8a0fcc707081b6943238349a47ff8e78",
         "semantics-vc-seq-development-s100-l07-g1-v1/large_requirements": "5efec082050fa034aa68e5c22af6284b253104836a21aeadb38e008c4332b38d",
         "semantics-vc-seq-development-s100-l07-g1-v1/actor_large_reader": "ae6d8fb3389dfb0fb207be9b30931f282c3d44fd7504e230a90d8178daf5a480",
-        "semantics-vc-seq-development-s100-l07-g1-v1/actor_visible_reader": "6a9c8da818d7bd556273f22f35972463014700c97dc2392e9088f3c3add3d56d"
+        "semantics-vc-seq-development-s100-l07-g1-v1/actor_visible_reader": "6a9c8da818d7bd556273f22f35972463014700c97dc2392e9088f3c3add3d56d",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/goal_direct": "3d34ddee736e3b6e905b2c4142191e664e63814c4d77c1f8e099de513738d4fe",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/goal_feedback": "7577bbe2111edc97f458491a2b630c3a432c18b70b34967df4c908314ea4d5fa",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/goal_sampling": "361292eda738bbaaca44f551a9eb657f7106fb7e4d0ebab7cabab8db16fa1185",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/goal_self_review": "1474a43cc44e11fa204b60ceef2bae4ae4ece202c4f0bb635c6c1b038b31879b",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/actor_small_reader": "a35ad4f6effd3d336b46ce11dfc0ea9a51ec8b7021b82578760b0b7311bf6478",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/requirements_direct": "6e215a7183e08a38288d7cc1ee9dbcabe83226c0f71f2841ecb27944c517d93b",
+        "semantics-vc-seq-development-s2026-l00-g0-v1/requirements_repair": "8cace010c132ca707f4a562eceae3597d108c1201d72642ccc14e65b2d857032",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/large_goal_direct": "67981dec9391d0793b58c80e34697262e5150fe8181ad4561dd20da5ae4ac18a",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/large_goal_feedback": "11bcaf5c6c316b2cb04b3ef9ee1d5602c9bb6f7742218fc2b05f07282eea2f8e",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/large_requirements": "4d61b3a8b6e5036550619ffa127750bfd2f16d348d454ffff180fed5a2367351",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/actor_large_reader": "60390af89a9118eb21c6d3e3ced01f7d7950b170225cde1613d765dfc7dfd82f",
+        "semantics-vc-seq-development-s2026-l00-g1-v1/actor_visible_reader": "4759adca9ebf732eaa8e62fed532f1ac4ba50fedc3a6962dfbeecbe9766f2bc4",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/requirements_repair": "60e0ac51f2a67441192b809972b3b759091831fb60ac6a532f622c6ae2f30750",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/requirements_direct": "0be6d8c6ecfb61c8c0147d4cc19eb57940db2f1b5230197ef1553e717731722b",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/actor_small_reader": "ecab71ade4a39803e0603e11f6c4589736a4b50a951785c128a42345abb54af8",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/goal_self_review": "95f20190ce8665245836696c43c260de49bc085626c1b041464629f4134eb9bf",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/goal_sampling": "cf871f7ac50c18a3167d31fe071d446e4b43b046b795cc254799c8da24189ba6",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/goal_feedback": "8b18b3c65c7d42b8e0d0f7a1b92cda02687f019c62ad272e119deca546950f25",
+        "semantics-vc-seq-development-s2026-l01-g0-v1/goal_direct": "3723704523f02bffeeeff1c835165c8ad77ea76db3e8744d473291c8da7e9755",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/actor_visible_reader": "b8884eefa35828c25637eb2351c1328a56f0dd2628ea4c47128452e7e2b2b030",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/actor_large_reader": "94c0cd06c6de757bf6f24eddb2d5c332f7281152a86fb52b1116953be614ea28",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/large_requirements": "d106188c84eb7697ebe4b501df6be867acfbc6954ca4e5a2e8af5ae87a2a93cf",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/large_goal_feedback": "f60639981fb33fd473daf12dc41ab95b7bca5ecae50c9a21ecdd2dae5a6fc80c",
+        "semantics-vc-seq-development-s2026-l01-g1-v1/large_goal_direct": "95ed7f62481e00f955360daac6d69b83b9a4dae684dccec4208f2ae4eda95721",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/goal_direct": "bdb3503c73753b6333c9be4e2eeb2687c2f681497faad0e804a48fd3db8b7df3",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/goal_feedback": "b17a006d7afb1094234343a3ebe323b410c44596ac8db316fd05740b838603af",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/goal_sampling": "9c5a04d71c838e02010819ddb106247cb1bac388077d7974ab4a0ce4636cb4ce",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/goal_self_review": "37808ca19d0564a845fdf7dc504a5f9b283bb865c0078e093d754e359cdfe552",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/actor_small_reader": "53f5fbe9fc7c906ccdb9c8d8230c92a8b1bd1f5dcb763f76f23df61b8bbfe279",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/requirements_direct": "c4eac177c7f711472334f0f66155485ac1b2570e1f1e86609fe7a8b9a2de90c9",
+        "semantics-vc-seq-development-s2026-l02-g0-v1/requirements_repair": "aeb958cd31f260c0cb5c5364dd435d58bfae8afdafebb367608eb96753237c8f",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/large_goal_direct": "dc79e051cc5e8ced727e4fe18fa17ef37fcda2780a96bba006f1a103842aa4e3",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/large_goal_feedback": "da3d5f127a1d5574d04eb4d573318aa20fa73c26ceaab37bf70a9cfe1c25f827",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/large_requirements": "f96c7c9c49112ae3d094c59e5bc129bfd4ecb504836b85eac4bfbf7b89b43925",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/actor_large_reader": "cf32c51e0657cbba4328cd46f67983d34502538af60ae82f453c10f18ca1f249",
+        "semantics-vc-seq-development-s2026-l02-g1-v1/actor_visible_reader": "7a873efed8d48c28bdf2811d53b8517c83b00f45be3130ca1248f3561044916d",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/requirements_repair": "9ea13cfe85cc44379371fdf7604df743043134ed1ef36dfcd2d646fee035e25f",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/requirements_direct": "24da136944373002c25f701cacbf2963f26a7201dd28bccba1edb0a0b95285a9",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/actor_small_reader": "281d68d8d248b256f71160ffab8bca7c495e044dc349bbcacf661bee2235b2dd",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/goal_self_review": "37fa95a187ec1e45095ed4c4f8ab8aeeb402cea530f7d662ccd7042ac3707023",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/goal_sampling": "5c76cc94dd67b77480ae70b5fdc57466115c08316886d3991003ef0f2986380b",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/goal_feedback": "508ce2ea8e05f29f60bde291543d9bb9a3a9752183586e5bb061712aa4bb5e12",
+        "semantics-vc-seq-development-s2026-l03-g0-v1/goal_direct": "5decd46563cedae4ea4f6b685759f76a89ed9f8dd81ed260a5fc0cfa8090dd7d",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/actor_visible_reader": "8645eba9e4b105829350dddfcda25b97819d3d8669fc6105bf6e20defe3e72a5",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/actor_large_reader": "904bea3d54126754ee63081a6b9eca21195ec51dbdbd7272d6d7262af3b72e2d",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/large_requirements": "d718be8073c5b56dae45d524be7975646ea1b63d79150429f3b1757e03410dff",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/large_goal_feedback": "213a97973fb064bb8c24b49ad0c9fa3b6e8e91333635598dc7664b4db64cd3d3",
+        "semantics-vc-seq-development-s2026-l03-g1-v1/large_goal_direct": "23c4018fa7646a6474b54d60f57a93c51ebac7efe1ff0b6de41abad1e0beef7a",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/goal_direct": "d16643d5fc693292cced1256aacaca0017df9451348a7f08df60ad097fd7fea1",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/goal_feedback": "1a186a86303b4f412e8de60b23d55e056e647381c522ae86130307ebccc4fff3",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/goal_sampling": "005111f1bd2d25fedd7650d6a6a23964ae8c61b25f6f352e14ef6769a8d9e41e",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/goal_self_review": "13fd908d6545bfb08a7e45a7036f181e421376c8255639d9f57d9751955b047a",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/actor_small_reader": "215fdf2d8ce663d953702ecd305d7af4f96adb4d2281cb4562336ee2ae4ead0f",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/requirements_direct": "21232c570aa6d13ab93eb7e9e9a2cd426efe7ee1d95868c71fcbd824bc19ba27",
+        "semantics-vc-seq-development-s2026-l04-g0-v1/requirements_repair": "be4b84b55848da90139c8f979a32be37a2d275fecab4b19fcb220263f87942cf",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/large_goal_direct": "681f266adb12e932f24b098b3d45925132504b06173fc675ff0c484d8c329572",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/large_goal_feedback": "19e26bd7a0392e7c1078c07fee6fece4f124ea85e561e771d7a95c9bf2d334e8",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/large_requirements": "962bc77269a7565520566fa0524b58c7cba5bdd7bd25b165af372a1513294ea4",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/actor_large_reader": "78cd9505cc397d65578128d4cc2dfa2866cab66202d18ea8b35824c529d8dd51",
+        "semantics-vc-seq-development-s2026-l04-g1-v1/actor_visible_reader": "0707144f2ae8931efc0940d153ea3107342e715f153741abd3af09b2d9895bea",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/requirements_repair": "3e21cccac4e2b1a074f8205c2127470e5ea338f74deb31b082c39997a4a2f538",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/requirements_direct": "4fb6eda707a7c7d0814163734c6b77ba9a815714798e6c7941e5e07a56ab4fc4",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/actor_small_reader": "386a3296651577b884d1a559f1310a8fce14a59ef0e2ca873b8315b858262cbd",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/goal_self_review": "eb484ddfb90ab7664a9ba9756a05d525c784ba6407e807aca53d7a810653398c",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/goal_sampling": "8137673af45807122275a2f488512e2c4845176c9595986e2c149d3b11d5c1a7",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/goal_feedback": "2cd2efc0a09e1a59f30e8ed1f6cce3ae559bfcc1088f62e1367d8340bdfb15b3",
+        "semantics-vc-seq-development-s2026-l05-g0-v1/goal_direct": "f6d8cd88a04587d64f9909d9774db34f222859ec6388eb17a6e0f8a70a20d09a",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/actor_visible_reader": "5ba9d12557432afe2a3d4d8598a60fa0317db48caf137f557e62ca2fdfa5a304",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/actor_large_reader": "1544dfeb04bb1653fc52c642bd9520681ba8f4e5e39f80c268872156d9a4dece",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/large_requirements": "7756809cc017063f89041d72135c6f8d48aee7a38a9221eab71d35ec85d430fa",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/large_goal_feedback": "d5c5ea09e023790b999bdaeec41434a9048e9827f2d310df1dcc4c78ef0dde0e",
+        "semantics-vc-seq-development-s2026-l05-g1-v1/large_goal_direct": "44160f3c402bdde0f05e73713aa5df5ee66c30193532bb3a00a7c8349ac1fae1",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/goal_direct": "c615e3c9c3e189e0d8db1172dc737234af364173e8ab5eab6d8607094bbe906a",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/goal_feedback": "5cd323a384ec59680af7c01fcc1fc2acb425ac3b871280ea7936a9de33ebe6e2",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/goal_sampling": "043f896f9b8e56e149f1daed8d38f903642fe6dac04bb74116f78ff143de12db",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/goal_self_review": "d305e370dcb4c0919b504f780e0de0c0687cb927485a674f8bc4ae4697066d19",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/actor_small_reader": "d79c669624751e5a793b3ce3f7308b6b5de3423475b26590caa28dfe97e060be",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/requirements_direct": "6de182d93dfdbb72f3683f3cd94071659e95a31324d04a0554a28ce6691e6a93",
+        "semantics-vc-seq-development-s2026-l06-g0-v1/requirements_repair": "77a6ac099fa902dd718874499d1563232afc3795b1c6473544aa1e0b9725f505",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/large_goal_direct": "d8916bf06e5e6e044642b477004711adb11aafaf93885e16f794002cf52ef529",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/large_goal_feedback": "589a7a169cabb158967d21356f8684cc2595a311663bb58d548f2cb56b18eb0c",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/large_requirements": "736f9c87cdc5f8531e2fe8dc1bd2ceb5fae553651646cb676f7d1c2f63c5590b",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/actor_large_reader": "0ecf690f6b2b0f3e9df1ade52b4648af008876eca8bdabba696040406188645d",
+        "semantics-vc-seq-development-s2026-l06-g1-v1/actor_visible_reader": "a8d7ac07317fac4a3bd75ea3a2fc6587bbcd408ae4c766fad9c6566b24f1098c",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/requirements_repair": "4930c70c24b60ef7eeaf13fc146a742aaf44a84bd0c94c6278af113bc7364541",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/requirements_direct": "54b562405bf7d56b8ee940ec64843fe99d8b18576f9b8a86b337814aa35e54c1",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/actor_small_reader": "9262cf00821b31384fec2c119cd0df09547ef42fa5f8bdea1836f13522f75765",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/goal_self_review": "6c4f9b438ab7c382b9c4013aef11ff8ad4b769eadce9f6f178262a7442b51bd4",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/goal_sampling": "190671e2817de3e7c6caeafee637374941722c6af9d57d559168107937264909",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/goal_feedback": "a139fcb9b6ebfc2bb261e81ebbf114fc2107db400e5aa4773c858f0154a5d092",
+        "semantics-vc-seq-development-s2026-l07-g0-v1/goal_direct": "24f0802cc311cfa9de6d6286c65ded7b63e6a91f3188be7e383e9286ff8a82c5",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/actor_visible_reader": "12f5f8362bcb54c1a7dfd29c07b8a1a94e339adbc250a71bbede7c6ed2db61fe",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/actor_large_reader": "bd26513c5c0bd2fd34b540aa2e9092974bbaa53cf7b4bf39fc7546f4daecd989",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/large_requirements": "78d75f572e3e2df86f6cd1d4cd604ed56740fbb47b0dd8c9256ee503eea51f41",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/large_goal_feedback": "daaa6fdd40b5bcd3843fc0dec375bf4546f4ecb3a2e643d35842e87a8b2240f9",
+        "semantics-vc-seq-development-s2026-l07-g1-v1/large_goal_direct": "6dec288ae47e831894a5a098bae60aca055284452b88948b40af73471399d043"
       },
       "job_review_sha256": {
         "semantics-vc-seq-development-s42-l00-g0-v1": "3cfbc5b715648d22c5daa0115071deefb3c730405c434eda92aa06995e65e81b",
@@ -1334,8 +1518,95 @@
         "semantics-vc-seq-development-s100-l06-g0-v1": "5ef3344305170806ff3a724797c3b068b128747507ce0b1c697936f51e357342",
         "semantics-vc-seq-development-s100-l06-g1-v1": "5989a5219556598aff38ba62601aab3b792c9ea51e4e67755413c93d1cf9d499",
         "semantics-vc-seq-development-s100-l07-g0-v1": "e32c5446f8f2efe3aeeb421ab9b6a359ec8bfbfbac1ee2435d119be257d66855",
-        "semantics-vc-seq-development-s100-l07-g1-v1": "a53516b566f4a7c447c54c8be7d521f8258776ad4645174b6087d3c6eea7cab1"
+        "semantics-vc-seq-development-s100-l07-g1-v1": "a53516b566f4a7c447c54c8be7d521f8258776ad4645174b6087d3c6eea7cab1",
+        "semantics-vc-seq-development-s2026-l00-g0-v1": "a6e55723107ba344634ad8e520f7ae5fe2cda823558e86e61f8d2d3b402933b5",
+        "semantics-vc-seq-development-s2026-l00-g1-v1": "2fe00af93cdbe97a35106f6c0dd1214a1707bc929ba3339b7e9ca666b96b4af4",
+        "semantics-vc-seq-development-s2026-l01-g0-v1": "33ac3596b8e274456f7c5e84985e5717be92e1a63456bd5a4e4d801e4d80cc0b",
+        "semantics-vc-seq-development-s2026-l01-g1-v1": "bf8a577d672e7a19918bc2d2f9d7fb75912225129968bfd3049070a06429e365",
+        "semantics-vc-seq-development-s2026-l02-g0-v1": "bb7548054b2d074245ff7a8608ba10bfee1d35eb7bb27c794ff9bb7570039a08",
+        "semantics-vc-seq-development-s2026-l02-g1-v1": "901106d060e9a0c57a0a7cdd97028f0f9de59ae5983842a23173ef3a3e8c2355",
+        "semantics-vc-seq-development-s2026-l03-g0-v1": "5ab2b40ba78e0670a74719191f65d5801eb866563f64b2d28be8d26661ff7017",
+        "semantics-vc-seq-development-s2026-l03-g1-v1": "a6bcf9bc3020f8639faaf69acb02561047f8c9108914aba72be8620d1fdd3796",
+        "semantics-vc-seq-development-s2026-l04-g0-v1": "3aa19be432720d866a2e7a5a799552ff9d6acebb3636c5d974b5bdc00169a9ce",
+        "semantics-vc-seq-development-s2026-l04-g1-v1": "9aefbdefe6d7dc7d50a3bf33343f0b51feb3c1152eabc3991732bb337074d3e8",
+        "semantics-vc-seq-development-s2026-l05-g0-v1": "00dd11f0b629f9a2a622c655c72afd4786ded36fbebaedd74f7d504c7bde0c9e",
+        "semantics-vc-seq-development-s2026-l05-g1-v1": "665b943de494c339ba022e0527e566ea1f63786508248e5c77377038899c1a32",
+        "semantics-vc-seq-development-s2026-l06-g0-v1": "df7037f6ffcedf170d448435ef866b8a54dd9834d6ba02a79588e79955ae0755",
+        "semantics-vc-seq-development-s2026-l06-g1-v1": "8b002957a691b6800fb322cf4ae70603ccde20272637c922daaf996dc1b05024",
+        "semantics-vc-seq-development-s2026-l07-g0-v1": "d4aad0523c5fd0f76d95780b4cd267be4fa4deab0d486fa3c6602b964d99d365",
+        "semantics-vc-seq-development-s2026-l07-g1-v1": "9a40b2524bb3399f46a00c16a0be722081a9f03693b58bc6fee23a7b7b993c2b"
       }
     }
+  },
+  "goal_interface_development": {
+    "split": "development",
+    "layout": "development-70000",
+    "seed": 42,
+    "model": {
+      "repository": "Qwen/Qwen3-4B",
+      "revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+      "sha256": "1700ef98a8b1376ec8b66817e6b7fcdbf34a0274a6dce060bae45142516dc28f"
+    },
+    "episode_ids": [
+      "development-70000-0",
+      "development-70000-1",
+      "development-70000-2",
+      "development-70000-3",
+      "development-70000-4",
+      "development-70000-5"
+    ],
+    "unsupported_ids": [
+      "development-negative-0-step0",
+      "development-negative-1-step0",
+      "development-negative-2-step0",
+      "development-negative-3-step0",
+      "development-negative-4-step0",
+      "development-negative-5-step0",
+      "development-negative-6-step0",
+      "development-negative-7-step0",
+      "development-negative-8-step0",
+      "development-negative-9-step0"
+    ],
+    "conditions": {
+      "original_free": {
+        "full_goal": false,
+        "grammar": false,
+        "episode_success": [false, false, false, false, false, true],
+        "unsupported_success": [false, false, false, false, false, false, false, false, false, false],
+        "unsupported_execution": [false, false, true, false, false, false, true, false, false, false]
+      },
+      "full_goal_free": {
+        "full_goal": true,
+        "grammar": false,
+        "episode_success": [true, true, false, true, true, true],
+        "unsupported_success": [false, false, false, false, false, false, false, false, false, false],
+        "unsupported_execution": [false, false, true, true, false, false, false, false, false, false]
+      },
+      "original_grammar": {
+        "full_goal": false,
+        "grammar": true,
+        "episode_success": [false, false, false, true, false, true],
+        "unsupported_success": [false, false, false, true, true, false, false, false, false, false],
+        "unsupported_execution": [false, true, true, false, false, true, true, false, false, false]
+      },
+      "full_goal_grammar": {
+        "full_goal": true,
+        "grammar": true,
+        "episode_success": [false, true, false, true, false, true],
+        "unsupported_success": [true, false, false, false, true, false, false, false, false, true],
+        "unsupported_execution": [false, true, true, true, false, true, false, false, false, false]
+      }
+    },
+    "provenance": {
+      "protocol_sha256": "5950d4311a86aec43850372ee85086eb1b77e396f30c637e96776d812672a5d4",
+      "independent_review_sha256": "ffd9326113405a13ada4822561a0354662953ed7aa5eb8953661c5b78495b5ee",
+      "compact_sha256": {
+        "original_free": "cdf019b6465435eeb0ad5f003be56d84198ab1f94169a4619e4785c25108b8d5",
+        "full_goal_free": "70308be53e779818a970fb9532f74ba9d6881f0e5d62d529287f08365d3d4881",
+        "original_grammar": "507c92bbafbbf23487e28a995fc87483acc5308ad138b8d0fe32ead972191026",
+        "full_goal_grammar": "8e0d05083b6dee56d22d81c582fe0cd8099e017502b6fd2b8fbe0bfb4de122a7"
+      }
+    },
+    "scope": "One development layout; identical pretrained Qwen3-4B weights and CPU host. Four conditions cross the goal prompt with native schema-constrained decoding. The grammar changes more than JSON syntax. No new training seed or across-layout confidence interval."
   }
 }

@@ -83,17 +83,26 @@ class SequenceResultTests(unittest.TestCase):
         result = sequence_results(self.data)
         self.assertFalse(result['complete_study'])
         self.assertEqual(len(result['methods']), 12)
-        self.assertEqual(len(result['contrasts']), 10)
+        self.assertEqual(result['seeds'], ['42','100','2026'])
+        self.assertEqual(len(result['contrasts']), 15)
         for name in ['large_goal_direct','large_goal_feedback','large_requirements']:
             weights = self.data['methods'][name]['model_weight_sha256']
             self.assertEqual(weights['42'], weights['100'])
-        for seed in ['42','100']:
+            self.assertEqual(weights['42'], weights['2026'])
+        for seed in result['seeds']:
             checked = self.data['methods']['actor_small_reader']['model_weight_sha256'][seed]
             self.assertEqual(checked['checker'], self.data['methods']['requirements_direct']['model_weight_sha256'][seed]['finetuned'])
             self.assertEqual(checked['finetuned'], self.data['methods']['goal_feedback']['model_weight_sha256'][seed]['finetuned'])
-        for method, counts in [('goal_feedback', [43,38]), ('actor_small_reader', [45,38]),
-                               ('requirements_direct', [48,48])]:
-            self.assertEqual([result['methods'][method]['seeds'][s]['episode_successes'] for s in ['42','100']], counts)
+        expected = {'goal_direct':[43,38,38], 'goal_feedback':[43,38,38],
+            'goal_sampling':[43,38,40], 'goal_self_review':[0,0,0],
+            'actor_small_reader':[45,38,38], 'requirements_direct':[48,48,48],
+            'requirements_repair':[48,48,48], 'large_goal_direct':[6,6,6],
+            'large_goal_feedback':[7,6,7], 'large_requirements':[1,1,1],
+            'actor_large_reader':[1,1,1], 'actor_visible_reader':[0,0,0]}
+        self.assertEqual(set(expected), set(result['methods']))
+        for method, counts in expected.items():
+            self.assertEqual([result['methods'][method]['seeds'][s]['episode_successes']
+                for s in result['seeds']], counts)
         contrast = next(c for c in result['contrasts'] if c['seed']=='42' and
             c['baseline']=='goal_feedback' and c['candidate']=='requirements_direct')
         self.assertAlmostEqual(contrast['difference_pp'], 100*5/48)
@@ -132,6 +141,24 @@ class SequenceResultTests(unittest.TestCase):
             run.main()
         self.assertIn('Development only',output.getvalue())
         self.assertIn('48/48',output.getvalue())
+
+    def test_interface_control_retains_all_conditions_and_failed_cases(self):
+        from evaluate import interface_results
+        data = json.loads((Path(__file__).parent/'published_results.json').read_text(encoding='utf-8'))['goal_interface_development']
+        result = interface_results(data)
+        self.assertEqual([r['successes'] for r in result.values()], [1,5,2,3])
+        self.assertEqual([r['correct_refusals'] for r in result.values()], [0,0,2,3])
+        self.assertEqual([r['unsupported_executions'] for r in result.values()], [2,2,4,4])
+        for mutation in ['condition','failure','unsupported','type','factor','overlap']:
+            changed = deepcopy(data)
+            run = changed['conditions']['original_free']
+            if mutation=='condition':changed['conditions'].pop('full_goal_grammar')
+            if mutation=='failure':run['episode_success'].remove(False)
+            if mutation=='unsupported':changed['unsupported_ids'].pop()
+            if mutation=='type':run['episode_success'][0]=1
+            if mutation=='factor':run['full_goal']=True
+            if mutation=='overlap':run['unsupported_success']=run['unsupported_execution'][:]
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):interface_results(changed)
 
 
 class VisualReferenceTests(unittest.TestCase):

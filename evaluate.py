@@ -98,6 +98,32 @@ def published_policies(path):
     return result
 
 
+def interface_results(data):
+    """Retain every outcome in the fixed four-condition development control."""
+    modes = {'original_free':(False,False), 'full_goal_free':(True,False),
+        'original_grammar':(False,True), 'full_goal_grammar':(True,True)}
+    if data['split'] != 'development' or set(data['conditions']) != set(modes):
+        raise ValueError('Expected all four development interface conditions.')
+    for field, size in [('episode_ids',6), ('unsupported_ids',10)]:
+        if len(data[field]) != len(set(data[field])) or len(data[field]) != size:
+            raise ValueError('Retain every assigned interface case.')
+    summaries = {}
+    for name, (full, grammar) in modes.items():
+        run = data['conditions'][name]
+        if (run['full_goal'],run['grammar']) != (full,grammar):
+            raise ValueError('The prompt and decoding factors must match the condition.')
+        for field, size in [('episode_success',6), ('unsupported_success',10), ('unsupported_execution',10)]:
+            values = run[field]
+            if len(values) != size or any(type(value) is not bool for value in values):
+                raise ValueError('Retain all Boolean outcomes, including failures.')
+        if any(a and b for a,b in zip(run['unsupported_success'],run['unsupported_execution'])):
+            raise ValueError('An unsupported execution cannot be a correct refusal.')
+        summaries[name] = dict(successes=sum(run['episode_success']), episodes=6,
+            correct_refusals=sum(run['unsupported_success']), unsupported=10,
+            unsupported_executions=sum(run['unsupported_execution']))
+    return summaries
+
+
 def sequence_assignment(data):
     """Require every assigned case, family, method and completed seed."""
     protocol, cases = data['protocol'], data['episodes']

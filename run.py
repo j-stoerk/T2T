@@ -148,6 +148,12 @@ def show_study():
         lo, hi = contrast['conditional_layout_95_interval_pp']
         print(f"Seed {contrast['seed']}: {b} minus {a}: {contrast['difference_pp']:+.2f} pp [{lo:+.2f}, {hi:+.2f}]")
     print(report['scope'])
+    control = json.loads((ROOT/'published_results.json').read_text(encoding='utf-8'))['goal_interface_development']
+    print('\nPretrained 4B interface control; one development layout, fixed weights:')
+    for name, row in evaluation.interface_results(control).items():
+        print(f"{name:24} {row['successes']}/6 episodes, {row['correct_refusals']}/10 refusals, "
+              f"{row['unsupported_executions']}/10 unsupported executions")
+    print(control['scope'])
 
 
 def main():
