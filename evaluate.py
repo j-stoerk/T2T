@@ -98,6 +98,60 @@ def published_policies(path):
     return result
 
 
+def sequence_assignment(data):
+    """Require every assigned case, family, method and completed seed."""
+    protocol, cases = data['protocol'], data['episodes']
+    seeds, methods = protocol['completed_training_seeds'], protocol['methods']
+    layouts = sorted({case['layout'] for case in cases})
+    if (protocol['split'] != 'development' or data['complete_study'] is not False or
+            not seeds or len(set(seeds)) != len(seeds) or len(cases) != 48 or len(layouts) != 8 or
+            len({case['id'] for case in cases}) != 48 or len(data['unsupported_ids']) != 80 or
+            len(set(data['unsupported_ids'])) != 80 or
+            len(methods) != 12 or len(set(methods)) != 12 or set(data['methods']) != set(methods)):
+        raise ValueError('Expected complete development assignments and all twelve methods.')
+    indices = [[i for i, case in enumerate(cases) if case['layout'] == layout] for layout in layouts]
+    if any(len(group) != 6 or {cases[i]['family'] for i in group} != set(range(6)) for group in indices):
+        raise ValueError('Every layout must retain all six families.')
+    return protocol, seeds, methods, indices
+
+
+def sequence_results(data):
+    """Replay complete development cohorts, keeping layouts and seeds coupled."""
+    import numpy as np
+    protocol, seeds, methods, indices = sequence_assignment(data)
+    draws = np.random.default_rng(protocol['bootstrap_seed']).integers(0, 8,
+        size=(protocol['resamples'], 8))
+    outcomes, summaries = {}, {}
+    for name in methods:
+        method = data['methods'][name]
+        if set(method['runs']) != set(seeds):
+            raise ValueError('Every method must retain every declared seed.')
+        scores = {}
+        for seed in seeds:
+            run = method['runs'][seed]
+            for field, size in [('episode_success', 48), ('unsupported_success', 80)]:
+                values = run[field]
+                if not isinstance(values, list) or len(values) != size or any(type(v) is not bool for v in values):
+                    raise ValueError('Retain every assigned Boolean outcome, including failures.')
+            values = np.asarray(run['episode_success'], dtype=float)
+            outcomes[name, seed] = np.asarray([values[group].mean() for group in indices])
+            scores[seed] = dict(episode_successes=sum(run['episode_success']), episodes=48,
+                correct_refusals=sum(run['unsupported_success']), unsupported_requests=80,
+                layout_95_interval_pp=np.quantile(100*outcomes[name, seed][draws].mean(1), [.025,.975]).tolist())
+        summaries[name] = dict(label=method['label'], seeds=scores)
+    contrasts = []
+    for baseline, candidate in protocol['contrasts']:
+        if data['methods'][baseline]['group'] != data['methods'][candidate]['group']:
+            raise ValueError('Paired comparisons must share an execution group.')
+        for seed in seeds:
+            difference = 100*(outcomes[candidate, seed] - outcomes[baseline, seed])
+            contrasts.append(dict(baseline=baseline, candidate=candidate, seed=seed,
+                difference_pp=float(difference.mean()),
+                conditional_layout_95_interval_pp=np.quantile(difference[draws].mean(1), [.025,.975]).tolist()))
+    return dict(scope=data['scope'], complete_study=False, methods=summaries, contrasts=contrasts,
+        seeds=seeds, layouts=8, resamples=protocol['resamples'], bootstrap_seed=protocol['bootstrap_seed'])
+
+
 class TraceCell(r.MemoryCell):
     """Observe payload positions independently of the proposed semantic goal."""
     def reset_trace(self):

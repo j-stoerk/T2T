@@ -132,10 +132,28 @@ def compare(paths):
         print(warning)
 
 
+def show_study():
+    data = json.loads((ROOT/'published_results.json').read_text(encoding='utf-8'))['sequence_development']
+    report = evaluation.sequence_results(data)
+    print('Development only; 8 layouts. Cells show successful episodes /48, correct refusals /80.')
+    print(f"{'Method':48} " + ' '.join(f"{'Seed '+seed:>15}" for seed in report['seeds']))
+    for method in report['methods'].values():
+        cells = [f"{method['seeds'][s]['episode_successes']}/48, {method['seeds'][s]['correct_refusals']}/80"
+                 for s in report['seeds']]
+        print(f"{method['label']:48} " + ' '.join(f'{cell:>15}' for cell in cells))
+    print('\nCandidate minus baseline; conditional paired-layout 95% intervals:')
+    for contrast in report['contrasts']:
+        a, b = (report['methods'][contrast[key]]['label'] for key in ['baseline', 'candidate'])
+        lo, hi = contrast['conditional_layout_95_interval_pp']
+        print(f"Seed {contrast['seed']}: {b} minus {a}: {contrast['difference_pp']:+.2f} pp [{lo:+.2f}, {hi:+.2f}]")
+    print(report['scope'])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('policies', help='Reproduce LIBERO scores, intervals and development continuation counts without inference.')
+    commands.add_parser('study', help='Replay the released development scores and paired layout intervals without inference.')
     commands.add_parser('demo', help='Run three supplied goals in MuJoCo, including a changed-scene repeat.')
     commands.add_parser('compatible-demo', help='Execute complementary requirements, then repeat after objects move.')
     visual = commands.add_parser('visual-reference', help='Replay the fixed-grammar RGB baseline without a model.')
@@ -161,6 +179,9 @@ def main():
     if args.command == 'evaluate' and args.method in ('local-memory', 'history-memory', 'compatible') and args.scope != 'episodes':
         parser.error('Contract comparisons require --scope episodes so user history develops through execution.')
     try:
+        if args.command == 'study':
+            show_study()
+            return
         if args.command == 'policies':
             print(json.dumps(evaluation.published_policies(ROOT/'published_results.json'), indent=2))
             return

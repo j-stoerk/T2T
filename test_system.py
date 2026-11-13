@@ -74,6 +74,66 @@ class PublishedPolicyTests(unittest.TestCase):
         for actual,expected in zip(pair['paired_task_bootstrap_95'],[-2,2]): self.assertAlmostEqual(actual,expected)
 
 
+class SequenceResultTests(unittest.TestCase):
+    def setUp(self):
+        self.data = json.loads((Path(__file__).parent/'published_results.json').read_text(encoding='utf-8'))['sequence_development']
+
+    def test_released_scores_and_intervals_match_completed_development(self):
+        from evaluate import sequence_results
+        result = sequence_results(self.data)
+        self.assertFalse(result['complete_study'])
+        self.assertEqual(len(result['methods']), 12)
+        self.assertEqual(len(result['contrasts']), 10)
+        for name in ['large_goal_direct','large_goal_feedback','large_requirements']:
+            weights = self.data['methods'][name]['model_weight_sha256']
+            self.assertEqual(weights['42'], weights['100'])
+        for seed in ['42','100']:
+            checked = self.data['methods']['actor_small_reader']['model_weight_sha256'][seed]
+            self.assertEqual(checked['checker'], self.data['methods']['requirements_direct']['model_weight_sha256'][seed]['finetuned'])
+            self.assertEqual(checked['finetuned'], self.data['methods']['goal_feedback']['model_weight_sha256'][seed]['finetuned'])
+        for method, counts in [('goal_feedback', [43,38]), ('actor_small_reader', [45,38]),
+                               ('requirements_direct', [48,48])]:
+            self.assertEqual([result['methods'][method]['seeds'][s]['episode_successes'] for s in ['42','100']], counts)
+        contrast = next(c for c in result['contrasts'] if c['seed']=='42' and
+            c['baseline']=='goal_feedback' and c['candidate']=='requirements_direct')
+        self.assertAlmostEqual(contrast['difference_pp'], 100*5/48)
+        for actual, expected in zip(contrast['conditional_layout_95_interval_pp'], [100*2/48,100*7/48]):
+            self.assertAlmostEqual(actual, expected)
+
+    def test_common_case_permutation_preserves_layout_pairing(self):
+        from evaluate import sequence_results
+        changed = deepcopy(self.data)
+        changed['episodes'].reverse()
+        for method in changed['methods'].values():
+            for run in method['runs'].values():
+                run['episode_success'].reverse()
+        self.assertEqual(sequence_results(changed), sequence_results(self.data))
+
+    def test_missing_failures_seeds_methods_and_unmatched_groups_are_rejected(self):
+        from evaluate import sequence_results
+        for mutation in ['failure','seed','method','type','family','negative','group']:
+            changed = deepcopy(self.data)
+            run = changed['methods']['goal_feedback']['runs']['100']
+            if mutation=='failure':run['episode_success'].remove(False)
+            if mutation=='seed':changed['methods']['goal_feedback']['runs'].pop('100')
+            if mutation=='method':changed['methods'].pop('large_goal_direct')
+            if mutation=='type':run['episode_success'][0]=1
+            if mutation=='family':changed['episodes'][1]['family']=changed['episodes'][0]['family']
+            if mutation=='negative':changed['unsupported_ids'].append(changed['unsupported_ids'][0])
+            if mutation=='group':changed['protocol']['contrasts'][0][1]='large_goal_direct'
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                sequence_results(changed)
+
+    def test_study_command_requires_no_inference_or_model_download(self):
+        import run
+        with patch('sys.argv',['run.py','study']), patch('sys.stdout',new_callable=io.StringIO) as output, \
+                patch.object(run,'model_path',side_effect=AssertionError('Download attempted.')), \
+                patch.object(r,'model_json',side_effect=AssertionError('Inference attempted.')):
+            run.main()
+        self.assertIn('Development only',output.getvalue())
+        self.assertIn('48/48',output.getvalue())
+
+
 class VisualReferenceTests(unittest.TestCase):
     def test_frozen_images_and_followups_preserve_requested_roles(self):
         import vision
