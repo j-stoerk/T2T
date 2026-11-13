@@ -69,6 +69,8 @@ Scores cover complete episodes, request compliance, omitted requirements, wrong-
 
 `python run.py study` replays our twelve development methods for two completed training seeds: 48 episodes and 80 unsupported requests per method and seed. It recomputes paired intervals using 2,000 layout resamples, keeping all six task families together. Adapted models have 1.7B parameters; the fixed pretrained 4B controls reuse their weights across runs. Held-out confirmation remains pending. This command uses saved Boolean outcomes and performs no model inference.
 
+Refusal counts describe the whole system and can include compiler stops. Output-format failures confound the pretrained 4B controls; these scores cannot isolate model capacity or the reader's refusal decisions.
+
 The same command reports a separate 48-episode development continuation test. TurboVLA and OpenVLA-OFT receive three explicit commands in one continuous scene. Each of six context/handoff conditions completes 0/8 sequences, despite 6–8 successful first placements. A privileged-state contact controller establishes physical feasibility for four bowl cases; four bottle cases remain unresolved. These results identify a continuation problem on this small task set; its cause remains open.
 
 ## RGB reference

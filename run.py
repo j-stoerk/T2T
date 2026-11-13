@@ -135,12 +135,13 @@ def compare(paths):
 def show_study():
     data = json.loads((ROOT/'published_results.json').read_text(encoding='utf-8'))['sequence_development']
     report = evaluation.sequence_results(data)
-    print('Development only; 8 layouts. Cells show successful episodes /48, correct refusals /80.')
+    print('Development only; 8 layouts. Cells show successful episodes /48, system refusals /80.')
     print(f"{'Method':48} " + ' '.join(f"{'Seed '+seed:>15}" for seed in report['seeds']))
     for method in report['methods'].values():
         cells = [f"{method['seeds'][s]['episode_successes']}/48, {method['seeds'][s]['correct_refusals']}/80"
                  for s in report['seeds']]
         print(f"{method['label']:48} " + ' '.join(f'{cell:>15}' for cell in cells))
+    print('System refusals can come from the model or compiler. Output-format failures confound the pretrained 4B controls.')
     print('\nCandidate minus baseline; conditional paired-layout 95% intervals:')
     for contrast in report['contrasts']:
         a, b = (report['methods'][contrast[key]]['label'] for key in ['baseline', 'candidate'])
